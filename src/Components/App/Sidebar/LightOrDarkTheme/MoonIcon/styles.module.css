@@ -1,0 +1,13 @@
+.moon{
+    cursor: pointer;
+}
+
+.moon path{
+    fill: #7E88C3;
+    width: 20px;
+    height: 20px;
+}
+
+.moon:hover path{
+    fill: #DFE3FA;
+}

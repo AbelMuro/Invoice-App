@@ -1,0 +1,59 @@
+.filterbox{    
+    position: relative;
+}
+
+.filterbox_fieldset{
+    display: flex;
+    gap: 13px;
+}
+
+.filterbox_title{
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+    color: var(--invoice-filter-title);
+    display: flex;
+    gap: 14px;
+    cursor: pointer;
+}
+
+.arrow{
+    width: 9px;
+    object-fit: contain;
+}
+
+.filterbox_popup{
+    position: absolute;
+    top: 40px;
+    right: -55px;
+    width: 192px;
+    height: 128px;
+    border-radius: 8px;
+    box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+    background-color: var(--invoice-filter-popup-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 24px 24px 23px 24px;
+}
+
+.filterbox_check{
+    accent-color: #7C5DFA;
+    cursor: pointer;
+}
+
+.filterbox_check:hover{
+    border: 1px solid #7C5DFA;
+}
+
+.filterbox_label{
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: -0.25;
+    color: #1E2139;
+}
