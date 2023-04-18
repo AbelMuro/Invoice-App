@@ -1,5 +1,6 @@
 import React from 'react';
 import FilterBox from './FilterBox';
+import DisplayInvoices from './DisplayInvoices';
 import styles from './styles.module.css';
 
 function Invoices () {
@@ -21,6 +22,7 @@ function Invoices () {
                     </button>
                 </div>
             </header>
+            <DisplayInvoices/>
         </main>
     )
 }

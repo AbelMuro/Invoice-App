@@ -33,6 +33,11 @@ fieldset{
     --invoice-filter-popup-bg: white;
     --invoice-filter-popup-label: #1E2139;
 
+    --invoice-container-bg: white;
+    --invoice-container-title: #0C0E16;
+    --invoice-container-due-date: #7E88C3;
+    --invoice-container-due-date-span: #888EB0;
+
     --h1-font-size: 36px;
     --h1-font-weight: 700;
     --h1-line-height: 33.12px;

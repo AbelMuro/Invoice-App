@@ -23,6 +23,7 @@
 .arrow{
     width: 9px;
     object-fit: contain;
+    pointer-events: none;
 }
 
 .filterbox_popup{

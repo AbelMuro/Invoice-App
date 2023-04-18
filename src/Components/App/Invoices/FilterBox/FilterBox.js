@@ -22,7 +22,21 @@ function FilterBox() {
 
 
     useEffect(() => {
-        
+        const handleClick = (e) => {
+            if(!e.target.matches('.' + styles.filterbox) && !e.target.matches('.' + styles.filterbox_popup) &&
+               !e.target.matches('.' + styles.filterbox_fieldset) && !e.target.matches('.' + styles.filterbox_title) &&
+               !e.target.matches('.' + styles.filterbox_check) && !e.target.matches('.' + styles.filterbox_label))
+               setOpenPopup(false);
+        }
+
+        if(openPopup)
+            document.addEventListener('click', handleClick);
+        else 
+            document.removeEventListener('click', handleClick)
+
+        return () => {
+            document.removeEventListener('click', handleClick)
+        }
     }, [openPopup])
 
 
