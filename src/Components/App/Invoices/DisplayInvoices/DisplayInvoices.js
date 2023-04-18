@@ -17,6 +17,9 @@ function DisplayInvoices() {
                     </p>
                 </div>
             </div>
+            <div className={styles.displayInvoices_priceAndStatus}>
+
+            </div>
         </div>
     )
 }
