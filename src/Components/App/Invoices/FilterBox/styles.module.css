@@ -4,6 +4,7 @@
 
 .filterbox_fieldset{
     display: flex;
+    align-items: center;
     gap: 13px;
 }
 
@@ -33,19 +34,22 @@
     border-radius: 8px;
     box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
     background-color: var(--invoice-filter-popup-bg);
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 15px;
     padding: 24px 24px 23px 24px;
 }
 
 .filterbox_check{
+    width: 16px;
+    height: 16px;
     accent-color: #7C5DFA;
     cursor: pointer;
+    transition: none;
 }
 
 .filterbox_check:hover{
-    border: 1px solid #7C5DFA;
+    box-shadow: 0 0 3px #7C5DFA;
 }
 
 .filterbox_label{
@@ -53,7 +57,6 @@
     font-family: var(--font);
     font-size: 15px;
     font-weight: 700;
-    line-height: 15px;
-    letter-spacing: -0.25;
+    letter-spacing: -0.25px;
     color: #1E2139;
 }

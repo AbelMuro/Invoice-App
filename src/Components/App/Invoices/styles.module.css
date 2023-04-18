@@ -61,6 +61,10 @@
     gap: 16px;
 }
 
+.invoice_button:hover{
+    background-color: #9277FF;
+}
+
 .invoice_button span{
     display: inline-block;
     width: 32px;

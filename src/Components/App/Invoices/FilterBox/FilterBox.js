@@ -1,11 +1,34 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styles from './styles.module.css';
 import icons from './icons';
 
+
 function FilterBox() {
+    const [openPopup, setOpenPopup] = useState(false);
+
+    const handlePopup = () => {
+        setOpenPopup(!openPopup);
+    }
+
+    useEffect(() => {
+        const popup = document.querySelector('.' + styles.filterbox_popup);
+
+        if(openPopup)
+            popup.style.display = 'flex';
+        else
+            popup.style.display = '';
+
+    }, [openPopup])
+
+
+    useEffect(() => {
+        
+    }, [openPopup])
+
+
     return(
         <div className={styles.filterbox}>
-            <div className={styles.filterbox_title}>
+            <div className={styles.filterbox_title} onClick={handlePopup}>
                 Filter by status
                 <img src={icons['arrow']} className={styles.arrow}/>
             </div>
