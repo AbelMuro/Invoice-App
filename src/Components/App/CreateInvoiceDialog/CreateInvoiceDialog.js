@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import styles from './styles.module.css';
 import {useSelector} from 'react-redux'
 
-//this is where i left off
+//this is where i left off, need to make a transparent overlay
 function CreateInvoiceDialog() {
     const open = useSelector(state => state.createInvoice)
 
