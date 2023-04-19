@@ -1,5 +1,6 @@
 .filterbox{    
     position: relative;
+    z-index: var(--closer);
 }
 
 .filterbox_fieldset{

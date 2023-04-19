@@ -7,10 +7,10 @@ export function EditInvoiceReducer(state = {open: false, invoice: null}, action)
     }
 }
 
-export function CreateInvoiceReducer(state = {open: false, invoice: null}, action) {
+export function CreateInvoiceReducer(state = false, action) {
     switch(action.type){
-        case 'set create invoice':
-            return {open: action.open, invoice: action.invoice};
+        case 'open create invoice':
+            return action.open;
         default: 
             return state;
     }

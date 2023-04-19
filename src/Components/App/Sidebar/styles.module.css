@@ -8,6 +8,7 @@
     border-radius: 0px 20px 20px 0px;
     position: absolute;
     left: 0px;
+    z-index: var(--closest);
 }
 
 .sidebar_logoContainer{

@@ -51,7 +51,7 @@
     cursor: pointer;
     font-family: var(--font);
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 15px;
     letter-spacing: -0.25px;
     color: white;
@@ -100,7 +100,19 @@
 
     .invoice_button{
         width: 90px;
-        height: 40px;
-        gap: 8px;
+        height: 44px;
+        gap: 3px;
+    }
+
+    .invoice_button span{
+        position: relative;
+        right: 8px;
+    }
+}
+
+@media(max-width: 630px){
+    .invoices{
+        padding-top: 32px;
+        gap: 32px;
     }
 }

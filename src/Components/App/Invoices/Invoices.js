@@ -3,9 +3,15 @@ import FilterBox from './FilterBox';
 import DisplayInvoices from './DisplayInvoices';
 import styles from './styles.module.css';
 import useMediaQuery from '../useMediaQuery';
+import {useDispatch} from 'react-redux';
 
 function Invoices () {
     const [mobile] = useMediaQuery('(max-width: 790px)');
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch({type: 'open create invoice', open: true});
+    }
 
     return(
         <main className={styles.invoices}>
@@ -20,13 +26,13 @@ function Invoices () {
                 </section>
                 <div className={styles.invoice_buttons}>
                     <FilterBox mobile={mobile}/>
-                    <button className={styles.invoice_button}>
+                    <button className={styles.invoice_button} onClick={handleClick}>
                         <span>+</span>
                         {mobile ? 'New' : 'New Invoice'}
                     </button>
                 </div>
             </header>
-            <DisplayInvoices/>
+            <DisplayInvoices mobile={mobile}/>
         </main>
     )
 }

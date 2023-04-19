@@ -40,6 +40,8 @@ fieldset{
     --invoice-container-name: #858BB2;
     --invoice-container-price: #0C0E16;
 
+    --dialog-create-invoice-bg: #FFFFFF;
+
     --h1-font-size: 36px;
     --h1-font-weight: 700;
     --h1-line-height: 33.12px;
@@ -71,6 +73,8 @@ fieldset{
     --body-variant-letter-spacing: -0.25px;
 
     --closest: 50;
+    --even-closer: 40;
+    --closer: 30;
     --farthest: 10;
 }
 

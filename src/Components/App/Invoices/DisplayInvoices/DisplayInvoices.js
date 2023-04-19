@@ -4,7 +4,8 @@ import icons from './icons'
 
 //i was working on the mobile version of this component, remember to use position properties 
 //to position everything according to the design
-function DisplayInvoices() {
+function DisplayInvoices({mobile}) {
+
     return(
         <section className={styles.displayInvoices}>
             <div className={styles.displayInvoices_invoice}>
@@ -27,7 +28,7 @@ function DisplayInvoices() {
                         <div className={styles.dot}></div>
                         Paid
                     </div>
-                    <img src={icons['arrowRight']} className={styles.arrow}/>
+                    {mobile ? <></> : <img src={icons['arrowRight']} className={styles.arrow}/>}
                 </div>
                 
             </div>
