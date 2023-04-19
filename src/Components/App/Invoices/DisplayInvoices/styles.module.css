@@ -22,13 +22,13 @@
     border: 1px solid #7C5DFA; 
 }
 
-.displayInvoices_invoiceData{
+.displayInvoices_title_dueDate_name{
     display: flex;
     justify-content: space-between;
     width: 308px;
 }
 
-.displayInvoices_invoiceTitle{
+.displayInvoices_title{
     font-family: var(--font);
     font-size: 15px;
     font-weight: 700;
@@ -36,12 +36,12 @@
     letter-spacing: -0.25px;
 }
 
-.displayInvoices_invoiceTitle span{
+.displayInvoices_title span{
     color: #7E88C3;
 }
 
 
-.displayInvoices_invoiceDueData{
+.displayInvoices_dueDate{
     font-family: var(--font);
     font-size: 13px;
     font-weight: 500;
@@ -50,15 +50,79 @@
     color: var(--invoice-container-due-date);
 }
 
-.displayInvoices_invoiceDueData span{
+.displayInvoices_dueDate span{
     color: var(--invoice-container-due-date-span);
 }
 
-.displayInvoices_invoiceName{
+.displayInvoices_name{
     font-family: var(--font);
     font-size: 13px;
     font-weight: 500;
     line-height: 15px;
     letter-spacing: -0.1px;
     color: var(--invoice-container-name);
+}
+
+.displayInvoices_priceAndStatus{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.displayInvoices_price{
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+    color: var(--invoice-container-price);
+    margin-right: 20px;
+}
+
+.displayInvoices_status{
+    width: 104px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: rgba(51, 214, 159, 0.06);
+    color: #33D69F;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 8px;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    line-height: var(--h3-variant-line-height);
+    font-weight: var(--h3-variant-font-weight);
+    letter-spacing: var(--h3-variant-letter-spacing);
+}
+
+.dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: #33D69F;
+}
+
+.arrow{
+    height: 9px;
+    object-fit: contain;
+}
+
+@media(max-width: 790px){
+    .displayInvoices_title_dueDate_name{
+        width: 250px;
+    }
+
+    .displayInvoices_priceAndStatus{
+        gap: 10px;
+    }
+
+    .displayInvoices_price{
+        margin: 0px;
+    }
+}
+
+@media(max-width: 630px){
+    
 }

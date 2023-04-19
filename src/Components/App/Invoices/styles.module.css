@@ -69,7 +69,7 @@
     display: inline-block;
     width: 32px;
     height: 32px;
-    padding-top: 4px;
+    padding: 5px 0px 0px 0px;
     background-color: white;
     border-radius: 100%;
     color: #7C5DFA;
@@ -77,4 +77,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media(max-width: 790px){
+    .invoices{
+        width: 90%;
+    }
+
+    .invoices_header{
+        gap: 3px;
+    }
+
+    .invoices_title{
+        font-size: 24px;
+        line-height: 22.08px;
+        letter-spacing: -0.75px;
+    }
+
+    .invoice_buttons{
+        gap: 18.54px;
+    }
+
+    .invoice_button{
+        width: 90px;
+        height: 40px;
+        gap: 8px;
+    }
 }

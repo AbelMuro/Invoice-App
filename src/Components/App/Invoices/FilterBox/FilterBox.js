@@ -2,8 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styles from './styles.module.css';
 import icons from './icons';
 
-
-function FilterBox() {
+function FilterBox({mobile}) {
     const [openPopup, setOpenPopup] = useState(false);
 
     const handlePopup = () => {
@@ -12,12 +11,15 @@ function FilterBox() {
 
     useEffect(() => {
         const popup = document.querySelector('.' + styles.filterbox_popup);
-
-        if(openPopup)
+        const arrowRef = document.querySelector('.' + styles.arrow);
+        if(openPopup){
             popup.style.display = 'flex';
-        else
-            popup.style.display = '';
-
+            arrowRef.style.transform = 'rotate(180deg)';
+        }
+        else {
+           popup.style.display = ''; 
+           arrowRef.style.transform = '';
+        }
     }, [openPopup])
 
 
@@ -43,7 +45,7 @@ function FilterBox() {
     return(
         <div className={styles.filterbox}>
             <div className={styles.filterbox_title} onClick={handlePopup}>
-                Filter by status
+                {mobile ? 'Filter' : 'Filter by status'}
                 <img src={icons['arrow']} className={styles.arrow}/>
             </div>
             <div className={styles.filterbox_popup}>

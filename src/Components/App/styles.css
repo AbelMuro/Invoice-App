@@ -38,6 +38,7 @@ fieldset{
     --invoice-container-due-date: #7E88C3;
     --invoice-container-due-date-span: #888EB0;
     --invoice-container-name: #858BB2;
+    --invoice-container-price: #0C0E16;
 
     --h1-font-size: 36px;
     --h1-font-weight: 700;
@@ -71,4 +72,11 @@ fieldset{
 
     --closest: 50;
     --farthest: 10;
+}
+
+@media(max-width: 850px){
+    body{
+        padding-top: 80px;
+        padding-left: 0px;
+    } 
 }

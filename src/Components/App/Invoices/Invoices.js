@@ -2,8 +2,11 @@ import React from 'react';
 import FilterBox from './FilterBox';
 import DisplayInvoices from './DisplayInvoices';
 import styles from './styles.module.css';
+import useMediaQuery from '../useMediaQuery';
 
 function Invoices () {
+    const [mobile] = useMediaQuery('(max-width: 790px)');
+
     return(
         <main className={styles.invoices}>
             <header className={styles.invoices_headerContainer}>
@@ -12,13 +15,14 @@ function Invoices () {
                         Invoices
                     </h1>
                     <p className={styles.invoices_total}>
-                        There are 7 total invoices
+                        {mobile ? '7 invoices' : 'There are 7 total invoices'}
                     </p>
                 </section>
                 <div className={styles.invoice_buttons}>
-                    <FilterBox/>
+                    <FilterBox mobile={mobile}/>
                     <button className={styles.invoice_button}>
-                        <span>+</span>New Invoice
+                        <span>+</span>
+                        {mobile ? 'New' : 'New Invoice'}
                     </button>
                 </div>
             </header>
