@@ -2,8 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import icons from './icons'
 
-//i was working on the mobile version of this component, remember to use position properties 
-//to position everything according to the design
+
 function DisplayInvoices({mobile}) {
 
     return(

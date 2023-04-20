@@ -40,7 +40,18 @@ fieldset{
     --invoice-container-name: #858BB2;
     --invoice-container-price: #0C0E16;
 
-    --dialog-create-invoice-bg: #FFFFFF;
+    --dialog-bg: #FFFFFF;
+    --dialog-main-title:  #0C0E16;
+    --dialog-label:#7E88C3;
+    --dialog-label-calendar: rgba(126, 136, 195, 0.6);  
+    --dialog-calendar-border: rgba(223, 227, 250, 0.6);
+    --dialog-calendar-text: rgba(12, 14, 22, 0.6);    
+    --dialog-input-bg: white;
+    --dialog-input-border: #DFE3FA;
+    --dialog-input-text: #0C0E16;
+    --dialog-popup-bg: white;
+    --dialog-popup-box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+    --dialog-popup-option-border: #DFE3FA;
 
     --h1-font-size: 36px;
     --h1-font-weight: 700;
@@ -73,6 +84,7 @@ fieldset{
     --body-variant-letter-spacing: -0.25px;
 
     --closest: 50;
+    --even-more-closer: 45;
     --even-closer: 40;
     --closer: 30;
     --farthest: 10;

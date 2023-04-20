@@ -1,0 +1,65 @@
+.selectBox_container{
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.selectBox{
+    height: 48px;
+    background-color: var(--dialog-input-bg);
+    border: 1px solid var(--dialog-input-border);
+    border-radius: 4px;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    letter-spacing: var(--h3-variant-letter-spacing);
+    color: var(--dialog-input-text);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    transition: none;
+    position: relative;
+    z-index: var(--closest);
+    cursor: pointer;
+}
+
+.selectBox:hover{
+    border: 1px solid #7C5DFA;
+}
+
+.selectBox_label{
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.1px;
+    color: var(--dialog-label);
+}
+
+.selectBox_popup{
+    display: none;
+    position: absolute;
+    top: 52px;
+    left: 0px;
+    width: 240px;
+    height: 191px;
+    border-radius: 8px;
+    background-color: var(--dialog-popup-bg);
+    box-shadow: var(--dialog-popup-box-shadow); 
+}
+
+.selectBox_option{
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+    height: 47px;
+}
+
+.selectBox_option:hover{
+    color: #7C5DFA;
+}
+
+.selectBox_option:not(.selectBox_option:last-child){
+    border-bottom: 1px solid var(--dialog-popup-option-border);
+}

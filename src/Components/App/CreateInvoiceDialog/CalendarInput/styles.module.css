@@ -1,0 +1,43 @@
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.inputContainer_title{
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.1px;
+    color: var(--dialog-label-calendar)
+}
+
+.inputContainer_calendar{
+    height: 48px;
+    border-radius: 4px;
+    border: 1px solid var(--dialog-calendar-border);
+    padding: 0px 16px 0px 20px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+    background-color: var(--dialog-input-bg);
+    color: var(--dialog-calendar-text);
+    cursor: pointer;
+    transition: none;
+}
+
+.inputContainer_calendar:hover{
+    border: 1px solid #9277FF;
+}
+
+.inputContainer_calendar:focus{
+    border: 2px solid #9277FF;
+    outline: none;
+}
+
+.inputContainer_calendar::-webkit-calendar-picker-indicator {
+    background-image: url('./icons/icon-calendar.svg');
+}

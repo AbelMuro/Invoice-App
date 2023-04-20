@@ -1,0 +1,54 @@
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    position: relative;
+}
+
+.inputContainer_label{
+    font-family: var(--font);
+    font-size: var(--body-variant-font-size);
+    font-weight: var(--body-variant-font-weight);
+    line-height: var(--body-variant-line-height);
+    color: var(--dialog-label);
+}
+
+.inputContainer_input{
+    height: 48px;
+    border-radius: 4px;
+    background-color: var(--dialog-input-bg);
+    border: 1px solid var(--dialog-input-border);
+    padding-left: 20px;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    color: var( --dialog-input-text);
+    transition: none;
+}
+
+.inputContainer_input::placeholder{
+    color: rgba(12, 14, 22, 0.4);
+}
+
+.inputContainer_input:hover{
+    border: 1px solid #9277FF;
+}
+
+.inputContainer_input:focus{
+    border: 2px solid #9277FF;
+    outline: none;
+}
+
+.errorMessage{
+    display: none;
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 15px;
+    letter-spacing: -0.21px;
+    color: #EC5757;
+    position: absolute;
+    top: 0px;
+    right: 17px;
+}
