@@ -24,6 +24,16 @@
     cursor: pointer;
 }
 
+.arrow{
+    height: 6px;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 15.54px;
+}
+
 .selectBox:hover{
     border: 1px solid #7C5DFA;
 }

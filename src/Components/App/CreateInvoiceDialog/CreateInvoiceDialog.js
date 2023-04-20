@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
 import styles from './styles.module.css';
 import {useSelector, useDispatch} from 'react-redux';
-import Input from './Input';
+import TextInput from './TextInput';
 import CalendarInput from './CalendarInput';
 import SelectInput from './SelectInput';
+import AddItems from './AddItems';
 
 function CreateInvoiceDialog() {
     const open = useSelector(state => state.createInvoice);
@@ -53,26 +54,32 @@ function CreateInvoiceDialog() {
                     <h2 className={styles.billFrom_title}>
                         Bill From
                     </h2>
-                    <Input label='Street Address' placeholder='19 Union Terrace'/>  
-                    <Input label='City' placeholder='London'/>       
-                    <Input label='Post Code' placeholder='E1 3EZ'/>       
-                    <Input label='Country' placeholder='United Kingdom'/>                         
+                    <TextInput label='Street Address' placeholder='19 Union Terrace'/>  
+                    <TextInput label='City' placeholder='London'/>       
+                    <TextInput label='Post Code' placeholder='E1 3EZ'/>       
+                    <TextInput label='Country' placeholder='United Kingdom'/>                         
                 </fieldset>
                 <fieldset className={styles.billTo}>
                     <h2 className={styles.billTo_title}>
                         Bill To
                     </h2>
-                    <Input label="Client's Name" placeholder='Alex Grim'/>  
-                    <Input label="Client's Email" placeholder='alexgrim@mail.com'/>       
-                    <Input label='Street Address' placeholder='84 Church Way'/>       
-                    <Input label='City' placeholder='Bradford'/>
-                    <Input label='Post Code' placeholder='BD1 9PB'/>
-                    <Input label='Country' placeholder='United Kingdom'/>
+                    <TextInput label="Client's Name" placeholder='Alex Grim'/>  
+                    <TextInput label="Client's Email" placeholder='alexgrim@mail.com'/>       
+                    <TextInput label='Street Address' placeholder='84 Church Way'/>       
+                    <TextInput label='City' placeholder='Bradford'/>
+                    <TextInput label='Post Code' placeholder='BD1 9PB'/>
+                    <TextInput label='Country' placeholder='United Kingdom'/>
                 </fieldset>
                 <fieldset className={styles.invoiceDetails}>
                     <CalendarInput/>
                     <SelectInput/>
-                    <Input label='Project Description' placeholder='Graphic Design'/>
+                    <TextInput label='Project Description' placeholder='Graphic Design'/>
+                </fieldset>
+                <fieldset className={styles.itemList}>
+                    <h2 className={styles.itemList_title}>
+                        Item List
+                    </h2>
+                    <AddItems/>
                 </fieldset>
 
             </form>            

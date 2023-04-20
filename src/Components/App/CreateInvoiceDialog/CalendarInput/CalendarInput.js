@@ -1,12 +1,32 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import styles from './styles.module.css';
 
 
 function CalendarInput() {
     const [date, setDate] = useState('');
+    const errorMessage = useRef();
+    const input = useRef();
 
     const handleDate = (e) => {
         setDate(e.target.value);
+    }
+
+    const handleClick = (e) => {
+        errorMessage.current.style.display = '';
+        input.current.style.border = '';
+    }
+
+    const handleBlur = (e) => {
+        const isValid = e.target.checkValidity();
+
+        if(isValid){
+            errorMessage.current.style.display = '';
+            input.current.style.border = '';
+        }
+        else{
+            errorMessage.current.style.display = 'block'
+            input.current.style.border = '1px solid #EC5757'
+        }
     }
 
 
@@ -19,9 +39,14 @@ function CalendarInput() {
                 type='date' 
                 value={date}
                 onChange={handleDate}
+                onClick={handleClick}
+                onBlur={handleBlur}
                 className={styles.inputContainer_calendar} 
-                format={'dd/mm/yyyy'}
+                ref={input}
                 required/>
+            <div className={styles.errorMessage} ref={errorMessage}>
+                can't be empty
+            </div>
         </div>
     )
 }

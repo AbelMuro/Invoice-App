@@ -2,8 +2,7 @@ import React, {useState, forwardRef, useImperativeHandle, useRef} from 'react';
 import styles from './styles.module.css';
 
 
-//i will need to style the input and the label
-const Input = forwardRef(({label, placeholder}, ref) => {
+const TextInput = forwardRef(({label, placeholder}, ref) => {
     const [text, setText] = useState('');
     const errorMessage = useRef();
     const input = useRef();
@@ -59,4 +58,4 @@ const Input = forwardRef(({label, placeholder}, ref) => {
     )
 });
 
-export default Input;
+export default TextInput;

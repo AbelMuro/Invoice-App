@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 9px;
+    position: relative;
 }
 
 .inputContainer_title{
@@ -25,8 +26,21 @@
     letter-spacing: -0.25px;
     background-color: var(--dialog-input-bg);
     color: var(--dialog-calendar-text);
-    cursor: pointer;
+    cursor: text;
     transition: none;
+}
+
+.errorMessage{
+    display: none;
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: -0.21px;
+    line-height: 15px;    
+    color: #EC5757;
+    position: absolute;
+    top: 0px;
+    right: 17px;
 }
 
 .inputContainer_calendar:hover{
