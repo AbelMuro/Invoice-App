@@ -1,14 +1,61 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef, forwardRef, useImperativeHandle} from 'react';
 import styles from './styles.module.css';
+import calendarDates from './CalendarData';
 import icons from './icons';
 
-function CalendarInput() {
-    const [selectedDate, setSelectedDate] = useState('21 Aug 2021');
-    const dates = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28, 29, 30,31, 1, 2,3,4];
+
+//i need to style the popup with position properties
+const CalendarInput = forwardRef((props, ref) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate();
+    const currentYear = currentDate.getFullYear();
+    const changeMonth = useRef(currentMonth);
+    const selectedYear = useRef(currentYear);
+    const [selectedMonth, setSelectedMonth] = useState(calendarDates[currentMonth]);
+    const [selectedDay, setSelectedDay] = useState(currentDay);
 
     const handleDate = (e) => {
-        setDate(e.target.value);
+        const date = e.target.getAttribute('data-date');
+        setSelectedDay(date);
     }
+
+    const handleMonth = (e) => {
+        const direction = e.target.getAttribute('data-dir');
+
+        if(direction == 'left'){
+            if(changeMonth.current - 1 >= 0){
+                setSelectedMonth(calendarDates[changeMonth.current - 1]);
+                changeMonth.current -= 1;
+            }
+            else{
+                setSelectedMonth(calendarDates[11]);
+                changeMonth.current = 11;
+                selectedYear.current -= 1;
+            }
+        }
+        else{
+            if(changeMonth.current + 1 <= 11){
+                setSelectedMonth(calendarDates[changeMonth.current + 1]);
+                changeMonth.current += 1;
+            }   
+            else{
+                setSelectedMonth(calendarDates[0]);            
+                changeMonth.current = 0;    
+                selectedYear.current += 1;
+            }
+        }
+    }
+
+    useImperativeHandle(ref, () => ({
+        get state() {
+            return selectedDay + " " + selectedMonth + " " + selectedYear.current;
+        }
+    }));
+
+    useEffect(() => {
+
+    }, [selectedDay])
 
     return (
         <div className={styles.inputContainer}>
@@ -16,23 +63,33 @@ function CalendarInput() {
                 Invoice Date
             </label>
             <div className={styles.inputContainer_input}>
-                {selectedDate}
+                {selectedDay + " " + selectedMonth.month + " " + selectedYear.current}
                 <img src={icons['calendarIcon']} className={styles.calendarIcon}/>
             </div>
             <div className={styles.popup}>
                 <nav className={styles.popup_selectedDate}>
-                    <img src={icons['leftArrow']} className={styles.arrow}/>
-                    {selectedDate}
-                    <img src={icons['rightArrow']} className={styles.arrow}/>
+                    <img src={icons['leftArrow']} className={styles.arrow} onClick={handleMonth} data-dir='left'/>
+                    {selectedMonth.month + " " + selectedYear.current}
+                    <img src={icons['rightArrow']} className={styles.arrow} onClick={handleMonth} data-dir='right'/>
                 </nav>
                 <div className={styles.popup_dates}>
-                    {dates.map((date) => {
-                        return(<span className={styles.popup_date}>{date}</span>)
+                    {selectedMonth.dates.map((date) => {
+                            if(typeof(date) == 'number')
+                                return(
+                                    <span className={styles.popup_date} onClick={handleDate} data-date={date}>
+                                        {date}
+                                    </span>)
+                            else
+                                return(
+                                    <span className={styles.popup_date_nextMonth}>
+                                        {date}
+                                    </span>
+                                )
                     })}
                 </div>
             </div>
         </div>
     )
-}
+})
 
 export default CalendarInput;

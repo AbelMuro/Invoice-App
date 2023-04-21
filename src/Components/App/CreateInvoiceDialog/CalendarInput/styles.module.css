@@ -80,5 +80,15 @@
 }
 
 .popup_date{
+    cursor: pointer;
     margin: auto;
+}
+
+.popup_date:hover{
+    color: #7C5DFA;
+}
+
+.popup_date_nextMonth{
+    margin: auto;
+    color: rgba(12, 14, 22, 0.08);
 }
