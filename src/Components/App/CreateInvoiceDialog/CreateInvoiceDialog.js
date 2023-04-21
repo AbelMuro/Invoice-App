@@ -10,6 +10,15 @@ function CreateInvoiceDialog() {
     const open = useSelector(state => state.createInvoice);
     const dispatch = useDispatch();
 
+    const handleSubmit = () => {
+
+    }
+//this is where i left off
+    const handleScroll = () => {
+        const dialog = document.querySelector('.' + styles.newInvoice);
+        dialog.scrollTo(0, 99999);
+    }
+
     useEffect(() => {
         const overlay = document.querySelector('.' + styles.overlay);
         if(open){
@@ -45,8 +54,8 @@ function CreateInvoiceDialog() {
 
 
     return(
-        <section className={styles.overlay}>
-            <form className={styles.newInvoice}>
+        <form className={styles.overlay}>
+            <section className={styles.newInvoice} onSubmit={handleSubmit}>
                 <h1 className={styles.newInvoice_title}>
                     New Invoice
                 </h1>
@@ -54,36 +63,46 @@ function CreateInvoiceDialog() {
                     <h2 className={styles.billFrom_title}>
                         Bill From
                     </h2>
-                    <TextInput label='Street Address' placeholder='19 Union Terrace'/>  
-                    <TextInput label='City' placeholder='London'/>       
-                    <TextInput label='Post Code' placeholder='E1 3EZ'/>       
-                    <TextInput label='Country' placeholder='United Kingdom'/>                         
+                    <TextInput type='text' label='Street Address' placeholder='19 Union Terrace'/>  
+                    <TextInput type='text' label='City' placeholder='London'/>       
+                    <TextInput type='text' label='Post Code' placeholder='E1 3EZ'/>       
+                    <TextInput type='text' label='Country' placeholder='United Kingdom'/>                         
                 </fieldset>
                 <fieldset className={styles.billTo}>
                     <h2 className={styles.billTo_title}>
                         Bill To
                     </h2>
-                    <TextInput label="Client's Name" placeholder='Alex Grim'/>  
-                    <TextInput label="Client's Email" placeholder='alexgrim@mail.com'/>       
-                    <TextInput label='Street Address' placeholder='84 Church Way'/>       
-                    <TextInput label='City' placeholder='Bradford'/>
-                    <TextInput label='Post Code' placeholder='BD1 9PB'/>
-                    <TextInput label='Country' placeholder='United Kingdom'/>
+                    <TextInput type='text' label="Client's Name" placeholder='Alex Grim'/>  
+                    <TextInput type='email' label="Client's Email" placeholder='alexgrim@mail.com' otherErrorMessage='not valid email'/>       
+                    <TextInput type='text' label='Street Address' placeholder='84 Church Way'/>       
+                    <TextInput type='text' label='City' placeholder='Bradford'/>
+                    <TextInput type='text' label='Post Code' placeholder='BD1 9PB'/>
+                    <TextInput type='text' label='Country' placeholder='United Kingdom'/>
                 </fieldset>
                 <fieldset className={styles.invoiceDetails}>
                     <CalendarInput/>
                     <SelectInput/>
-                    <TextInput label='Project Description' placeholder='Graphic Design'/>
+                    <TextInput type='text' label='Project Description' placeholder='Graphic Design'/>
                 </fieldset>
                 <fieldset className={styles.itemList}>
                     <h2 className={styles.itemList_title}>
                         Item List
                     </h2>
-                    <AddItems/>
+                    <AddItems handleScroll={handleScroll}/>
                 </fieldset>
-
-            </form>            
-        </section>
+            </section>    
+            <div className={styles.buttons}>
+                    <button className={styles.discardButton}>
+                        Discard
+                    </button>
+                    <button className={styles.draftbutton}>
+                        Save as Draft
+                    </button>
+                    <button className={styles.saveButton}> 
+                        Save & Send
+                    </button>
+                </div>        
+        </form>
     )
 }
 

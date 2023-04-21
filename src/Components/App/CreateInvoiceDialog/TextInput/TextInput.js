@@ -2,9 +2,10 @@ import React, {useState, forwardRef, useImperativeHandle, useRef} from 'react';
 import styles from './styles.module.css';
 
 
-const TextInput = forwardRef(({label, placeholder}, ref) => {
+const TextInput = forwardRef(({type, label, placeholder, otherErrorMessage, ...rest}, ref) => {
     const [text, setText] = useState('');
     const errorMessage = useRef();
+    const otherErrorMessageRef = useRef();
     const input = useRef();
 
     const handleChange = (e) => {
@@ -16,7 +17,7 @@ const TextInput = forwardRef(({label, placeholder}, ref) => {
 
         if(isValid){
            errorMessage.current.style.display = '';
-           input.current.style.border = ''
+           input.current.style.border = '';
         }
         else{
             errorMessage.current.style.display = 'block';
@@ -24,8 +25,26 @@ const TextInput = forwardRef(({label, placeholder}, ref) => {
         } 
     }
 
+    const handleInvalid = (e) => {
+        e.target.setCustomValidity(' ');
+        input.current.style.border = '1px solid #EC5757';        
+        const typeMismatch = e.target.validity.typeMismatch;
+
+        if(typeMismatch){
+            otherErrorMessageRef.current.style.display = 'block';
+            errorMessage.current.style.display = '';
+        }
+        else{
+            errorMessage.current.style.display = 'block';
+            otherErrorMessageRef.current.style.display = '';
+        }
+           
+    }
+
     const handleClick = () => {
+        input.current.setCustomValidity('');
         errorMessage.current.style.display = '';
+        otherErrorMessageRef.current.style.display = ''
         input.current.style.border = ''
     }
 
@@ -42,17 +61,22 @@ const TextInput = forwardRef(({label, placeholder}, ref) => {
                 {label}
             </label>
             <input 
-                type='text' 
+                type={type} 
                 placeholder={placeholder}
                 value={text}
                 onChange={handleChange}
                 onClick={handleClick}
                 onBlur={handleBlur}
+                onInvalid={handleInvalid}
                 className={styles.inputContainer_input}
                 ref={input}
+                {...rest}
                 required/>    
             <div className={styles.errorMessage} ref={errorMessage}>
                 can't be empty
+            </div>
+            <div className={styles.otherErrorMessage} ref={otherErrorMessageRef}>
+                {otherErrorMessage}
             </div>
         </div>
     )

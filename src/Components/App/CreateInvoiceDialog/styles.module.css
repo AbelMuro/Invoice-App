@@ -17,7 +17,8 @@
     border-radius: 0px 20px 20px 0px;
     position: absolute;
     z-index: var(--even-closer);
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .newInvoice_title{
@@ -79,6 +80,19 @@
     line-height: 32px;
     letter-spacing: -0.38px;
     color: #777F98;
+}
+
+.buttons{
+    background-color: var(--dialog-button-container-bg);
+    box-shadow: var(--dialog-button-container-box-shadow);
+    width: 719px;
+    height: 110px;
+    position: absolute;
+    z-index: var(--closest);
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
+    border-radius: 0px 20px 20px 0px;
 }
 
 @media(max-width: 940px){

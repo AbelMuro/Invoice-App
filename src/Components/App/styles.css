@@ -52,6 +52,12 @@ fieldset{
     --dialog-popup-bg: white;
     --dialog-popup-box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
     --dialog-popup-option-border: #DFE3FA;
+    --dialog-item-list-title: #7E88C3;
+    --dialog-item-total: #888EB0;
+    --dialog-add-new-item-bg: #F9FAFE;
+    --dialog-add-new-item-text: #7E88C3;
+    --dialog-button-container-bg: white;
+    --dialog-button-container-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.1);
 
     --h1-font-size: 36px;
     --h1-font-weight: 700;
