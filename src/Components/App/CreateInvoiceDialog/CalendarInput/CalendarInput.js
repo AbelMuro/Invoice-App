@@ -1,51 +1,32 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import styles from './styles.module.css';
-
+import icons from './icons';
 
 function CalendarInput() {
-    const [date, setDate] = useState('');
-    const errorMessage = useRef();
-    const input = useRef();
+    const [date, setDate] = useState('21 Aug 2021');
 
     const handleDate = (e) => {
         setDate(e.target.value);
     }
-
-    const handleClick = (e) => {
-        errorMessage.current.style.display = '';
-        input.current.style.border = '';
-    }
-
-    const handleBlur = (e) => {
-        const isValid = e.target.checkValidity();
-
-        if(isValid){
-            errorMessage.current.style.display = '';
-            input.current.style.border = '';
-        }
-        else{
-            errorMessage.current.style.display = 'block'
-            input.current.style.border = '1px solid #EC5757'
-        }
-    }
-
 
     return (
         <div className={styles.inputContainer}>
             <label className={styles.inputContainer_title}>
                 Invoice Date
             </label>
-            <input 
-                type='date' 
-                value={date}
-                onChange={handleDate}
-                onClick={handleClick}
-                onBlur={handleBlur}
-                className={styles.inputContainer_calendar} 
-                ref={input}
-                required/>
-            <div className={styles.errorMessage} ref={errorMessage}>
-                can't be empty
+            <div className={styles.inputContainer_input}>
+                {date}
+                <img src={icons['calendarIcon']} className={styles.calendarIcon}/>
+            </div>
+            <div className={styles.popup}>
+                <nav className={styles.popup_selectedDate}>
+                    <img src={icons['leftArrow']} className={styles.arrow}/>
+                    {date}
+                    <img src={icons['rightArrow']} className={styles.arrow}/>
+                </nav>
+                <div className={styles.popup_dates}>
+                    
+                </div>
             </div>
         </div>
     )

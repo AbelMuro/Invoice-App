@@ -14,7 +14,7 @@
     color: var(--dialog-label-calendar)
 }
 
-.inputContainer_calendar{
+.inputContainer_input{
     height: 48px;
     border-radius: 4px;
     border: 1px solid var(--dialog-calendar-border);
@@ -26,32 +26,52 @@
     letter-spacing: -0.25px;
     background-color: var(--dialog-input-bg);
     color: var(--dialog-calendar-text);
-    cursor: text;
+    cursor: pointer;
     transition: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.errorMessage{
-    display: none;
-    font-family: var(--font);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: -0.21px;
-    line-height: 15px;    
-    color: #EC5757;
-    position: absolute;
-    top: 0px;
-    right: 17px;
-}
-
-.inputContainer_calendar:hover{
+.inputContainer_input:hover{
     border: 1px solid #9277FF;
 }
 
-.inputContainer_calendar:focus{
-    border: 2px solid #9277FF;
-    outline: none;
+.popup{
+    width: 240px;
+    height: 243px;
+    padding: 26px 23.66px 31px 23.66px;
+    border-radius: 8px;
+    background-color: var(--dialog-popup-bg);
+    box-shadow: var(--dialog-popup-box-shadow);
 }
 
-.inputContainer_calendar::-webkit-calendar-picker-indicator {
-    background-image: url('./icons/icon-calendar.svg');
+.popup_selectedDate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 192px;
+    height: 15px;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    line-height: var(--h3-variant-line-height);
+    font-weight: var(--h3-variant-font-weight);
+    color:  var(--dialog-popup-calendar-text);
+}
+
+.arrow{
+    height: 12px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.popup_dates{
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 15px;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    line-height: var(--h3-variant-line-height);
+    font-weight: var(--h3-variant-font-weight);
+    color: var(--dialog-popup-calendar-text);
 }

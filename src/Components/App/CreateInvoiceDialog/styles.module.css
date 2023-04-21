@@ -95,6 +95,54 @@
     border-radius: 0px 20px 20px 0px;
 }
 
+.discardButton, .draftButton, .saveButton{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin: auto; 
+    height: 48px;
+    border-radius: 24px;    
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    border: none;
+    cursor: pointer; 
+}
+
+.discardButton{
+    right: 464px;
+    width: 96px;
+    background-color: #F9FAFE;
+    color: #7E88C3;
+}
+
+.discardButton:hover{
+    background-color: rgb(211, 211, 211);
+}
+
+.draftButton{
+    right: 192px;
+    width: 133px;
+    background-color: #373B53;
+    color: #888Eb0;
+}
+
+.draftButton:hover{
+    background-color: var(--dialog-button-draft-hover);
+}
+
+.saveButton{
+    right: 56px;
+    background-color: #7C5DFA;
+    width: 128px;
+    color: white;
+}
+
+.saveButton:hover{
+    background-color: #9277FF;
+}
+
 @media(max-width: 940px){
     .newInvoice{
         width: 70%;

@@ -13,10 +13,10 @@ function CreateInvoiceDialog() {
     const handleSubmit = () => {
 
     }
-//this is where i left off
+
     const handleScroll = () => {
         const dialog = document.querySelector('.' + styles.newInvoice);
-        dialog.scrollTo(0, 99999);
+        dialog.scrollTo(0, 9999999);
     }
 
     useEffect(() => {
@@ -95,7 +95,7 @@ function CreateInvoiceDialog() {
                     <button className={styles.discardButton}>
                         Discard
                     </button>
-                    <button className={styles.draftbutton}>
+                    <button className={styles.draftButton}>
                         Save as Draft
                     </button>
                     <button className={styles.saveButton}> 
