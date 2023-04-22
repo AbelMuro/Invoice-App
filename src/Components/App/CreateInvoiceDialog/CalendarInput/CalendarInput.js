@@ -102,18 +102,17 @@ const CalendarInput = forwardRef((props, ref) => {
                     <img src={icons['rightArrow']} className={styles.arrow} onClick={handleMonth} data-dir='right'/>
                 </nav>
                 <div className={styles.popup_dates}>
-                    {selectedMonth.dates.map((date) => {
-                            if(typeof(date) == 'number')
-                                return(
-                                    <span className={styles.popup_date} onClick={handleDate} data-date={date}>
-                                        {date}
-                                    </span>)
-                            else
-                                return(
-                                    <span className={styles.popup_date_nextMonth}>
-                                        {date}
-                                    </span>
-                                )
+                    {selectedMonth.dates.map((date, i) => {
+                        if(typeof(date) == 'number')
+                            return(
+                                <span className={styles.popup_date} onClick={handleDate} data-date={date} key={i}>
+                                    {date}
+                                </span>)
+                        else
+                            return(
+                                <span className={styles.popup_date_nextMonth} key={i}>
+                                    {date}
+                                </span>)
                     })}
                 </div>
             </div>

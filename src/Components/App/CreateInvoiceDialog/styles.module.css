@@ -80,7 +80,8 @@
     color: #777F98;
 }
 
-.buttons{
+.whiteBox{
+    padding-left: 103px; 
     background-color: var(--dialog-button-container-bg);
     box-shadow: var(--dialog-button-container-box-shadow);
     width: 719px;
@@ -91,13 +92,24 @@
     left: 0px;
     margin: auto;
     border-radius: 0px 20px 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    width: 504px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonContainer{
+    width: 269px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .discardButton, .draftButton, .saveButton{
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    margin: auto; 
     height: 48px;
     border-radius: 24px;    
     font-family: var(--font);
@@ -109,7 +121,6 @@
 }
 
 .discardButton{
-    right: 464px;
     width: 96px;
     background-color: #F9FAFE;
     color: #7E88C3;
@@ -120,7 +131,6 @@
 }
 
 .draftButton{
-    right: 192px;
     width: 133px;
     background-color: #373B53;
     color: #888Eb0;
@@ -131,7 +141,6 @@
 }
 
 .saveButton{
-    right: 56px;
     background-color: #7C5DFA;
     width: 128px;
     color: white;
@@ -147,7 +156,8 @@
         padding-left: 120px;
         padding-right: 40px;
     }
-    .buttons{
+    .whiteBox{
+        padding-left: 80px;
         width: 70%;
     }
 
@@ -158,12 +168,20 @@
     .invoiceDetails{
         grid-template-columns: repeat(2, 205px);   
     }
+
+    .discardButton{
+        right: 400px;
+    }
 }
 
 @media(max-width: 850px){
     .overlay{
         top: 80px;
-        height: 90vh;
+        height: 90.8vh;
+    }
+
+    .whiteBox{
+        padding-left: 0px;
     }
 
     .newInvoice{
@@ -174,14 +192,37 @@
 
 
 @media(max-width: 750px){
+    .buttons{
+        width: auto;
+        gap: 7px
+    }
+
+    .buttonContainer{
+        width: auto;
+        gap: 7px;
+    }
+
     .newInvoice{
+        padding-top: 74px;
         padding-left: 24.11px;
+    }
+
+    .newInvoice_title{
+        width: 345px;
+        margin: 0px auto 22px auto;
     }
 
     .billFrom, .billTo{
         width: 288px;
-        margin: 0px auto 49px auto;
         grid-template-columns: repeat(2, 160px);
+    }
+
+    .billFrom{
+        margin: 0px auto 49px auto;
+    }
+
+    .billTo{
+        margin: 0px auto 69px auto;
     }
 
     .billFrom > div:nth-of-type(1), 
@@ -206,21 +247,53 @@
 
     .invoiceDetails{
         width: 288px;
-        margin: auto;
+        margin: 0px auto 69px auto;
         grid-template-columns: repeat(2, 160px);
+    }
+
+    .itemList_title{
+        width: 347px;
+        margin: 0px auto 22px auto;
+    }
+
+    .itemList{
+        margin-bottom: 158px;
+    }
+    .discardButton{
+        width: 84px;
+    }
+
+    .draftButton{
+        width: 117px;
+    }
+
+    .saveButton{
+        width: 112px;
     }
 }
 
 
 @media(max-width: 650px){
+    .whiteBox{
+        width: 100%;
+    }
+
+    .itemList_title{
+        width: 100%;
+    }
+
+    .newInvoice_title{
+        width: 100%;
+    }
+
     .newInvoice{
         width: 100%;
+        padding-right: 10px
     }
 
     .billFrom, .billTo{
         width: 100%;
-        margin: 0px auto 49px auto;
-        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(2, 48%);
     }
 
     .invoiceDetails{
@@ -230,5 +303,11 @@
 
     .invoiceDetails > div:nth-of-type(2){
         grid-column: initial;
+    }
+}
+
+@media(max-width: 470px){
+    .billFrom, .billTo{
+        grid-template-columns: repeat(2, 46%);
     }
 }

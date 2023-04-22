@@ -1,13 +1,17 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect, forwardRef, useImperativeHandle} from 'react';
 import styles from './styles.module.css';
+import useMediaQuery from '../../useMediaQuery';
 
-function AddItems({handleScroll}) {
+const AddItems = forwardRef(({handleScroll}, ref) => {
     const allItems = useRef();
+    const [noItems, setNoItems] = useState(true);
+    const [mobile] = useMediaQuery('(max-width: 750px)');
 
     const handleClick = (e) => {
         e.target.setCustomValidity('');
         e.target.style.border = '';
     }
+    
 
     const handleBlur = (e) => {
         const isValid = e.target.checkValidity();
@@ -26,8 +30,12 @@ function AddItems({handleScroll}) {
     const handleDelete = (e) => {
         const nodeToDelete = e.target.parentElement;
         nodeToDelete.remove();
+
+        if(!allItems.current.childNodes.length)
+            setNoItems(true);
     }
-//now i need to append the label and inputs into the containers
+
+
     const handleAddItem = () => {
         const item = document.createElement('div');
         const inputNameContainer = document.createElement('div');
@@ -43,7 +51,6 @@ function AddItems({handleScroll}) {
         const itemTotalLabel = document.createElement('label');
         const itemTotal = document.createElement('div');
         const trashIcon = document.createElement('div');
-        inputNameContainer.setAttribute('class', styles.inputContainer);
         item.setAttribute('class', styles.item);
         inputName.setAttribute('type', 'text')          
         inputName.setAttribute('class', styles.input);
@@ -53,6 +60,9 @@ function AddItems({handleScroll}) {
         inputName.addEventListener('invalid', handleInvalid);
         inputNameLabel.innerHTML = 'Item Name';
         inputNameLabel.setAttribute('class', styles.input_label);
+        inputNameContainer.setAttribute('class', styles.inputContainer);
+        inputNameContainer.append(inputNameLabel);
+        inputNameContainer.append(inputName);
         inputQty.setAttribute('type', 'number');      
         inputQty.setAttribute('class', styles.input);
         inputQty.setAttribute('placeholder', '1');   
@@ -60,48 +70,83 @@ function AddItems({handleScroll}) {
         inputQty.addEventListener('click', handleClick);
         inputQty.addEventListener('blur', handleBlur);
         inputQty.addEventListener('invalid', handleInvalid);
-        inputQtyContainer.setAttribute('class', styles.inputContainer);
         inputQtyLabel.innerHTML = 'Qty.'
         inputQtyLabel.setAttribute('class', styles.input_label);
-        inputPrice.setAttribute('type', 'text');
+        inputQtyContainer.setAttribute('class', styles.inputContainer);
+        inputQtyContainer.append(inputQtyLabel);
+        inputQtyContainer.append(inputQty);
+        inputPrice.setAttribute('type', 'number');
         inputPrice.setAttribute('required', ''); 
         inputPrice.setAttribute('class', styles.input);
         inputPrice.setAttribute('placeholder', '156.00');
         inputPrice.addEventListener('click', handleClick);
         inputPrice.addEventListener('blur', handleBlur);
         inputPrice.addEventListener('invalid', handleInvalid);
-        inputPriceContainer.setAttribute('class', styles.inputContainer);
         inputPriceLabel.innerHTML = 'Price';
         inputPriceLabel.setAttribute('class', styles.input_label);
+        inputPriceContainer.setAttribute('class', styles.inputContainer);        
+        inputPriceContainer.append(inputPriceLabel);
+        inputPriceContainer.append(inputPrice);
         itemTotal.setAttribute('class', styles.item_total);
         itemTotal.innerHTML = '156.00';
-        itemTotalContainer.setAttribute('class', styles.inputContainer);
         itemTotalLabel.innerHTML = 'Total';
         itemTotalLabel.setAttribute('class', styles.input_label);
+        itemTotalContainer.setAttribute('class', styles.inputContainer);        
+        itemTotalContainer.append(itemTotalLabel);
+        itemTotalContainer.append(itemTotal);
         trashIcon.setAttribute('class', styles.trashIcon);
         trashIcon.addEventListener('click', handleDelete);
-        item.append(inputName);
-        item.append(inputQty);
-        item.append(inputPrice);
-        item.append(itemTotal);
+        item.append(inputNameContainer);
+        item.append(inputQtyContainer);
+        item.append(inputPriceContainer);
+        item.append(itemTotalContainer);
         item.append(trashIcon);
         allItems.current.append(item);
         handleScroll();
+        setNoItems(false);
     }
+
+    useEffect(() => {
+        const allItemsContainer = document.querySelector('.' + styles.allItems);
+
+        if(noItems)
+            allItemsContainer.style.marginBottom = '0px';
+        else
+            allItemsContainer.style.marginBottom = '';
+
+    }, [noItems, mobile])
+
+    useImperativeHandle(ref, () => ({
+        get state() {
+            const inputNodes = document.querySelectorAll('.' + styles.item);
+            return Array.from(inputNodes).map((item) => {
+                const itemName = item.childNodes[0].childNodes[1].value;         //getting the value of the input, the input is deep nested within 2 elements
+                const itemQty = item.childNodes[1].childNodes[1].value;
+                const itemPrice = item.childNodes[2].childNodes[1].value;
+                const itemTotal = item.childNodes[3].childNodes[1].innerHTML;
+                return{
+                    itemName: itemName,
+                    itemQty: itemQty,
+                    itemPrice: itemPrice,
+                    itemTotal: itemTotal
+                };
+            })
+        }
+    }))
 
     return(
         <div className={styles.items}>
-            <div className={styles.items_titles}>
-                <p className={styles.input_label}>
+            <div className={styles.items_titles} >
+                <p className={styles.title}>
                     Item Name
                 </p>
-                <p className={styles.input_label}>
+                <p className={styles.title}>
                     Qty.
                 </p>
-                <p className={styles.input_label}>
+                <p className={styles.title}>
                     Price
                 </p>
-                <p className={styles.input_label}>
+                <p className={styles.title}>
                     Total
                 </p>
             </div>  
@@ -111,6 +156,6 @@ function AddItems({handleScroll}) {
             </button>
         </div>
     )
-}
+})
 
 export default AddItems;

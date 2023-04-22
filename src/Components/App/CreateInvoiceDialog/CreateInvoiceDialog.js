@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styles from './styles.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 import TextInput from './TextInput';
@@ -8,7 +8,25 @@ import AddItems from './AddItems';
 
 function CreateInvoiceDialog() {
     const open = useSelector(state => state.createInvoice);
+    const streetAddress = useRef();
+    const city = useRef();
+    const postCode = useRef();
+    const country = useRef();
+    const clientName = useRef();
+    const clientEmail = useRef();
+    const clientStreetAddress = useRef();
+    const clientCity = useRef();
+    const clientPostCode = useRef();
+    const clientCountry = useRef();
+    const invoiceDate = useRef();
+    const paymentTerms = useRef();
+    const projectDesc = useRef();
+    const items = useRef();
     const dispatch = useDispatch();
+
+    const handleClick = () => {
+        console.log(items.current.state);
+    }
 
     const handleSubmit = () => {
 
@@ -79,45 +97,49 @@ function CreateInvoiceDialog() {
                     <h2 className={styles.billFrom_title}>
                         Bill From
                     </h2>
-                    <TextInput type='text' label='Street Address' placeholder='19 Union Terrace'/>  
-                    <TextInput type='text' label='City' placeholder='London'/>       
-                    <TextInput type='text' label='Post Code' placeholder='E1 3EZ'/>       
-                    <TextInput type='text' label='Country' placeholder='United Kingdom'/>                         
+                    <TextInput type='text' label='Street Address' placeholder='19 Union Terrace' ref={streetAddress}/>  
+                    <TextInput type='text' label='City' placeholder='London' ref={city}/>       
+                    <TextInput type='text' label='Post Code' placeholder='E1 3EZ' ref={postCode}/>       
+                    <TextInput type='text' label='Country' placeholder='United Kingdom' ref={country}/>                         
                 </fieldset>
                 <fieldset className={styles.billTo}>
                     <h2 className={styles.billTo_title}>
                         Bill To
                     </h2>
-                    <TextInput type='text' label="Client's Name" placeholder='Alex Grim'/>  
-                    <TextInput type='email' label="Client's Email" placeholder='alexgrim@mail.com' otherErrorMessage='not valid email'/>       
-                    <TextInput type='text' label='Street Address' placeholder='84 Church Way'/>       
-                    <TextInput type='text' label='City' placeholder='Bradford'/>
-                    <TextInput type='text' label='Post Code' placeholder='BD1 9PB'/>
-                    <TextInput type='text' label='Country' placeholder='United Kingdom'/>
+                    <TextInput type='text' label="Client's Name" placeholder='Alex Grim' ref={clientName}/>  
+                    <TextInput type='email' label="Client's Email" placeholder='alexgrim@mail.com' otherErrorMessage='not valid email' ref={clientEmail}/>       
+                    <TextInput type='text' label='Street Address' placeholder='84 Church Way' ref={clientStreetAddress}/>       
+                    <TextInput type='text' label='City' placeholder='Bradford' ref={clientCity}/>
+                    <TextInput type='text' label='Post Code' placeholder='BD1 9PB' ref={clientPostCode}/>
+                    <TextInput type='text' label='Country' placeholder='United Kingdom' ref={clientCountry}/>
                 </fieldset>
                 <fieldset className={styles.invoiceDetails}>
-                    <CalendarInput/>
-                    <SelectInput/>
-                    <TextInput type='text' label='Project Description' placeholder='Graphic Design'/>
+                    <CalendarInput ref={invoiceDate}/>
+                    <SelectInput ref={paymentTerms}/>
+                    <TextInput type='text' label='Project Description' placeholder='Graphic Design' ref={projectDesc}/>
                 </fieldset>
                 <fieldset className={styles.itemList}>
                     <h2 className={styles.itemList_title}>
                         Item List
                     </h2>
-                    <AddItems handleScroll={handleScroll}/>
+                    <AddItems handleScroll={handleScroll} ref={items}/>
                 </fieldset>
             </section>    
-            <div className={styles.buttons}>
+            <div className={styles.whiteBox}>
+                <div className={styles.buttons}>
                     <button className={styles.discardButton}>
                         Discard
                     </button>
-                    <button className={styles.draftButton}>
-                        Save as Draft
-                    </button>
-                    <button className={styles.saveButton}> 
-                        Save & Send
-                    </button>
-                </div>        
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.draftButton}>
+                            Save as Draft
+                        </button>
+                        <button className={styles.saveButton} onClick={handleClick}> 
+                            Save & Send
+                        </button>                        
+                    </div>
+                </div>                      
+            </div>
         </form>
     )
 }

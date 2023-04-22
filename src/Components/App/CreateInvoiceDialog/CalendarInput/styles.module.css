@@ -49,11 +49,15 @@
     position: absolute;
     z-index: var(--even-more-closer);
     top: 80px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
     width: 240px;
     padding: 26px 0px 31px 0px;
     border-radius: 8px;
     background-color: var(--dialog-popup-bg);
     box-shadow: var(--dialog-popup-box-shadow);
+    z-index: var(--more-closest);
 }
 
 .popup_selectedDate{

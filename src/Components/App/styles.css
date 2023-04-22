@@ -92,6 +92,7 @@ fieldset{
     --body-variant-line-height: 15px;
     --body-variant-letter-spacing: -0.25px;
 
+    --more-closest: 60;
     --closest: 50;
     --even-more-closer: 45;
     --even-closer: 40;

@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react';
 import styles from './styles.module.css';
 import icons from './icons';
 
-
-function SelectInput() {
+const SelectInput = forwardRef((props, ref) => {
     const [option, setOption] = useState('Net 1 Day');
     const [popup, setPopup] = useState(false);
 
@@ -49,6 +48,12 @@ function SelectInput() {
 
     }, [popup])
 
+    useImperativeHandle(ref, () => ({
+        get state() {
+            return option;
+        }
+    }))
+
 
     return(
         <section className={styles.selectBox_container}>
@@ -76,8 +81,7 @@ function SelectInput() {
                 </div>
             </div>              
         </section>
-
     )
-}
+});
 
 export default SelectInput;
