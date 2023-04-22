@@ -52,3 +52,11 @@
     top: 0px;
     right: 17px;
 }
+
+
+@media(max-width: 940px){
+    .errorMessage, .otherErrorMessage{
+        bottom: -20px;
+        top: initial;
+    }
+}
