@@ -52,6 +52,22 @@ function CreateInvoiceDialog() {
 
     }, [open])
 
+    useEffect(() => {
+        const handleScroll = () => {
+           window.scrollTo(0, 0)
+        }
+
+        if(open)
+            document.addEventListener('scroll', handleScroll);
+        else
+            document.removeEventListener('scroll', handleScroll);
+
+        return () => {
+            document.removeEventListener('scroll', handleScroll);
+        }
+
+    }, [open])
+
 
     return(
         <form className={styles.overlay}>

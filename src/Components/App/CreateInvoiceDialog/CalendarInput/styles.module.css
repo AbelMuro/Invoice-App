@@ -33,13 +33,23 @@
     align-items: center;
 }
 
+
+.calendarIcon{
+    width: 16px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
 .inputContainer_input:hover{
     border: 1px solid #9277FF;
 }
 
 .popup{
+    display: none;
+    position: absolute;
+    z-index: var(--even-more-closer);
+    top: 80px;
     width: 240px;
-    height: 243px;
     padding: 26px 0px 31px 0px;
     border-radius: 8px;
     background-color: var(--dialog-popup-bg);

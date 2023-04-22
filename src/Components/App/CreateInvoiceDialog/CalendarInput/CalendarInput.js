@@ -4,20 +4,25 @@ import calendarDates from './CalendarData';
 import icons from './icons';
 
 
-//i need to style the popup with position properties
 const CalendarInput = forwardRef((props, ref) => {
+    const [openPopup, setOpenPopup] = useState(false);
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentDay = currentDate.getDate();
     const currentYear = currentDate.getFullYear();
     const changeMonth = useRef(currentMonth);
-    const selectedYear = useRef(currentYear);
+    const selectedYear = useRef(currentYear); 
     const [selectedMonth, setSelectedMonth] = useState(calendarDates[currentMonth]);
     const [selectedDay, setSelectedDay] = useState(currentDay);
+
+    const handlePopup = () => {
+        setOpenPopup(!openPopup);
+    }
 
     const handleDate = (e) => {
         const date = e.target.getAttribute('data-date');
         setSelectedDay(date);
+        setOpenPopup(false);
     }
 
     const handleMonth = (e) => {
@@ -54,15 +59,39 @@ const CalendarInput = forwardRef((props, ref) => {
     }));
 
     useEffect(() => {
+        const popup = document.querySelector('.' + styles.popup);
 
-    }, [selectedDay])
+        if(openPopup)
+            popup.style.display = 'block';
+        else
+            popup.style.display = '';
+    }, [openPopup])
+
+    useEffect(() => {
+        const handleClick = (e) => {
+            if(!e.target.matches('.' + styles.popup) && !e.target.matches('.' + styles.popup_selectedDate) && 
+               !e.target.matches('.' + styles.popup_selectedDate) && !e.target.matches('.' + styles.popup_dates) && 
+               !e.target.matches('.' + styles.inputContainer_input) && !e.target.matches('.' + styles.arrow) && 
+               !e.target.matches('.' + styles.popup_date_nextMonth))
+                setOpenPopup(false);
+        }
+        if(openPopup)
+            document.addEventListener('click', handleClick);
+        else
+            document.removeEventListener('click', handleClick);
+
+        return () => {
+            document.removeEventListener('click', handleClick)
+        }
+
+    }, [openPopup])
 
     return (
         <div className={styles.inputContainer}>
             <label className={styles.inputContainer_title}>
                 Invoice Date
             </label>
-            <div className={styles.inputContainer_input}>
+            <div className={styles.inputContainer_input} onClick={handlePopup}>
                 {selectedDay + " " + selectedMonth.month + " " + selectedYear.current}
                 <img src={icons['calendarIcon']} className={styles.calendarIcon}/>
             </div>

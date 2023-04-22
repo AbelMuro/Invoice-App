@@ -11,7 +11,7 @@
 
 .newInvoice{
     width: 719px;
-    height: 100vh;
+    height: 100%;
     padding: 59px 56px 0px 159px;
     background-color: var(--dialog-bg);
     border-radius: 0px 20px 20px 0px;
@@ -146,11 +146,31 @@
 @media(max-width: 940px){
     .newInvoice{
         width: 70%;
+        padding-left: 120px;
+        padding-right: 40px;
+    }
+    .buttons{
+        width: 70%;
+    }
+
+    .billFrom, .billTo{
+        grid-template-columns: repeat(3, 130px);
     }
 }
 
 @media(max-width: 850px){
     .overlay{
         top: 80px;
+        height: 90vh;
     }
+
+    .newInvoice{
+        padding-left: 56px;
+        margin-bottom: 47px;
+    }
+}
+
+/* this is where i left off, trying to style the grids accordingly*/
+@media(max-width: 750px){
+
 }
