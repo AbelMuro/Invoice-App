@@ -2,6 +2,8 @@ import React, {useRef, useState, useEffect, forwardRef, useImperativeHandle} fro
 import styles from './styles.module.css';
 import useMediaQuery from '../../useMediaQuery';
 
+
+//i am trying to dynamically update the total everytime the user updates the price and qty
 const AddItems = forwardRef(({handleScroll}, ref) => {
     const allItems = useRef();
     const [noItems, setNoItems] = useState(true);
@@ -12,6 +14,14 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
         e.target.style.border = '';
     }
     
+
+    const handlePrice = (e) => {
+
+    }
+
+    const handleQty = (e) => {
+
+    }
 
     const handleBlur = (e) => {
         const isValid = e.target.checkValidity();
@@ -70,6 +80,7 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
         inputQty.addEventListener('click', handleClick);
         inputQty.addEventListener('blur', handleBlur);
         inputQty.addEventListener('invalid', handleInvalid);
+        inputQty.addEventListener('change', handleQty);
         inputQtyLabel.innerHTML = 'Qty.'
         inputQtyLabel.setAttribute('class', styles.input_label);
         inputQtyContainer.setAttribute('class', styles.inputContainer);
@@ -82,6 +93,7 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
         inputPrice.addEventListener('click', handleClick);
         inputPrice.addEventListener('blur', handleBlur);
         inputPrice.addEventListener('invalid', handleInvalid);
+        inputPrice.addEventListener('change', handlePrice);
         inputPriceLabel.innerHTML = 'Price';
         inputPriceLabel.setAttribute('class', styles.input_label);
         inputPriceContainer.setAttribute('class', styles.inputContainer);        
