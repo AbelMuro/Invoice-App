@@ -16,11 +16,13 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
     
 
     const handlePrice = (e) => {
-
+        const total = e.target.parentElement.nextElementSibling.childNodes[1];
+        console.log(total);
     }
 
     const handleQty = (e) => {
-
+        const total = e.target.parentElement.nextElementSibling.nextElementSibling.childNodes[1];
+        console.log(total);
     }
 
     const handleBlur = (e) => {
