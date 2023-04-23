@@ -150,6 +150,26 @@
     background-color: #9277FF;
 }
 
+.errorMessage{
+    width: 104px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+    bottom: 130px;
+}
+
+.emptyMessage, .itemMessage{
+    display: none;
+    font-family: var(--font);
+    font-size: 10px;
+    line-height: 15px;
+    font-weight: 600;
+    letter-spacing: -0.21px;
+    color: #EC5757;
+}
+
 @media(max-width: 940px){
     .newInvoice{
         width: 70%;

@@ -1,3 +1,3 @@
-import {db} from './Firebase.js';
+import {db, auth} from './Firebase.js';
 
-export default {db}
+export {db, auth}

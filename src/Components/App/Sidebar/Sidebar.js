@@ -1,13 +1,17 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import LightOrDarkTheme from '../LightOrDarkTheme';
+import {useDispatch} from 'react-redux';
 import styles from './styles.module.css';
 import icons from './icons';
 import images from './images';
-import useMediaQuery from '../useMediaQuery';
 
 
 function Sidebar() {
-    const [mobile] = useMediaQuery('(max-width: 850px)');
+    const dispatch = useDispatch();
+
+    const handleClick = (e) => {
+        dispatch({type: 'open log in', open: true});
+    }       
 
     return(<>
             <aside className={styles.sidebar} id='sidebar'>
@@ -18,7 +22,7 @@ function Sidebar() {
                 <div className={styles.sidebar_themeAndImage}>
                     <LightOrDarkTheme/>
                     <div className={styles.sidebar_horizontalLine}></div>
-                    <img src={images['avatar']} className={styles.sidebar_avatar}/>
+                    <img src={images['avatar']} className={styles.sidebar_avatar} onClick={handleClick}/>
                 </div>
             </aside>   
     </>

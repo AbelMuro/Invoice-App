@@ -14,10 +14,15 @@ const TextInput = forwardRef(({type, label, placeholder, otherErrorMessage, ...r
 
     const handleBlur = (e) => {
         const isValid = e.target.checkValidity();
+        const typeMismatch = e.target.validity.typeMismatch;
 
         if(isValid){
            errorMessage.current.style.display = '';
            input.current.style.border = '';
+        }
+        else if(typeMismatch){
+            otherErrorMessageRef.current.style.display = 'block';
+            input.current.style.border = '1px solid #EC5757';
         }
         else{
             errorMessage.current.style.display = 'block';

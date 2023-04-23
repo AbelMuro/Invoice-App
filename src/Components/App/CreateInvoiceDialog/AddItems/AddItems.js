@@ -3,7 +3,6 @@ import styles from './styles.module.css';
 import useMediaQuery from '../../useMediaQuery';
 
 
-//i am trying to dynamically update the total everytime the user updates the price and qty
 const AddItems = forwardRef(({handleScroll}, ref) => {
     const allItems = useRef();
     const [noItems, setNoItems] = useState(true);
@@ -16,13 +15,25 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
     
 
     const handlePrice = (e) => {
-        const total = e.target.parentElement.nextElementSibling.childNodes[1];
-        console.log(total);
+        const total = e.target.parentElement.nextElementSibling.childNodes[1];      // selecting the node that has the net total
+        const qty = e.target.parentElement.previousElementSibling.childNodes[1].value;    // selecting the node that has the qty
+        if(qty){
+            const newTotal = Number(qty) * Number(e.target.value)
+            total.innerHTML = newTotal.toFixed(2);
+        }
+        else
+            total.innerHTML = 0;
     }
 
     const handleQty = (e) => {
-        const total = e.target.parentElement.nextElementSibling.nextElementSibling.childNodes[1];
-        console.log(total);
+        const total = e.target.parentElement.nextElementSibling.nextElementSibling.childNodes[1];//selecting the node with the net total
+        const price = e.target.parentElement.nextElementSibling.childNodes[1].value;         //selecting the node with the price
+        if(price){
+            const newTotal = Number(price) * Number(e.target.value);
+            total.innerHTML = newTotal.toFixed(2);
+        }
+        else 
+            total.innerHTML = 0;
     }
 
     const handleBlur = (e) => {
@@ -92,6 +103,7 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
         inputPrice.setAttribute('required', ''); 
         inputPrice.setAttribute('class', styles.input);
         inputPrice.setAttribute('placeholder', '156.00');
+        inputPrice.setAttribute('step', 0.01);
         inputPrice.addEventListener('click', handleClick);
         inputPrice.addEventListener('blur', handleBlur);
         inputPrice.addEventListener('invalid', handleInvalid);

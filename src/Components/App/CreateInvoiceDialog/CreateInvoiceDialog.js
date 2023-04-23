@@ -5,6 +5,7 @@ import TextInput from './TextInput';
 import CalendarInput from './CalendarInput';
 import SelectInput from './SelectInput';
 import AddItems from './AddItems';
+import {db} from '../Firebase';
 
 function CreateInvoiceDialog() {
     const open = useSelector(state => state.createInvoice);
@@ -22,14 +23,26 @@ function CreateInvoiceDialog() {
     const paymentTerms = useRef();
     const projectDesc = useRef();
     const items = useRef();
+    const emptyMessage = useRef();
+    const noItemMessage = useRef();
     const dispatch = useDispatch();
 
-    const handleClick = () => {
-        console.log(items.current.state);
+    const handleSubmit = (e) => {
+        e.preventDefault();        
+        emptyMessage.current.style.display = '';
+        if(!items.current.state.length) {
+            noItemMessage.current.style.display = 'block';
+            return;
+        }
+
+
+            
     }
 
-    const handleSubmit = () => {
-
+    const handleInvalid = () => {
+        emptyMessage.current.style.display = 'block';
+        if(!items.current.state.length) 
+            noItemMessage.current.style.display = 'block'
     }
 
     const handleScroll = () => {
@@ -88,8 +101,8 @@ function CreateInvoiceDialog() {
 
 
     return(
-        <form className={styles.overlay}>
-            <section className={styles.newInvoice} onSubmit={handleSubmit}>
+        <form className={styles.overlay} onInvalid={handleInvalid} onSubmit={handleSubmit}>
+            <section className={styles.newInvoice}>
                 <h1 className={styles.newInvoice_title}>
                     New Invoice
                 </h1>
@@ -124,6 +137,14 @@ function CreateInvoiceDialog() {
                     </h2>
                     <AddItems handleScroll={handleScroll} ref={items}/>
                 </fieldset>
+                <div className={styles.errorMessage}>
+                    <p className={styles.emptyMessage} ref={emptyMessage}>
+                        - All fields must be added
+                    </p>
+                    <p className={styles.itemMessage} ref={noItemMessage}>
+                        - An item must be added
+                    </p>
+                </div>  
             </section>    
             <div className={styles.whiteBox}>
                 <div className={styles.buttons}>
@@ -134,7 +155,7 @@ function CreateInvoiceDialog() {
                         <button className={styles.draftButton}>
                             Save as Draft
                         </button>
-                        <button className={styles.saveButton} onClick={handleClick}> 
+                        <button className={styles.saveButton}> 
                             Save & Send
                         </button>                        
                     </div>

@@ -15,3 +15,12 @@ export function CreateInvoiceReducer(state = false, action) {
             return state;
     }
 }
+
+export function OpenLogInReducer(state = false, action){
+    switch(action.type){
+        case 'open log in':
+            return action.open;
+        default: 
+            return state;
+    }
+}

@@ -57,6 +57,7 @@
     width: 40px;
     object-fit: contain;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 
