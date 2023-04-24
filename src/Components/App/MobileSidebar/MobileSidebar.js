@@ -4,6 +4,7 @@ import icons from './icons';
 import images from './images';
 import LightOrDarkTheme from '../LightOrDarkTheme';
 import {useDispatch} from 'react-redux';
+import {auth} from '../Firebase';
 
 function MobileHeaderbar() {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function MobileHeaderbar() {
             <div className={styles.header_themeAndImage}>
                 <LightOrDarkTheme/>
                 <div className={styles.header_verticalLine}></div>
-                <img src={images['avatar']} className={styles.header_avatar} onClick={handleClick}/>
+                <img src={images['avatar']} className={styles.header_avatar} onClick={auth.currentUser ? () => {} : handleClick}/>
             </div>
         </header>
     )

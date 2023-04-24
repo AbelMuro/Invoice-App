@@ -33,6 +33,9 @@ function LogInDialog() {
         const Password = password.current.state;
         try{
             await signInWithEmailAndPassword(auth, Email, Password);
+            alert('You have logged in!');
+            dispatch({type: 'open log in', open : false})
+
         }
         catch(error){
             alert('Email or password is incorrect');
@@ -49,13 +52,13 @@ function LogInDialog() {
             alert('Passwords do not match');
             return;
         }
-
         try{
             await createUserWithEmailAndPassword(auth, Email, Password);      
-            alert('You have created your account with firebase!')      
+            alert('You have created your account with firebase and you are already logged in!');
+
         }
         catch(error){
-            console.log('something went wrong');
+            console.log(error)
         }
 
     }

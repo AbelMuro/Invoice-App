@@ -5,7 +5,8 @@ import TextInput from './TextInput';
 import CalendarInput from './CalendarInput';
 import SelectInput from './SelectInput';
 import AddItems from './AddItems';
-import {db} from '../Firebase';
+import {db, auth} from '../Firebase';
+import {collection, addDoc} from 'firebase/firestore';
 
 function CreateInvoiceDialog() {
     const open = useSelector(state => state.createInvoice);
@@ -27,7 +28,7 @@ function CreateInvoiceDialog() {
     const noItemMessage = useRef();
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();        
         emptyMessage.current.style.display = '';
         if(!items.current.state.length) {
@@ -35,8 +36,38 @@ function CreateInvoiceDialog() {
             return;
         }
 
+        const newInvoice = {
+            billFrom: {
+                streetAddress: streetAddress.current.state,
+                city: city.current.state,
+                postCode: postCode.current.state,
+                country: country.current.state
+            },
+            billTo: {
+                clientName: clientName.current.state,
+                clientEmail: clientEmail.current.state,
+                clientStreetAddress: clientStreetAddress.current.state,
+                clientCity: clientCity.current.state,
+                clientPostCode: clientPostCode.current.state,
+                clientCountry: clientCountry.current.state,
+            },
+            invoiceDetails: {
+                invoiceDate: invoiceDate.current.state,
+                paymentTerms: paymentTerms.current.state,
+                projectDesc: projectDesc.current.state
+            },
+            items: items.current.state
+        }
+        const userCollectionRef = collection(db, `${auth.currentUser.uid}`)
 
-            
+        try{
+            await addDoc(userCollectionRef, newInvoice);
+            alert('Invoice has been added to the firestore');
+            dispatch({type: 'open create invoice', open: false});
+        }
+        catch(error){
+            console.log(error)
+        }
     }
 
     const handleInvalid = () => {

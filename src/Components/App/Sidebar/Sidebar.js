@@ -4,12 +4,13 @@ import {useDispatch} from 'react-redux';
 import styles from './styles.module.css';
 import icons from './icons';
 import images from './images';
+import {auth} from '../Firebase';
 
 
 function Sidebar() {
     const dispatch = useDispatch();
 
-    const handleClick = (e) => {
+    const handleClick = () => {
         dispatch({type: 'open log in', open: true});
     }       
 
@@ -22,7 +23,7 @@ function Sidebar() {
                 <div className={styles.sidebar_themeAndImage}>
                     <LightOrDarkTheme/>
                     <div className={styles.sidebar_horizontalLine}></div>
-                    <img src={images['avatar']} className={styles.sidebar_avatar} onClick={handleClick}/>
+                    <img src={images['avatar']} className={styles.sidebar_avatar} onClick={auth.currentUser ? () => {} : handleClick}/>
                 </div>
             </aside>   
     </>
