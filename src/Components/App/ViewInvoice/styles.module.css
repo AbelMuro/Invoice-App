@@ -37,10 +37,117 @@
 
 .invoice_statusTitle{
     display: flex;
+    align-items: center;
     gap: 20px;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.1px;
+    color: var(--view-invoice-container-status-title);
+}
+
+.invoice_status{
+    width: 104px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(255, 143, 0, 0.06);
+    color: #FF8F00;
+}
+
+.dot{
+    width: 8px;
+    height: 8px;
+    background-color: #FF8F00;
+    border-radius: 100%;
 }
 
 .invoice_buttons{
     display: flex;
     gap: 8px;
+}
+
+
+.invoice_editButton, .invoice_deleteButton, .invoice_paidButton{
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+}
+
+.invoice_editButton{
+    width: 73px;
+    height: 48px;
+    background-color: var(--view-invoice-container-edit-button-bg);
+    color: var(--view-invoice-container-edit-button-text);
+}
+
+.invoice_editButton:hover{
+    background-color: var(--view-invoice-container-edit-button-hover);
+}
+
+.invoice_deleteButton{
+    background-color: #EC5757;
+    width: 89px;
+    height: 48px;
+    color: white;
+}
+
+.invoice_deleteButton:hover{
+    background-color: #FF9797;
+}
+
+.invoice_paidButton{
+    background-color: #7C5DFA;
+    width: 131px;
+    height: 48px;
+    color: white;
+}
+
+.invoice_paidButton:hover{
+    background-color: #9277FF;
+}
+
+.invoice_content{
+    width: 730px;
+    height: 631px;
+    padding: 50px 48px 48px 48px;
+}
+
+.invoice_header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.invoice_title_desc{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.invoice_title{
+    font-family: var(--font);
+    font-size: var(--h3-font-size);
+    font-weight: var(--h3-font-weight);
+    line-height: var(--h3-line-height);
+    letter-spacing: var(--h3-letter-spacing);
+    color: var(--view-invoice-container-invoice-number-text);
+}
+
+.invoice_title span{
+    color: #888EB0;
+}
+
+.invoice_address{
+    text-align: right;
 }
