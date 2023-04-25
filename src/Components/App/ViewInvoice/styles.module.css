@@ -1,0 +1,46 @@
+.invoice{
+    width: 730px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 65px;
+}
+
+.goBackLink{
+    display: flex;
+    align-items: center;
+    gap: 23.66px;
+    margin-bottom: 7px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    color: var(--view-invoice-go-back-link-text);
+}
+
+.arrow{
+    width: 9px;
+    object-fit: contain;
+}
+
+.invoice_details{
+    height: 88px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 32px;
+    background-color: var(--view-invoice-container-bg);
+    box-shadow: rgba(72, 84, 159, 0.100397);
+}
+
+.invoice_statusTitle{
+    display: flex;
+    gap: 20px;
+}
+
+.invoice_buttons{
+    display: flex;
+    gap: 8px;
+}

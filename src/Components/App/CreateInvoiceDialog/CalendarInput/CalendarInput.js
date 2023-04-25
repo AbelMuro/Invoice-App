@@ -54,7 +54,7 @@ const CalendarInput = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         get state() {
-            return selectedDay + " " + selectedMonth + " " + selectedYear.current;
+            return selectedDay + " " + selectedMonth.month + " " + selectedYear.current;
         }
     }));
 

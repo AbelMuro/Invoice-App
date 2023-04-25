@@ -57,6 +57,9 @@ const TextInput = forwardRef(({type, label, placeholder, otherErrorMessage, ...r
     useImperativeHandle(ref, () => ({
         get state() {
             return text;
+        },
+        get resetState(){
+            setText('');
         }
     }))
 

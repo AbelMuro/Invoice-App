@@ -79,6 +79,15 @@
     align-items: center;
 }
 
+.notLoggedInMessage{
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    color: var(--invoice-main-title);
+    text-align: center;
+}
+
 @media(max-width: 790px){
     .invoices{
         width: 90%;

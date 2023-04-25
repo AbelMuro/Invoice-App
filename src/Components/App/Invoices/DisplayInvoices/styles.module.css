@@ -1,3 +1,9 @@
+.allInvoices{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .displayInvoices{
     display: flex;
     flex-direction: column;
@@ -28,6 +34,7 @@
     display: flex;
     justify-content: space-between;
     width: 308px;
+    pointer-events: none;
 }
 
 .displayInvoices_title{
@@ -36,10 +43,12 @@
     font-weight: 700;
     line-height: 15px;
     letter-spacing: -0.25px;
+    pointer-events: none;
 }
 
 .displayInvoices_title span{
     color: #7E88C3;
+    pointer-events: none;
 }
 
 
@@ -50,10 +59,12 @@
     line-height: 15px;
     letter-spacing: -0.1px;
     color: var(--invoice-container-due-date);
+    pointer-events: none;
 }
 
 .displayInvoices_dueDate span{
     color: var(--invoice-container-due-date-span);
+    pointer-events: none;
 }
 
 .displayInvoices_name{
@@ -63,6 +74,7 @@
     line-height: 15px;
     letter-spacing: -0.1px;
     color: var(--invoice-container-name);
+    pointer-events: none;
 }
 
 .displayInvoices_priceAndStatus{
@@ -70,6 +82,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+    pointer-events: none;
 }
 
 .displayInvoices_price{
@@ -80,6 +93,7 @@
     letter-spacing: -0.25px;
     color: var(--invoice-container-price);
     margin-right: 20px;
+    pointer-events: none;
 }
 
 .displayInvoices_status{
@@ -97,6 +111,7 @@
     line-height: var(--h3-variant-line-height);
     font-weight: var(--h3-variant-font-weight);
     letter-spacing: var(--h3-variant-letter-spacing);
+    pointer-events: none;
 }
 
 .dot{
@@ -104,11 +119,13 @@
     height: 8px;
     border-radius: 100%;
     background-color: #33D69F;
+    pointer-events: none;
 }
 
 .arrow{
     height: 9px;
     object-fit: contain;
+    pointer-events: none;
 }
 
 @media(max-width: 790px){

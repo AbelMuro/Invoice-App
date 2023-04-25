@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, memo} from 'react';
 import styles from './styles.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 import TextInput from './TextInput';
@@ -28,15 +28,25 @@ function CreateInvoiceDialog() {
     const noItemMessage = useRef();
     const dispatch = useDispatch();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();        
-        emptyMessage.current.style.display = '';
-        if(!items.current.state.length) {
+    const updateDatabase = async (e) => {
+        e.preventDefault();   
+        emptyMessage.current.style.display = '';             
+        const isDraftButton = e.target.getAttribute('data-button');
+        if(!items.current.state.length && !isDraftButton) {
             noItemMessage.current.style.display = 'block';
             return;
         }
+        const alphabet = 'abcdefghiklmnopqrstuvwxyz';
+        const firstLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+        const secondLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+        let number = Math.floor(Math.random() * 10000);
+        if(number < 1000)
+            number += 1000;
+        const invoiceNumber = firstLetter + secondLetter + number;
 
         const newInvoice = {
+            invoiceNumber: invoiceNumber,
+            status: isDraftButton ? 'Draft' : 'Pending',
             billFrom: {
                 streetAddress: streetAddress.current.state,
                 city: city.current.state,
@@ -58,6 +68,7 @@ function CreateInvoiceDialog() {
             },
             items: items.current.state
         }
+
         const userCollectionRef = collection(db, `${auth.currentUser.uid}`)
 
         try{
@@ -67,6 +78,20 @@ function CreateInvoiceDialog() {
         }
         catch(error){
             console.log(error)
+        }
+        finally{
+            streetAddress.current.resetState;
+            city.current.resetState;
+            postCode.current.resetState;
+            country.current.resetState;
+            clientName.current.resetState;
+            clientEmail.current.resetState;
+            clientStreetAddress.current.resetState;
+            clientCity.current.resetState;
+            clientPostCode.current.resetState;
+            clientCountry.current.resetState;
+            projectDesc.current.resetState;
+            items.current.resetState;
         }
     }
 
@@ -132,7 +157,7 @@ function CreateInvoiceDialog() {
 
 
     return(
-        <form className={styles.overlay} onInvalid={handleInvalid} onSubmit={handleSubmit}>
+        <form className={styles.overlay} onInvalid={handleInvalid} onSubmit={updateDatabase}>
             <section className={styles.newInvoice}>
                 <h1 className={styles.newInvoice_title}>
                     New Invoice
@@ -183,7 +208,7 @@ function CreateInvoiceDialog() {
                         Discard
                     </button>
                     <div className={styles.buttonContainer}>
-                        <button className={styles.draftButton}>
+                        <button type='button' className={styles.draftButton} onClick={updateDatabase} data-button={true}>
                             Save as Draft
                         </button>
                         <button className={styles.saveButton}> 
@@ -196,4 +221,4 @@ function CreateInvoiceDialog() {
     )
 }
 
-export default CreateInvoiceDialog;
+export default memo(CreateInvoiceDialog);

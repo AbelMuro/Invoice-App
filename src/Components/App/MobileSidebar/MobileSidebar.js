@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from './styles.module.css';
 import icons from './icons';
 import images from './images';
@@ -28,4 +28,4 @@ function MobileHeaderbar() {
     )
 }
 
-export default MobileHeaderbar;
+export default memo(MobileHeaderbar);

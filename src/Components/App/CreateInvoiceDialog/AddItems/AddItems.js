@@ -58,6 +58,12 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
             setNoItems(true);
     }
 
+    const deleteAllItems = () => {
+        const trashIcons = document.querySelectorAll('.' + styles.trashIcon);
+        trashIcons.forEach((trash) => {
+            trash.click();
+        })
+    }
 
     const handleAddItem = () => {
         const item = document.createElement('div');
@@ -157,6 +163,9 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
                     itemTotal: itemTotal
                 };
             })
+        },
+        get resetState() {
+            deleteAllItems();
         }
     }))
 

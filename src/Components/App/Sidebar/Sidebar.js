@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import LightOrDarkTheme from '../LightOrDarkTheme';
 import {useDispatch} from 'react-redux';
 import styles from './styles.module.css';
@@ -31,4 +31,4 @@ function Sidebar() {
     )
 }
 
-export default Sidebar;
+export default memo(Sidebar);

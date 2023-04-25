@@ -39,6 +39,10 @@ fieldset{
     --invoice-container-name: #858BB2;
     --invoice-container-price: #0C0E16;
 
+    --view-invoice-go-back-link-text: #0C0E16;
+    --view-invoice-container-bg: white;
+
+
     --dialog-bg: #FFFFFF;
     --dialog-main-title:  #0C0E16;
     --dialog-label:#7E88C3;

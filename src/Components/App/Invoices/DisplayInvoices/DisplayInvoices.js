@@ -1,38 +1,87 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styles from './styles.module.css';
 import icons from './icons'
+import {useCollectionData} from 'react-firebase-hooks/firestore';
+import {db} from '../../Firebase';
+import {collection} from 'firebase/firestore';
+import {v4 as uuid} from 'uuid';
+import useMediaQuery from '../../useMediaQuery';
+import {useNavigate} from 'react-router-dom';
 
 
-function DisplayInvoices({mobile}) {
+function DisplayInvoices({userID}) {
+    const [mobile] = useMediaQuery('(max-width: 790px)');
+    const userCollectionRef = collection(db, `${userID}`)
+    const [invoices, loading, error] = useCollectionData(userCollectionRef);
+    const navigate = useNavigate();
 
-    return(
-        <section className={styles.displayInvoices}>
-            <div className={styles.displayInvoices_invoice}>
-                <div className={styles.displayInvoices_title_dueDate_name}>
-                    <h3 className={styles.displayInvoices_title}>
-                        <span>#</span>XM914
-                    </h3>
-                    <p className={styles.displayInvoices_dueDate}>
-                        <span>Due</span> 20 Sep 2021
-                    </p>
-                    <p className={styles.displayInvoices_name}>
-                        Alex Grim
-                    </p>
-                </div>
-                <div className={styles.displayInvoices_priceAndStatus}>
-                    <p className={styles.displayInvoices_price}>
-                        $ 102.89
-                    </p>
-                    <div className={styles.displayInvoices_status}>
-                        <div className={styles.dot}></div>
-                        Paid
-                    </div>
-                    {mobile ? <></> : <img src={icons['arrowRight']} className={styles.arrow}/>}
-                </div>
-                
-            </div>
-        </section>
-    )
+    const handleClick = (e) => {
+        const invoiceNumber = e.target.getAttribute('data-invoice');
+        navigate(`/${invoiceNumber}`);
+    }
+
+    const changeStatusColor = useCallback((ref) => {
+        if(!ref) return;
+
+        const statusBox = ref;
+        const statusDot = ref.firstElementChild;
+        const status = ref.getAttribute('data-status');
+
+        if(status == 'Paid'){
+            statusBox.style.backgroundColor = 'rgba(51, 214, 159, 0.06)';
+            statusBox.style.color = '#33D69F'
+            statusDot.style.backgroundColor = '#33D69F';
+        }  
+        else if(status == 'Pending'){
+            statusBox.style.backgroundColor = 'rgb(255, 143, 0, 0.06)';
+            statusBox.style.color = '#FF8F00';
+            statusDot.style.backgroundColor = '#FF8F00';
+        }
+        else{
+            statusBox.style.backgroundColor = 'rgba(55, 59, 83, 0.06)';
+            statusBox.style.color = '#373B53';
+            statusDot.style.backgroundColor = '#373B53';
+        }
+            
+    }, [])
+
+    return loading ? (<>loading</>) : 
+                (
+                    invoices.length ? 
+                        <div className={styles.allInvoices}>
+                            {invoices.map((invoice) => {
+                                return(
+                                    <section className={styles.displayInvoices} key={uuid()}>
+                                        <div className={styles.displayInvoices_invoice} onClick={handleClick} data-invoice={invoice.invoiceNumber}>
+                                            <div className={styles.displayInvoices_title_dueDate_name}>
+                                                <h3 className={styles.displayInvoices_title}>
+                                                    <span>#</span>{invoice.invoiceNumber}
+                                                </h3>
+                                                <p className={styles.displayInvoices_dueDate}>
+                                                    <span>Due</span> {invoice.invoiceDetails.invoiceDate}
+                                                </p>
+                                                <p className={styles.displayInvoices_name}>
+                                                    {invoice.billTo.clientName}
+                                                </p>
+                                            </div>
+                                            <div className={styles.displayInvoices_priceAndStatus}>
+                                                <p className={styles.displayInvoices_price}>
+                                                    $ {invoice.items.reduce((accumulate, currentItem) => {
+                                                            return accumulate + Number(currentItem.itemTotal);
+                                                    }, 0).toFixed(2)}
+                                                </p>
+                                                <div className={styles.displayInvoices_status} ref={changeStatusColor} data-status={invoice.status}>
+                                                    <div className={styles.dot}></div>
+                                                    {invoice.status}
+                                                </div>
+                                                {mobile ? <></> : <img src={icons['arrowRight']} className={styles.arrow}/>}
+                                            </div>
+                                        </div>
+                                    </section> 
+                                    )
+                            })}
+                    </div> : <>no invoices available</>
+    ) 
 }
 
 export default DisplayInvoices;

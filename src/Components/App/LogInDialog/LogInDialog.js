@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, memo} from 'react';
 import styles from './styles.module.css';
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../Firebase'
@@ -149,4 +149,4 @@ function LogInDialog() {
     )
 }
 
-export default LogInDialog;
+export default memo(LogInDialog);
