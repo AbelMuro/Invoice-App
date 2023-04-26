@@ -5,7 +5,7 @@
 
 body{
     padding-left: 103px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--body-bg-color);
 }
 
@@ -46,6 +46,15 @@ fieldset{
     --view-invoice-container-edit-button-text: #7E88C3;
     --view-invoice-container-edit-button-hover: #DFE3FA;
     --view-invoice-container-invoice-number-text: #0C0E16;
+    --view-invoice-container-invoice-desc-text: #7E88C3;
+    --view-invoice-container-invoice-address-text: #7E88C3;
+    --view-invoice-container-invoice-title: #7E88C3; 
+    --view-invoice-container-invoice-data: #0c0e16;
+    --view-invoice-container-invoice-address: #7E88C3;
+    --view-invoice-container-item-title: #7E88C3;
+    --view-invoice-container-item-name:#0C0E16;
+    --view-invoice-container-item-qty:#7E88C3;
+    --view-invoice-container-item-amount: white;
 
     --dialog-bg: #FFFFFF;
     --dialog-main-title:  #0C0E16;

@@ -8,7 +8,8 @@
 }
 
 .goBackLink{
-    display: flex;
+    width: 90px;
+    display: inline-flex;
     align-items: center;
     gap: 23.66px;
     margin-bottom: 7px;
@@ -16,12 +17,29 @@
     font-family: var(--font);
     font-size: var(--h3-variant-font-size);
     font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
     color: var(--view-invoice-go-back-link-text);
 }
 
+.goBackLink span{
+    position: relative;
+    top: 2px;
+}
+
+.goBackLink:hover{
+    color: #7E88C3;
+}
+
 .arrow{
-    width: 9px;
-    object-fit: contain;
+    width: 7px;
+    height: 10px;
+    mask: url('./icons/icon-arrow-left.svg');
+    -webkit-mask: url('./icons/icon-arrow-left.svg');
+    background-color: #7C5DFA;
+}
+
+.arrow:hover{
+    background-color: #9277FF;
 }
 
 .invoice_details{
@@ -118,10 +136,33 @@
     background-color: #9277FF;
 }
 
+.invoice_title_desc{
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.1px;
+    color: var( --view-invoice-container-invoice-desc-text);
+}
+
+.invoice_address {
+    font-family: var(--font);
+    font-size: var(--body-font-size);
+    font-weight: var(--body-font-weight);
+    line-height: var(--body-line-height);
+    color: var(--view-invoice-container-invoice-address-text);
+}
+
 .invoice_content{
-    width: 730px;
-    height: 631px;
-    padding: 50px 48px 48px 48px;
+    background-color: var(--view-invoice-container-bg);
+    min-height: 631px;
+    border-radius: 8px;
+    box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+    display: flex;
+    flex-direction: column;
+    gap: 47px;
+    padding: 50px 48px 50px 48px;
+    margin-bottom: 40px;
 }
 
 .invoice_header{
@@ -150,4 +191,157 @@
 
 .invoice_address{
     text-align: right;
+}
+
+.invoice_billTo{
+    display: flex;
+    gap: 117px;
+    margin-bottom: 44px;
+}
+
+.invoice_dateAndPaymentDue{
+    display: flex;
+    flex-direction: column;
+    gap: 31px;
+}
+
+.invoice_dateTitle, .invoice_billToTitle, .invoice_sendTo, .invoice_paymentDueTitle{
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.1px;
+    color: var(--view-invoice-container-invoice-title);
+}
+
+.invoice_billToTitle{
+    margin-bottom: 6px;  
+}
+
+
+.invoice_date, .invoice_clientName, .invoice_clientEmail, .invoice_paymentDue{
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: -0.25px;
+    color: var(--view-invoice-container-invoice-data);
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.invoice_clientAddress{
+    width: 92px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-family: var(--font);
+    font-size: var(--body-font-size);
+    font-weight: var(--body-font-weight);
+    line-height: var(--body-line-height);
+    color: var(--view-invoice-container-invoice-address);
+}
+
+.invoice_items{
+    background-color: #F9FAFE;
+    min-height: 264px;
+    border-radius: 8px;
+    padding: 33px 32px 33px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.titles, .invoice_item{
+    display: flex;
+    justify-content: space-between;
+}
+
+.group{
+    width: 264px;
+    display: flex;
+    justify-content: space-between
+}
+
+.titles_title, .invoice_total{
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: var(--body-line-height);
+    letter-spacing: var(--body-letter-spacing);
+    color: var(--view-invoice-container-item-title);
+}
+
+.titles_title{
+    font-weight: 500;
+}
+
+
+.invoice_itemTitle, .invoice_qty, .invoice_price{
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);   
+}
+
+.invoice_itemTitle, .invoice_total{
+    color: var(--view-invoice-container-item-name);
+}
+
+.invoice_total, .invoice_price{
+    width: 27px;
+    white-space: nowrap; 
+}
+
+.invoice_qty{
+    width: 26px;
+}
+
+.invoice_total, .invoice_price, .invoice_qty{
+    position: relative;
+}
+
+.invoice_total span, .invoice_price span, .invoice_qty span{
+    position: absolute;
+    right: 0px;
+}
+
+.invoice_qty, .invoice_price{
+    color: var(--view-invoice-container-item-qty);
+    white-space: nowrap; 
+}
+
+.invoice_amountDue{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 32px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    background-color: #373B53;
+}
+
+.invoice_amountDueTitle{
+    font-family: var(--font);
+    font-size: var(--body-font-size);
+    font-weight: var(--body-font-weight);
+    line-height: var(--body-line-height);
+    letter-spacing: var(--body-letter-spacing);
+    color: var(--view-invoice-container-item-amount-title);
+}
+
+.invoice_amountDue{
+    font-family: var(--font);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+    color: var(--view-invoice-container-item-amount);
 }

@@ -3,11 +3,13 @@
     flex-direction: column;
     justify-content: space-between;
     width: 103px;    
-    height: 100vh;
     background-color: var(--sidebar-bg-color);
     border-radius: 0px 20px 20px 0px;
-    position: absolute;
+    position: fixed;
     left: 0px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
     z-index: var(--closest);
 }
 

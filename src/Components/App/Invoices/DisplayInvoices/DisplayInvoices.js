@@ -17,7 +17,8 @@ function DisplayInvoices({userID}) {
 
     const handleClick = (e) => {
         const invoiceNumber = e.target.getAttribute('data-invoice');
-        navigate(`/${invoiceNumber}`);
+        const invoiceID = e.target.getAttribute('data-id');
+        navigate(`/${invoiceNumber}`, {state: {invoiceID: invoiceID, userID: userID}});
     }
 
     const changeStatusColor = useCallback((ref) => {
@@ -52,7 +53,7 @@ function DisplayInvoices({userID}) {
                             {invoices.map((invoice) => {
                                 return(
                                     <section className={styles.displayInvoices} key={uuid()}>
-                                        <div className={styles.displayInvoices_invoice} onClick={handleClick} data-invoice={invoice.invoiceNumber}>
+                                        <div className={styles.displayInvoices_invoice} onClick={handleClick} data-invoice={invoice.invoiceNumber} data-id={invoice.invoiceID}>
                                             <div className={styles.displayInvoices_title_dueDate_name}>
                                                 <h3 className={styles.displayInvoices_title}>
                                                     <span>#</span>{invoice.invoiceNumber}

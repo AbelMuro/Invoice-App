@@ -25,7 +25,6 @@
     z-index: var(--farthest);
 }
 
-
 .displayInvoices_invoice:hover{
     border: 1px solid #7C5DFA; 
 }

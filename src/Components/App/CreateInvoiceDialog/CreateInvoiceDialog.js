@@ -6,7 +6,7 @@ import CalendarInput from './CalendarInput';
 import SelectInput from './SelectInput';
 import AddItems from './AddItems';
 import {db, auth} from '../Firebase';
-import {collection, addDoc} from 'firebase/firestore';
+import {collection, addDoc, updateDoc} from 'firebase/firestore';
 
 function CreateInvoiceDialog() {
     const open = useSelector(state => state.createInvoice);
@@ -72,7 +72,8 @@ function CreateInvoiceDialog() {
         const userCollectionRef = collection(db, `${auth.currentUser.uid}`)
 
         try{
-            await addDoc(userCollectionRef, newInvoice);
+            const newDocRef = await addDoc(userCollectionRef, newInvoice);
+            await updateDoc(newDocRef, {invoiceID: newDocRef.id})
             alert('Invoice has been added to the firestore');
             dispatch({type: 'open create invoice', open: false});
         }

@@ -14,12 +14,19 @@ import './styles.css';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null)
 
     onAuthStateChanged(auth, (currentUser) => {
-        if(currentUser)
+        if(currentUser){
             setIsLoggedIn(true);
-        else
+            setUser(currentUser)
+        }
+           
+        else{
             setIsLoggedIn(false);
+            setUser(null)
+        }
+            
     })
 
     return(
