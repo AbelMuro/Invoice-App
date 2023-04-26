@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import icons from './icons';
 
 const SelectInput = forwardRef((props, ref) => {
-    const [option, setOption] = useState('Net 1 Day');
+    const [option, setOption] = useState('1');
     const [popup, setPopup] = useState(false);
 
     const handlePopup = () => {
@@ -66,16 +66,16 @@ const SelectInput = forwardRef((props, ref) => {
                 </div>
                 <img src={icons['arrow']} className={styles.arrow}/>
                 <div className={styles.selectBox_popup}>
-                    <div className={styles.selectBox_option} onClick={handleOption} data-option='Net 1 Day'>
+                    <div className={styles.selectBox_option} onClick={handleOption} data-option={'1'}>
                             Net 1 Day
                     </div>  
-                    <div className={styles.selectBox_option} onClick={handleOption} data-option='Net 7 Day'>
+                    <div className={styles.selectBox_option} onClick={handleOption} data-option={'7'}>
                             Net 7 Days
                     </div>  
-                    <div className={styles.selectBox_option} onClick={handleOption} data-option='Net 14 Day'>
+                    <div className={styles.selectBox_option} onClick={handleOption} data-option={'14'}>
                             Net 14 Days
                     </div>  
-                    <div className={styles.selectBox_option} onClick={handleOption} data-option='Net 30 Day'>
+                    <div className={styles.selectBox_option} onClick={handleOption} data-option={'30'}>
                             Net 30 Days
                     </div>  
                 </div>

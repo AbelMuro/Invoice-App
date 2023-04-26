@@ -18,17 +18,37 @@ function ViewInvoice() {
         navigate('/');
     }
 
+    const calculatePaymentDue = () => {
+        const OneDayMilliseconds = 86400000;
+        const SevenDayMilliseconds = 604800000;
+        const FourteenDayMilliseconds = 1209600000;
+        const ThirtyDayMilliseconds = 2592000000;     
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const invoiceDate = invoice.invoiceDetails.invoiceDate;
+        const invoiceDateMilliseconds = new Date(invoiceDate).getTime();
+        let nextXDays;
+
+        if(invoice.invoiceDetails.paymentTerms === '1')
+            nextXDays = new Date(invoiceDateMilliseconds + OneDayMilliseconds);
+        else if(invoice.invoiceDetails.paymentTerms === '7')
+            nextXDays = new Date(invoiceDateMilliseconds + SevenDayMilliseconds);
+        else if(invoice.invoiceDetails.paymentTerms === '14')
+            nextXDays = new Date(invoiceDateMilliseconds + FourteenDayMilliseconds);
+        else
+            nextXDays = new Date(invoiceDateMilliseconds + ThirtyDayMilliseconds);
+
+        const nextDay = nextXDays.getDate();
+        const nextMonth = nextXDays.getMonth();
+        const nextYear = nextXDays.getFullYear();
+        return nextDay + " " + months[nextMonth] + " " + nextYear;        
+    }
+
     //this is where i left off, i need to convert, 1, 5, 10, and 30 days to milliseconds and then add that number to the milliseconds
     //of invoiceDate
     useEffect(() => {
+
         if(!loading){
-            const invoiceDate = invoice.invoiceDetails.invoiceDate;
-            const newDate = new Date(invoiceDate);
-            const next30Days = new Date(newDate.getTime() + 2592000000);
-            const nextDay = next30Days.getDay();
-            const nextMonth = next30Days.getMonth();
-            const nextYear = next30Days.getFullYear();
-            console.log(nextDay + " " + nextMonth + " " + nextYear);
+
         }
             
     }, [loading])
@@ -91,7 +111,7 @@ function ViewInvoice() {
                                     <h3 className={styles.invoice_paymentDueTitle}>
                                         Payment Due
                                     </h3>
-                                    20 Sep 2021
+                                    {calculatePaymentDue()}
                                 </div>
                             </div>
                             <div className={styles.invoice_clientAddress}>

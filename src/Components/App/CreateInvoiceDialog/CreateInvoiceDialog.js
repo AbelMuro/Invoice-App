@@ -93,6 +93,7 @@ function CreateInvoiceDialog() {
             clientCountry.current.resetState;
             projectDesc.current.resetState;
             items.current.resetState;
+            dispatch({type: 'open create invoice', open: false});
         }
     }
 
