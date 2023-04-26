@@ -18,7 +18,7 @@ function ViewInvoice() {
         navigate('/');
     }
 
-    const calculatePaymentDue = () => {
+    const calculatePaymentDueDate = () => {
         const OneDayMilliseconds = 86400000;
         const SevenDayMilliseconds = 604800000;
         const FourteenDayMilliseconds = 1209600000;
@@ -111,7 +111,7 @@ function ViewInvoice() {
                                     <h3 className={styles.invoice_paymentDueTitle}>
                                         Payment Due
                                     </h3>
-                                    {calculatePaymentDue()}
+                                    {calculatePaymentDueDate()}
                                 </div>
                             </div>
                             <div className={styles.invoice_clientAddress}>
