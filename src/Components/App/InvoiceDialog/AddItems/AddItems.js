@@ -1,10 +1,10 @@
-import React, {useRef, useState, useEffect, forwardRef, useImperativeHandle} from 'react';
+import React, {useRef, useState, useEffect, forwardRef, useImperativeHandle, memo} from 'react';
 import styles from './styles.module.css';
 import useMediaQuery from '../../useMediaQuery';
 import {v4 as uuid} from 'uuid'
 
 const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
-    const [allPrevItems, setAllPrevItems] = useState(prevItems)
+    const [allPrevItems, setAllPrevItems] = useState(prevItems);
     const allItems = useRef();
     const [noItems, setNoItems] = useState(true);
     const [mobile] = useMediaQuery('(max-width: 750px)');
@@ -50,14 +50,13 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
         e.target.style.border = '1px solid #EC5757';
     }
 
-    //this is where i left off, i will need to remove the child element from the parentElement, but the parent itself
+    //this is where i left off, i will need to remove the child element from the parentElement, but not the parent itself
     const handleDelete = (e) => {
-        const nodeToDelete = e.target.parentElement.getAttribute('id');
 
-        allItems.current.childNodes.forEach((child) => {
-            if(child.getAttribute('id') == nodeToDelete)
-                allItems.current.removeChild(child);
-        })
+
+        const nodeToDelete = e.target.parentElement;
+        nodeToDelete.remove();
+        
         if(!allItems.current.childNodes.length)
             setNoItems(true);
     }
@@ -191,9 +190,9 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
                 </p>
             </div>  
             <div className={styles.allItems} ref={allItems}>
-                {allPrevItems.map((item) => {
+                {allPrevItems.map((item, i) => {
                     return(
-                        <div className={styles.item} key={uuid()} id={uuid()}>
+                        <div className={styles.item} key={uuid()} id={uuid()} index={i}>
                             <div className={styles.inputContainer}>
                                 <label className={styles.input_label}>
                                     Item Name
@@ -258,4 +257,4 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
     )
 })
 
-export default AddItems;
+export default memo(AddItems);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Sidebar from './Sidebar';
 import MobileHeaderbar from './MobileSidebar';
 import Invoices from './Invoices';
@@ -14,17 +14,24 @@ import './styles.css';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null)
+
+    //this will redefine the removeChild() function from every Node
+    useEffect(() => {
+        const originalRemoveChild = Node.prototype.removeChild;
+        Node.prototype.removeChild = (child) => {
+            if(child.parentNode !== this) {
+                return child;
+            }
+            return originalRemoveChild.apply(this, arguments);
+      }}, [])
 
     onAuthStateChanged(auth, (currentUser) => {
         if(currentUser){
             setIsLoggedIn(true);
-            setUser(currentUser)
         }
            
         else{
             setIsLoggedIn(false);
-            setUser(null)
         }
             
     })

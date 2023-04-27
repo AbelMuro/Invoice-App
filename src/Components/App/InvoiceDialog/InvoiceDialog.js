@@ -196,7 +196,7 @@ function InvoiceDialog() {
                     <h2 className={styles.itemList_title}>
                         Item List
                     </h2>
-                    <AddItems handleScroll={handleScroll} prevItems={invoice ? invoice.items : []} ref={items}/>
+                    {open ? <AddItems handleScroll={handleScroll} prevItems={invoice ? invoice.items : []} ref={items}/> : <></>}
                 </fieldset>
                 <div className={styles.errorMessage}>
                     <p className={styles.emptyMessage} ref={emptyMessage}>
