@@ -1,13 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import DisplayItems from './DisplayItems';
 import styles from './styles.module.css';
 import icons from './icons';
 import {useNavigate, useLocation} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import {db} from '../Firebase';
 import {collection, doc} from 'firebase/firestore';
 import {useDocumentData} from 'react-firebase-hooks/firestore';
 
-
 function ViewInvoice() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const {state} = useLocation();
     const collectionRef = collection(db, `${state.userID}`);
@@ -16,6 +18,11 @@ function ViewInvoice() {
 
     const handleGoBack = () => {
         navigate('/');
+    }
+
+    const handleEdit = () => {
+        window.scrollTo(0, 0);
+        dispatch({type: 'open invoice', open: true, invoice: invoice});
     }
 
     const calculatePaymentDueDate = () => {
@@ -43,15 +50,6 @@ function ViewInvoice() {
         return nextDay + " " + months[nextMonth] + " " + nextYear;        
     }
 
-    //this is where i left off, i need to convert, 1, 5, 10, and 30 days to milliseconds and then add that number to the milliseconds
-    //of invoiceDate
-    useEffect(() => {
-
-        if(!loading){
-
-        }
-            
-    }, [loading])
 
     return(
           loading ? 
@@ -71,7 +69,7 @@ function ViewInvoice() {
                             </div>
                         </div>
                         <div className={styles.invoice_buttons}>
-                            <button className={styles.invoice_editButton}>
+                            <button className={styles.invoice_editButton} onClick={handleEdit}>
                                 Edit
                             </button>
                             <button className={styles.invoice_deleteButton}>
@@ -86,9 +84,9 @@ function ViewInvoice() {
                         <div className={styles.invoice_header}>
                             <h3 className={styles.invoice_title_desc}>
                                 <span className={styles.invoice_title}>
-                                    <span>#</span>{invoice.status}
+                                    <span>#</span>{invoice.invoiceNumber}
                                 </span>
-                                <span className={styles.invoice_title_desc}>
+                                <span className={styles.invoice_desc}>
                                     {invoice.invoiceDetails.projectDesc}
                                 </span>
                             </h3>
@@ -134,44 +132,7 @@ function ViewInvoice() {
                             </div>
                         </div>
                         <div className={styles.invoice_items}>
-                            <div className={styles.titles}>
-                                <h3 className={styles.titles_title}>
-                                    Item Name
-                                </h3>
-                                <div className={styles.group}>
-                                    <h3 className={styles.titles_title}>
-                                        QTY.
-                                    </h3>
-                                    <h3 className={styles.titles_title}>
-                                        Price
-                                    </h3>
-                                    <h3 className={styles.titles_title}>
-                                        Total
-                                    </h3>                            
-                                </div>
-                            </div>
-                            <div className={styles.invoice_item}>
-                                <h2 className={styles.invoice_itemTitle}>
-                                    Banner Design
-                                </h2>
-                                <div className={styles.group}>
-                                    <p className={styles.invoice_qty}>
-                                        <span>1</span>
-                                    </p>
-                                    <p className={styles.invoice_price}>
-                                        <span>$564.22</span>
-                                    </p>
-                                    <p className={styles.invoice_total}>
-                                        <span>$8994.20</span>
-                                    </p>
-                                </div>
-                                <div className={styles.invoice_amountDue}>
-                                    <h3 className={styles.invoice_amountDueTitle}>
-                                        Amount Due
-                                    </h3>
-                                    $556.54
-                                </div>
-                            </div>
+                            <DisplayItems invoice={invoice}/>
                         </div>
                     </div>
                 </section>

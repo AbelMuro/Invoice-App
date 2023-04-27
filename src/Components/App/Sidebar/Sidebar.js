@@ -26,8 +26,7 @@ function Sidebar() {
                     <img src={images['avatar']} className={styles.sidebar_avatar} onClick={auth.currentUser ? () => {} : handleClick}/>
                 </div>
             </aside>   
-    </>
-
+            </>
     )
 }
 

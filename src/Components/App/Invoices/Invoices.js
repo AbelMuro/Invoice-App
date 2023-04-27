@@ -11,11 +11,11 @@ function Invoices ({isLoggedIn}) {
     const dispatch = useDispatch();
 
     const handleCreateInvoice = () => {
-        dispatch({type: 'open create invoice', open: true});
+        dispatch({type: 'open invoice', open: true, invoice: null});
     }
 
     const handleLogIn = () => {
-        alert('You must be logged in to post an invoice')
+        alert('You must be logged in to post an invoice');
         dispatch({type: 'open log in', open: true});
     }
 

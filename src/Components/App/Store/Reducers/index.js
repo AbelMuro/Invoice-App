@@ -1,9 +1,8 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import {EditInvoiceReducer, CreateInvoiceReducer, OpenLogInReducer} from './Reducers.js';
+import {OpenInvoiceReducer, OpenLogInReducer} from './Reducers.js';
 
 const rootReducer = combineReducers({
-    editInvoice: EditInvoiceReducer,
-    createInvoice: CreateInvoiceReducer,
+    invoiceDialog: OpenInvoiceReducer,
     loginDialog: OpenLogInReducer
 })
 

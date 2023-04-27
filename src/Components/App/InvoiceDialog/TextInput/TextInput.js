@@ -1,8 +1,8 @@
-import React, {useState, forwardRef, useImperativeHandle, useRef} from 'react';
+import React, {useState, useEffect, forwardRef, useImperativeHandle, useRef} from 'react';
 import styles from './styles.module.css';
 
 
-const TextInput = forwardRef(({type, label, placeholder, otherErrorMessage, ...rest}, ref) => {
+const TextInput = forwardRef(({type, label, placeholder, otherErrorMessage, prevState,...rest}, ref) => {
     const [text, setText] = useState('');
     const errorMessage = useRef();
     const otherErrorMessageRef = useRef();
@@ -52,6 +52,11 @@ const TextInput = forwardRef(({type, label, placeholder, otherErrorMessage, ...r
         otherErrorMessageRef.current.style.display = ''
         input.current.style.border = ''
     }
+
+    useEffect(() => {
+        if(prevState)
+            setText(prevState);
+    }, [prevState])
 
 
     useImperativeHandle(ref, () => ({

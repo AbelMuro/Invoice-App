@@ -1,0 +1,104 @@
+
+.titles, .invoice_item{
+    display: flex;
+    justify-content: space-between;
+}
+
+.group{
+    width: 264px;
+    display: flex;
+    justify-content: space-between
+}
+
+.titles_title, .invoice_total{
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: var(--body-line-height);
+    letter-spacing: var(--body-letter-spacing);
+    color: var(--view-invoice-container-item-title);
+}
+
+.titles_title{
+    font-weight: 500;
+}
+
+
+.invoice_itemTitle, .invoice_qty, .invoice_price, .invoice_itemTitleMobile, .invoice_QtyPriceMobile, .invoice_totalMobile{
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);   
+    letter-spacing: -0.25px;
+}
+
+.invoice_itemTitle, .invoice_total, .invoice_itemTitleMobile, .invoice_totalMobile{
+    color: var(--view-invoice-container-item-name);
+}
+
+.invoice_total, .invoice_price{
+    width: 27px;
+    white-space: nowrap; 
+}
+
+.invoice_qty{
+    width: 26px;
+}
+
+.invoice_total, .invoice_price, .invoice_qty{
+    position: relative;
+}
+
+.invoice_total span, .invoice_price span, .invoice_qty span{
+    position: absolute;
+    right: 0px;
+}
+
+.invoice_qty, .invoice_price, .invoice_QtyPriceMobile{
+    color: var(--view-invoice-container-item-qty);
+    white-space: nowrap; 
+}
+
+.invoice_amountDue{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 32px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    background-color: #373B53;
+}
+
+.invoice_amountDueTitle{
+    font-family: var(--font);
+    font-size: var(--body-font-size);
+    font-weight: var(--body-font-weight);
+    line-height: var(--body-line-height);
+    letter-spacing: var(--body-letter-spacing);
+    color: var(--view-invoice-container-item-amount-title);
+}
+
+.invoice_amountDue{
+    font-family: var(--font);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+    color: var(--view-invoice-container-item-amount);
+}
+
+.invoice_item_mobile{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice_nameQtyPriceMobile{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

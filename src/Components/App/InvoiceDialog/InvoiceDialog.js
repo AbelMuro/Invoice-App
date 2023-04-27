@@ -8,8 +8,9 @@ import AddItems from './AddItems';
 import {db, auth} from '../Firebase';
 import {collection, addDoc, updateDoc} from 'firebase/firestore';
 
-function CreateInvoiceDialog() {
-    const open = useSelector(state => state.createInvoice);
+
+function InvoiceDialog() {
+    const {open, invoice} = useSelector(state => state.invoiceDialog);
     const streetAddress = useRef();
     const city = useRef();
     const postCode = useRef();
@@ -126,10 +127,10 @@ function CreateInvoiceDialog() {
 
     useEffect(() => {
         const handleClick = (e) => {
-            if(e.target.matches('.' + styles.overlay))
-                dispatch({type: 'open create invoice', open: false});
+            if(e.target.matches('.' + styles.overlay)){
+                dispatch({type: 'open invoice', open: false});                
+            }
         }
-
         if(open)
             document.addEventListener('click', handleClick);
         else
@@ -145,7 +146,6 @@ function CreateInvoiceDialog() {
         const handleScroll = () => {
            window.scrollTo(0, 0)
         }
-
         if(open)
             document.addEventListener('scroll', handleScroll);
         else
@@ -154,7 +154,6 @@ function CreateInvoiceDialog() {
         return () => {
             document.removeEventListener('scroll', handleScroll);
         }
-
     }, [open])
 
 
@@ -162,38 +161,42 @@ function CreateInvoiceDialog() {
         <form className={styles.overlay} onInvalid={handleInvalid} onSubmit={updateDatabase}>
             <section className={styles.newInvoice}>
                 <h1 className={styles.newInvoice_title}>
-                    New Invoice
+                    {invoice ? <>
+                        Edit 
+                        <span>#</span> 
+                        {invoice.invoiceNumber}
+                    </> : 'New Invoice'}
                 </h1>
                 <fieldset className={styles.billFrom}>
                     <h2 className={styles.billFrom_title}>
                         Bill From
                     </h2>
-                    <TextInput type='text' label='Street Address' placeholder='19 Union Terrace' ref={streetAddress}/>  
-                    <TextInput type='text' label='City' placeholder='London' ref={city}/>       
-                    <TextInput type='text' label='Post Code' placeholder='E1 3EZ' ref={postCode}/>       
-                    <TextInput type='text' label='Country' placeholder='United Kingdom' ref={country}/>                         
+                    <TextInput type='text' label='Street Address' placeholder='19 Union Terrace' ref={streetAddress} prevState={invoice ? invoice.billFrom.streetAddress : null}/>  
+                    <TextInput type='text' label='City' placeholder='London' ref={city} prevState={invoice ? invoice.billFrom.city : null}/>       
+                    <TextInput type='text' label='Post Code' placeholder='E1 3EZ' ref={postCode} prevState={invoice ? invoice.billFrom.postCode : null}/>       
+                    <TextInput type='text' label='Country' placeholder='United Kingdom' ref={country} prevState={invoice ? invoice.billFrom.country: null}/>                         
                 </fieldset>
                 <fieldset className={styles.billTo}>
                     <h2 className={styles.billTo_title}>
                         Bill To
                     </h2>
-                    <TextInput type='text' label="Client's Name" placeholder='Alex Grim' ref={clientName}/>  
-                    <TextInput type='email' label="Client's Email" placeholder='alexgrim@mail.com' otherErrorMessage='not valid email' ref={clientEmail}/>       
-                    <TextInput type='text' label='Street Address' placeholder='84 Church Way' ref={clientStreetAddress}/>       
-                    <TextInput type='text' label='City' placeholder='Bradford' ref={clientCity}/>
-                    <TextInput type='text' label='Post Code' placeholder='BD1 9PB' ref={clientPostCode}/>
-                    <TextInput type='text' label='Country' placeholder='United Kingdom' ref={clientCountry}/>
+                    <TextInput type='text' label="Client's Name" placeholder='Alex Grim' ref={clientName} prevState={invoice ? invoice.billTo.clientName : null}/>  
+                    <TextInput type='email' label="Client's Email" placeholder='alexgrim@mail.com' otherErrorMessage='not valid email' ref={clientEmail} prevState={invoice ? invoice.billTo.clientEmail : null}/>       
+                    <TextInput type='text' label='Street Address' placeholder='84 Church Way' ref={clientStreetAddress} prevState={invoice ? invoice.billTo.clientStreetAddress : null}/>       
+                    <TextInput type='text' label='City' placeholder='Bradford' ref={clientCity} prevState={invoice ? invoice.billTo.clientCity : null}/>
+                    <TextInput type='text' label='Post Code' placeholder='BD1 9PB' ref={clientPostCode} prevState={invoice ? invoice.billTo.clientPostCode : null}/>
+                    <TextInput type='text' label='Country' placeholder='United Kingdom' ref={clientCountry} prevState={invoice ? invoice.billTo.clientCountry : null}/>
                 </fieldset>
                 <fieldset className={styles.invoiceDetails}>
-                    <CalendarInput ref={invoiceDate}/>
-                    <SelectInput ref={paymentTerms}/>
-                    <TextInput type='text' label='Project Description' placeholder='Graphic Design' ref={projectDesc}/>
+                    <CalendarInput ref={invoiceDate} prevState={invoice ? invoice.invoiceDetails.invoiceDate : null}/>
+                    <SelectInput ref={paymentTerms} prevStatet={invoice ? invoice.invoiceDetails.paymentTerms : null}/>
+                    <TextInput type='text' label='Project Description' placeholder='Graphic Design' ref={projectDesc} prevState={invoice ? invoice.invoiceDetails.projectDesc : null}/>
                 </fieldset>
                 <fieldset className={styles.itemList}>
                     <h2 className={styles.itemList_title}>
                         Item List
                     </h2>
-                    <AddItems handleScroll={handleScroll} ref={items}/>
+                    <AddItems handleScroll={handleScroll} prevItems={invoice ? invoice.items : []} ref={items}/>
                 </fieldset>
                 <div className={styles.errorMessage}>
                     <p className={styles.emptyMessage} ref={emptyMessage}>
@@ -223,4 +226,4 @@ function CreateInvoiceDialog() {
     )
 }
 
-export default memo(CreateInvoiceDialog);
+export default memo(InvoiceDialog);

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Sidebar from './Sidebar';
 import MobileHeaderbar from './MobileSidebar';
 import Invoices from './Invoices';
-import CreateInvoiceDialog from './CreateInvoiceDialog';
+import InvoiceDialog from './InvoiceDialog';
 import LogInDialog from './LogInDialog';
 import ViewInvoice from './ViewInvoice';
 import {Provider} from 'react-redux';
@@ -35,7 +35,7 @@ function App() {
                 <LogInDialog/>                
                 <Sidebar/>           
                 <MobileHeaderbar/>
-                <CreateInvoiceDialog/>
+                <InvoiceDialog/>
                 <Routes>
                     <Route path='/' element={<Invoices isLoggedIn={isLoggedIn}/>}/>
                     <Route path='/:invoice' element={<ViewInvoice/>}/>

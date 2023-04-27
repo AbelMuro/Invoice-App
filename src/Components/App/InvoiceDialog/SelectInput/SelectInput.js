@@ -2,8 +2,8 @@ import React, {useState, useEffect, forwardRef, useImperativeHandle} from 'react
 import styles from './styles.module.css';
 import icons from './icons';
 
-const SelectInput = forwardRef((props, ref) => {
-    const [option, setOption] = useState('1');
+const SelectInput = forwardRef(({prevState}, ref) => {
+    const [option, setOption] = useState(prevState ? prevState : '1');
     const [popup, setPopup] = useState(false);
 
     const handlePopup = () => {

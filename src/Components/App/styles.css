@@ -7,6 +7,7 @@ body{
     padding-left: 103px;
     min-height: 100vh;
     background-color: var(--body-bg-color);
+    position: relative;
 }
 
 * { 

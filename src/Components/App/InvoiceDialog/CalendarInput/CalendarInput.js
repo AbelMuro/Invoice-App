@@ -4,7 +4,7 @@ import calendarDates from './CalendarData';
 import icons from './icons';
 
 
-const CalendarInput = forwardRef((props, ref) => {
+const CalendarInput = forwardRef(({prevState}, ref) => {
     const [openPopup, setOpenPopup] = useState(false);
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
@@ -12,7 +12,7 @@ const CalendarInput = forwardRef((props, ref) => {
     const currentYear = currentDate.getFullYear();
     const changeMonth = useRef(currentMonth);
     const selectedYear = useRef(currentYear); 
-    const [selectedMonth, setSelectedMonth] = useState(calendarDates[currentMonth]);
+    const [selectedMonth, setSelectedMonth] = useState(prevState ? prevState : calendarDates[currentMonth]);
     const [selectedDay, setSelectedDay] = useState(currentDay);
 
     const handlePopup = () => {

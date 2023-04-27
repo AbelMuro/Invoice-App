@@ -1,9 +1,10 @@
 import React, {useRef, useState, useEffect, forwardRef, useImperativeHandle} from 'react';
 import styles from './styles.module.css';
 import useMediaQuery from '../../useMediaQuery';
+import {v4 as uuid} from 'uuid'
 
-
-const AddItems = forwardRef(({handleScroll}, ref) => {
+const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
+    const [allPrevItems, setAllPrevItems] = useState(prevItems)
     const allItems = useRef();
     const [noItems, setNoItems] = useState(true);
     const [mobile] = useMediaQuery('(max-width: 750px)');
@@ -13,7 +14,6 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
         e.target.style.border = '';
     }
     
-
     const handlePrice = (e) => {
         const total = e.target.parentElement.nextElementSibling.childNodes[1];      // selecting the node that has the net total
         const qty = e.target.parentElement.previousElementSibling.childNodes[1].value;    // selecting the node that has the qty
@@ -50,10 +50,14 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
         e.target.style.border = '1px solid #EC5757';
     }
 
+    //this is where i left off, i will need to remove the child element from the parentElement, but the parent itself
     const handleDelete = (e) => {
-        const nodeToDelete = e.target.parentElement;
-        nodeToDelete.remove();
+        const nodeToDelete = e.target.parentElement.getAttribute('id');
 
+        allItems.current.childNodes.forEach((child) => {
+            if(child.getAttribute('id') == nodeToDelete)
+                allItems.current.removeChild(child);
+        })
         if(!allItems.current.childNodes.length)
             setNoItems(true);
     }
@@ -81,6 +85,7 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
         const itemTotal = document.createElement('div');
         const trashIcon = document.createElement('div');
         item.setAttribute('class', styles.item);
+        item.setAttribute('id', uuid());
         inputName.setAttribute('type', 'text')          
         inputName.setAttribute('class', styles.input);
         inputName.setAttribute('required', ''); 
@@ -185,7 +190,67 @@ const AddItems = forwardRef(({handleScroll}, ref) => {
                     Total
                 </p>
             </div>  
-            <div className={styles.allItems} ref={allItems}></div>
+            <div className={styles.allItems} ref={allItems}>
+                {allPrevItems.map((item) => {
+                    return(
+                        <div className={styles.item} key={uuid()} id={uuid()}>
+                            <div className={styles.inputContainer}>
+                                <label className={styles.input_label}>
+                                    Item Name
+                                </label>
+                                <input 
+                                    type='text' 
+                                    defaultValue={item.itemName}
+                                    className={styles.input} 
+                                    onClick={handleClick}
+                                    onBlur={handleBlur}
+                                    onInvalid={handleInvalid}
+                                    required/>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <label className={styles.input_label}>
+                                    Qty.
+                                </label>
+                                <input
+                                    type='number'
+                                    defaultValue={item.itemQty}
+                                    className={styles.input}
+                                    placeholder='1'
+                                    onClick={handleClick}
+                                    onBlur={handleBlur}
+                                    onInvalid={handleInvalid}
+                                    required
+                                    />
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <label className={styles.input_label}>
+                                    Price
+                                </label>
+                                <input
+                                    type='number'
+                                    defaultValue={item.itemPrice}
+                                    className={styles.input}
+                                    placeholder='156.00'
+                                    step={0.01}
+                                    onClick={handleClick}
+                                    onBlur={handleBlur}
+                                    onInvalid={handleInvalid}
+                                    required
+                                    />
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <label className={styles.input_label}>
+                                    Total
+                                </label>
+                                <div className={styles.item_total}>
+                                    ${item.itemTotal}
+                                </div>
+                            </div>
+                            <div className={styles.trashIcon} onClick={handleDelete}></div>
+                        </div>
+                    )
+                })}
+            </div>
             <button type='button' className={styles.addItemButton} onClick={handleAddItem}>
                 + Add New Item
             </button>
