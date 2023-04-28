@@ -1,29 +1,44 @@
 import React, {useEffect} from 'react';
 import styles from './styles.module.css';
 import {useSelector, useDispatch} from 'react-redux';
+import {doc, collection, deleteDoc} from 'firebase/firestore';
+import {auth, db} from '../Firebase';
+import {useNavigate} from 'react-router-dom';
 
 
-//now i need to define the event handlers for the delete button
 function DeleteDialog() {
     const {open, invoice} = useSelector(state => state.deleteDialog);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleCancel = () => {
         dispatch({type: 'open delete', open: false, invoice: null});
     }
 
-    const handleDelete = () => {
-        
+    const handleDelete = async () => {
+        navigate('/');
+        dispatch({type: 'open delete', open: false, invoice: null});
+        try{
+            const collectionRef = collection(db, `${auth.currentUser.uid}`);
+            const docRef = doc(collectionRef, `${invoice.invoiceID}`);
+            await deleteDoc(docRef);        
+        }
+        catch(error){
+            console.log(error)
+        }
+        finally{
+            alert('Invoice has been deleted');
+        }
     }
 
     useEffect(() => {
         const overlay = document.querySelector('.' + styles.overlay);
         const deleteDialog = document.querySelector('.' + styles.deleteDialog)
 
-        if(open){
-            overlay.style.display = 'block';
-            deleteDialog.style.display = 'block'
-            setTimeout(() => {
+        if(open){   
+            overlay.style.display = 'block';                                //changing display from none to block will cancel any animation created by the transition property
+            deleteDialog.style.display = 'block';
+            setTimeout(() => {                                              //im using setTimeout because its async, so it wont cancel the animation
                 deleteDialog.style.backgroundColor = 'var(--dialog-bg)';
                 overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
             }, 10)

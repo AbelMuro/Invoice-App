@@ -7,9 +7,11 @@ import SelectInput from './SelectInput';
 import AddItems from './AddItems';
 import {db, auth} from '../Firebase';
 import {collection, addDoc, updateDoc, doc} from 'firebase/firestore';
+import useMediaQuery from '../useMediaQuery';
 
 function InvoiceDialog() {
     const {open, invoice} = useSelector(state => state.invoiceDialog);
+    const [mobile] = useMediaQuery('(max-width: 650px)');
     const streetAddress = useRef();
     const city = useRef();
     const postCode = useRef();
@@ -179,18 +181,7 @@ function InvoiceDialog() {
     useEffect(() => {
         const handleClick = (e) => {
             if(e.target.matches('.' + styles.overlay)){
-                streetAddress.current.resetState;
-                city.current.resetState;
-                postCode.current.resetState;
-                country.current.resetState;
-                clientName.current.resetState;
-                clientEmail.current.resetState;
-                clientStreetAddress.current.resetState;
-                clientCity.current.resetState;
-                clientPostCode.current.resetState;
-                clientCountry.current.resetState;
-                projectDesc.current.resetState;
-                items.current.resetState;
+                resetAllInputs()
                 dispatch({type: 'open invoice', open: false, invoice : null});                
             }
         }
@@ -223,6 +214,13 @@ function InvoiceDialog() {
     return(
         <form className={styles.overlay} onInvalid={handleInvalid} onSubmit={invoice ? updateDatabase : addToDatabase}>
             <section className={styles.newInvoice}>
+                {mobile ? 
+                    <a className={styles.goBack}>
+                        <div className={styles.arrow}></div>
+                        <span className={styles.goBack_text}>
+                            Go back
+                        </span>
+                    </a> : <></>}
                 <h1 className={styles.newInvoice_title}>
                     {invoice ? <>
                         Edit 
@@ -252,7 +250,7 @@ function InvoiceDialog() {
                 </fieldset>
                 <fieldset className={styles.invoiceDetails}>
                     <CalendarInput ref={invoiceDate} prevState={invoice ? invoice.invoiceDetails.invoiceDate : null}/>
-                    <SelectInput ref={paymentTerms} prevStatet={invoice ? invoice.invoiceDetails.paymentTerms : null}/>
+                    <SelectInput ref={paymentTerms} prevState={invoice ? invoice.invoiceDetails.paymentTerms : null}/>
                     <TextInput type='text' label='Project Description' placeholder='Graphic Design' ref={projectDesc} prevState={invoice ? invoice.invoiceDetails.projectDesc : null}/>
                 </fieldset>
                 <fieldset className={styles.itemList}>

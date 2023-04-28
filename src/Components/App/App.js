@@ -30,7 +30,7 @@ function App() {
                 <Sidebar/>           
                 <MobileHeaderbar/>
                 <InvoiceDialog/>
-                <DeleteDialog/>
+                <DeleteDialog isLoggedIn={isLoggedIn}/>
                 <Routes>
                     <Route path='/' element={<Invoices isLoggedIn={isLoggedIn}/>}/>
                     <Route path='/:invoice' element={<ViewInvoice/>}/>

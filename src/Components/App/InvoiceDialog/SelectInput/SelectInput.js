@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import icons from './icons';
 
 const SelectInput = forwardRef(({prevState}, ref) => {
-    const [option, setOption] = useState(prevState ? prevState : '1');
+    const [option, setOption] = useState('1');
     const [popup, setPopup] = useState(false);
 
     const handlePopup = () => {
@@ -14,6 +14,10 @@ const SelectInput = forwardRef(({prevState}, ref) => {
         const choosenOption = e.target.getAttribute('data-option');
         setOption(choosenOption);
     }
+
+    useEffect(() => {
+        setOption(prevState ? prevState : '1')
+    }, [prevState])
     
     useEffect(() => {
         const popupRef = document.querySelector('.' + styles.selectBox_popup);

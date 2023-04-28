@@ -3,7 +3,6 @@ import styles from './styles.module.css';
 import calendarDates from './CalendarData';
 import icons from './icons';
 
-
 const CalendarInput = forwardRef(({prevState}, ref) => {
     const [openPopup, setOpenPopup] = useState(false);
     const currentDate = new Date();
@@ -12,7 +11,7 @@ const CalendarInput = forwardRef(({prevState}, ref) => {
     const currentYear = currentDate.getFullYear();
     const changeMonth = useRef(currentMonth);
     const selectedYear = useRef(currentYear); 
-    const [selectedMonth, setSelectedMonth] = useState(prevState ? prevState : calendarDates[currentMonth]);
+    const [selectedMonth, setSelectedMonth] = useState(calendarDates[currentMonth]);
     const [selectedDay, setSelectedDay] = useState(currentDay);
 
     const handlePopup = () => {
@@ -58,6 +57,57 @@ const CalendarInput = forwardRef(({prevState}, ref) => {
         }
     }));
 
+    //extracting the month from the prevState string
+    useEffect(() => {
+        if(!prevState) return;
+
+        let prevDate = prevState;
+        prevDate.replaceAll(' ', '');
+        let month = '';
+        Array.from(prevDate).forEach((char) => {
+            if(!Number(char) && Number(char) != 0)
+                month += char;
+        })
+
+        month = new Date(`23 ${month} 2023`).getMonth();
+        setSelectedMonth(calendarDates[month]);
+    }, [prevState])
+
+    //extracting the year from the prevState string
+    useEffect(() => {
+        if(!prevState) return;
+
+        let prevDate = prevState;
+        let year = '';
+        for(let i = prevDate.length - 1; i >= 0; i--){
+            if(Number(prevDate[i]) || Number(prevDate[i] === 0))
+                year += prevDate[i];
+            else
+                break;
+        }
+        year = Array.from(year).reverse().join('');
+        selectedYear.current = year;
+    }, [prevState])
+
+    //extracting the day from the prevState string
+    useEffect(() => {
+        if(!prevState) return;
+
+        let prevDate = prevState;
+        let day = '';
+        Array.from(prevDate).every((char) => {
+            if(Number(char)){
+                day += char;
+                return true;
+            }
+            else 
+                return false
+        })
+
+        setSelectedDay(day);
+    }, [prevState])
+
+    //displaying the popup
     useEffect(() => {
         const popup = document.querySelector('.' + styles.popup);
 
@@ -67,6 +117,7 @@ const CalendarInput = forwardRef(({prevState}, ref) => {
             popup.style.display = '';
     }, [openPopup])
 
+    //adding an event listener that will close the popup if the user clicks on anything BUT the popup
     useEffect(() => {
         const handleClick = (e) => {
             if(!e.target.matches('.' + styles.popup) && !e.target.matches('.' + styles.popup_selectedDate) && 

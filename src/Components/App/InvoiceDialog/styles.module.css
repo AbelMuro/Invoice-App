@@ -9,6 +9,42 @@
     transition: left 0.4s linear, background-color 0.4s linear, top 0.2s linear;
 }
 
+.goBack{
+    position: absolute;
+    left: 24px;
+    top: 33px;
+    display: flex;
+    gap: 23.66px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrow{
+    mask: url('./icons/icon-arrow-left.svg');
+    mask-repeat: no-repeat;
+    -webkit-mask: url('./icons/icon-arrow-left.svg');
+    -webkit-mask-repeat: no-repeat;
+    width: 8px;
+    height: 12px;
+    background-color: #7C5DFA;
+}
+
+.goBack_text{
+    font-family: var(--font);
+    font-weight: var(--h3-variant-font-weight);
+    font-size: var(--h3-variant-font-size);
+    line-height: var(--h3-variant-line-height);
+    color: var(--view-invoice-go-back-link-text);
+}
+
+.goBack:hover .arrow{
+    background-color: #9277FF 
+}
+
+.goBack:hover .goBack_text{
+      color: var(--view-invoice-go-back-link-text-hover);  
+}
+
 .newInvoice{
     width: 719px;
     height: 100%;

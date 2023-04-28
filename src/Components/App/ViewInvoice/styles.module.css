@@ -27,7 +27,7 @@
 }
 
 .goBackLink:hover{
-    color: #7E88C3;
+    color: var(--view-invoice-go-back-link-text-hover);
 }
 
 .arrow{

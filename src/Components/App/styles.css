@@ -41,6 +41,7 @@ fieldset{
     --invoice-container-price: #0C0E16;
 
     --view-invoice-go-back-link-text: #0C0E16;
+    --view-invoice-go-back-link-text-hover: #7E88C3;
     --view-invoice-container-bg: white;
     --view-invoice-container-status-title: #858BB2;
     --view-invoice-container-edit-button-bg: #F9FAFE;

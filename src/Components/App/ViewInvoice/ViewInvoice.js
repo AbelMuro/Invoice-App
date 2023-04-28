@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import DisplayItems from './DisplayItems';
 import styles from './styles.module.css';
 import icons from './icons';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {db} from '../Firebase';
-import {collection, doc, deleteDoc} from 'firebase/firestore';
+import {collection, doc, updateDoc} from 'firebase/firestore';
 import {useDocumentData} from 'react-firebase-hooks/firestore';
 
 function ViewInvoice() {
@@ -27,6 +27,18 @@ function ViewInvoice() {
     const handleEdit = () => {
         window.scrollTo(0, 0);
         dispatch({type: 'open invoice', open: true, invoice: invoice});
+    }
+
+    const handleStatus = async () => {
+        try{
+            await updateDoc(docRef, {status: 'Paid'});
+        }
+        catch(error){
+            console.log(error);
+        }
+        finally{
+            navigate('/');
+        }
     }
 
     const calculatePaymentDueDate = () => {
@@ -54,6 +66,26 @@ function ViewInvoice() {
         return nextDay + " " + months[nextMonth] + " " + nextYear;        
     }
 
+    const handleStatusChange = useCallback((ref) => {
+        if(!ref || !invoice) return;
+        
+        if(invoice.status === 'Draft'){
+            ref.style.backgroundColor = 'rgba(55, 59, 83, 0.06)';
+            ref.childNodes[0].style.backgroundColor = '#373B53';
+            ref.style.color = '#373B53';
+        }
+        else if(invoice.status === 'Pending'){
+            ref.style.backgroundColor = 'rgba(255, 143, 0, 0.06)';
+            ref.childNodes[0].style.backgroundColor = '#FF8F00';
+            ref.style.color = '#FF8F00';
+        }
+        else{
+            ref.style.backgroundColor = 'rgba(51, 214, 159, 0.06)';
+            ref.childNodes[0].style.backgroundColor = '#33D69F';
+            ref.style.color = '#33D69F';
+        }
+            
+    },[invoice])
 
     return(
           loading ? 
@@ -65,9 +97,9 @@ function ViewInvoice() {
                         <span>Go back</span>
                     </a>
                     <div className={styles.invoice_details}>
-                        <div className={styles.invoice_statusTitle}>          
+                        <div className={styles.invoice_statusTitle} >          
                             Status
-                            <div className={styles.invoice_status}>
+                            <div className={styles.invoice_status} ref={handleStatusChange}>
                                 <div className={styles.dot}></div>
                                 {invoice.status}
                             </div>
@@ -79,7 +111,7 @@ function ViewInvoice() {
                             <button className={styles.invoice_deleteButton} onClick={handleDelete}>
                                 Delete
                             </button>
-                            <button className={styles.invoice_paidButton}>
+                            <button className={styles.invoice_paidButton} onClick={handleStatus}>
                                 Mark as Paid
                             </button>
                         </div>
