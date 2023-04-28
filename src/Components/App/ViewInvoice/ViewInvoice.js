@@ -5,7 +5,7 @@ import icons from './icons';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {db} from '../Firebase';
-import {collection, doc} from 'firebase/firestore';
+import {collection, doc, deleteDoc} from 'firebase/firestore';
 import {useDocumentData} from 'react-firebase-hooks/firestore';
 
 function ViewInvoice() {
@@ -18,6 +18,10 @@ function ViewInvoice() {
 
     const handleGoBack = () => {
         navigate('/');
+    }
+
+    const handleDelete = () => {
+        dispatch({type: 'open delete', open: true, invoice: invoice})
     }
 
     const handleEdit = () => {
@@ -72,7 +76,7 @@ function ViewInvoice() {
                             <button className={styles.invoice_editButton} onClick={handleEdit}>
                                 Edit
                             </button>
-                            <button className={styles.invoice_deleteButton}>
+                            <button className={styles.invoice_deleteButton} onClick={handleDelete}>
                                 Delete
                             </button>
                             <button className={styles.invoice_paidButton}>

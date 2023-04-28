@@ -78,7 +78,9 @@ fieldset{
     --dialog-button-container-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.1);
     --dialog-button-draft-text: #888EB0;
     --dialog-button-draft-hover:#0C0E16;
-
+    --dialog-button-cancel-button-bg: #f9fafe;
+    --dialog-button-cancel-button-text: #7E88C3;
+    --dialog-delete-message-text: #888Eb0;
 
     --h1-font-size: 36px;
     --h1-font-weight: 700;

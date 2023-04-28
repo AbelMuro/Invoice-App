@@ -1,9 +1,10 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import {OpenInvoiceReducer, OpenLogInReducer} from './Reducers.js';
+import {OpenInvoiceReducer, OpenLogInReducer, OpenDeleteReducer} from './Reducers.js';
 
 const rootReducer = combineReducers({
     invoiceDialog: OpenInvoiceReducer,
-    loginDialog: OpenLogInReducer
+    loginDialog: OpenLogInReducer,
+    deleteDialog: OpenDeleteReducer
 })
 
 export default rootReducer;

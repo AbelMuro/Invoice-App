@@ -50,10 +50,7 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
         e.target.style.border = '1px solid #EC5757';
     }
 
-    //this is where i left off, i will need to remove the child element from the parentElement, but not the parent itself
     const handleDelete = (e) => {
-
-
         const nodeToDelete = e.target.parentElement;
         nodeToDelete.remove();
         
@@ -61,10 +58,24 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
             setNoItems(true);
     }
 
-    const deleteAllItems = () => {
-        const trashIcons = document.querySelectorAll('.' + styles.trashIcon);
-        trashIcons.forEach((trash) => {
-            trash.click();
+    const handlePrevItemsDelete = (e) => {
+        const nodeToDeleteIndex = e.target.parentElement.getAttribute('data-index');
+
+        setAllPrevItems((prevItems) => {
+            return prevItems.filter((item, index) => {
+                if(index == Number(nodeToDeleteIndex))
+                    return false;
+                else
+                    return true;
+            })
+        })
+    }
+
+    const handleDeleteAllItems = () => {
+        const allItems = document.querySelectorAll('.' + styles.item);
+        allItems.forEach((item) => {
+            const trashIcon = item.childNodes[4];
+            trashIcon.click();
         })
     }
 
@@ -84,7 +95,6 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
         const itemTotal = document.createElement('div');
         const trashIcon = document.createElement('div');
         item.setAttribute('class', styles.item);
-        item.setAttribute('id', uuid());
         inputName.setAttribute('type', 'text')          
         inputName.setAttribute('class', styles.input);
         inputName.setAttribute('required', ''); 
@@ -124,7 +134,7 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
         inputPriceContainer.append(inputPriceLabel);
         inputPriceContainer.append(inputPrice);
         itemTotal.setAttribute('class', styles.item_total);
-        itemTotal.innerHTML = '156.00';
+        itemTotal.innerHTML = '0';
         itemTotalLabel.innerHTML = 'Total';
         itemTotalLabel.setAttribute('class', styles.input_label);
         itemTotalContainer.setAttribute('class', styles.inputContainer);        
@@ -137,7 +147,7 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
         item.append(inputPriceContainer);
         item.append(itemTotalContainer);
         item.append(trashIcon);
-        allItems.current.append(item);
+        allItems.current.appendChild(item);
         handleScroll();
         setNoItems(false);
     }
@@ -151,6 +161,11 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
             allItemsContainer.style.marginBottom = '';
 
     }, [noItems, mobile])
+
+    useEffect(() => {
+        if(prevItems)
+            setAllPrevItems(prevItems);
+    },[prevItems])
 
     useImperativeHandle(ref, () => ({
         get state() {
@@ -168,8 +183,8 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
                 };
             })
         },
-        get resetState() {
-            deleteAllItems();
+        get resetState(){
+            handleDeleteAllItems();
         }
     }))
 
@@ -190,65 +205,69 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
                 </p>
             </div>  
             <div className={styles.allItems} ref={allItems}>
-                {allPrevItems.map((item, i) => {
-                    return(
-                        <div className={styles.item} key={uuid()} id={uuid()} index={i}>
-                            <div className={styles.inputContainer}>
-                                <label className={styles.input_label}>
-                                    Item Name
-                                </label>
-                                <input 
-                                    type='text' 
-                                    defaultValue={item.itemName}
-                                    className={styles.input} 
-                                    onClick={handleClick}
-                                    onBlur={handleBlur}
-                                    onInvalid={handleInvalid}
-                                    required/>
-                            </div>
-                            <div className={styles.inputContainer}>
-                                <label className={styles.input_label}>
-                                    Qty.
-                                </label>
-                                <input
-                                    type='number'
-                                    defaultValue={item.itemQty}
-                                    className={styles.input}
-                                    placeholder='1'
-                                    onClick={handleClick}
-                                    onBlur={handleBlur}
-                                    onInvalid={handleInvalid}
-                                    required
-                                    />
-                            </div>
-                            <div className={styles.inputContainer}>
-                                <label className={styles.input_label}>
-                                    Price
-                                </label>
-                                <input
-                                    type='number'
-                                    defaultValue={item.itemPrice}
-                                    className={styles.input}
-                                    placeholder='156.00'
-                                    step={0.01}
-                                    onClick={handleClick}
-                                    onBlur={handleBlur}
-                                    onInvalid={handleInvalid}
-                                    required
-                                    />
-                            </div>
-                            <div className={styles.inputContainer}>
-                                <label className={styles.input_label}>
-                                    Total
-                                </label>
-                                <div className={styles.item_total}>
-                                    ${item.itemTotal}
+                <div className={styles.prevItems}>
+                    {allPrevItems.map((item, index) => {
+                        return(
+                            <div className={styles.item} key={uuid()} data-index={index}>
+                                <div className={styles.inputContainer}>
+                                    <label className={styles.input_label}>
+                                        Item Name
+                                    </label>
+                                    <input 
+                                        type='text' 
+                                        defaultValue={item.itemName}
+                                        className={styles.input} 
+                                        onClick={handleClick}
+                                        onBlur={handleBlur}
+                                        onInvalid={handleInvalid}
+                                        required/>
                                 </div>
+                                <div className={styles.inputContainer}>
+                                    <label className={styles.input_label}>
+                                        Qty.
+                                    </label>
+                                    <input
+                                        type='number'
+                                        defaultValue={item.itemQty}
+                                        className={styles.input}
+                                        placeholder='1'
+                                        onClick={handleClick}
+                                        onBlur={handleBlur}
+                                        onInvalid={handleInvalid}
+                                        onChange={handleQty}
+                                        required
+                                        />
+                                </div>
+                                <div className={styles.inputContainer}>
+                                    <label className={styles.input_label}>
+                                        Price
+                                    </label>
+                                    <input
+                                        type='number'
+                                        defaultValue={item.itemPrice}
+                                        className={styles.input}
+                                        placeholder='156.00'
+                                        step={0.01}
+                                        onClick={handleClick}
+                                        onBlur={handleBlur}
+                                        onInvalid={handleInvalid}
+                                        onChange={handlePrice}
+                                        required
+                                        />
+                                </div>
+                                <div className={styles.inputContainer}>
+                                    <label className={styles.input_label}>
+                                        Total
+                                    </label>
+                                    <div className={styles.item_total}>
+                                        {item.itemTotal}
+                                    </div>
+                                </div>
+                                <div className={styles.trashIcon} onClick={handlePrevItemsDelete}></div>
                             </div>
-                            <div className={styles.trashIcon} onClick={handleDelete}></div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}                    
+                </div>
             </div>
             <button type='button' className={styles.addItemButton} onClick={handleAddItem}>
                 + Add New Item

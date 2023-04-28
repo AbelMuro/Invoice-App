@@ -28,7 +28,7 @@ function DisplayItems({invoice}) {
                     </div>
                 </div>}
             {invoice.items.map((item) => {
-                netTotal.current += Number(item.itemTotal);
+                netTotal.current += Number(item.itemTotal.replace('$', ''));
                 return(
                     mobile ? 
                         <div className={styles.invoice_item_mobile} key={uuid()}>

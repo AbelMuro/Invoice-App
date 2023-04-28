@@ -6,8 +6,7 @@ import CalendarInput from './CalendarInput';
 import SelectInput from './SelectInput';
 import AddItems from './AddItems';
 import {db, auth} from '../Firebase';
-import {collection, addDoc, updateDoc} from 'firebase/firestore';
-
+import {collection, addDoc, updateDoc, doc} from 'firebase/firestore';
 
 function InvoiceDialog() {
     const {open, invoice} = useSelector(state => state.invoiceDialog);
@@ -29,7 +28,22 @@ function InvoiceDialog() {
     const noItemMessage = useRef();
     const dispatch = useDispatch();
 
-    const updateDatabase = async (e) => {
+    const resetAllInputs = () => {
+        streetAddress.current.resetState;
+        city.current.resetState;
+        postCode.current.resetState;
+        country.current.resetState;
+        clientName.current.resetState;
+        clientEmail.current.resetState;
+        clientStreetAddress.current.resetState;
+        clientCity.current.resetState;
+        clientPostCode.current.resetState;
+        clientCountry.current.resetState;
+        projectDesc.current.resetState;
+        items.current.resetState;
+    } 
+
+    const addToDatabase = async (e) => {
         e.preventDefault();   
         emptyMessage.current.style.display = '';             
         const isDraftButton = e.target.getAttribute('data-button');
@@ -76,26 +90,63 @@ function InvoiceDialog() {
             const newDocRef = await addDoc(userCollectionRef, newInvoice);
             await updateDoc(newDocRef, {invoiceID: newDocRef.id})
             alert('Invoice has been added to the firestore');
-            dispatch({type: 'open create invoice', open: false});
+            dispatch({type: 'open invoice', open: false, invoice: null});
         }
         catch(error){
             console.log(error)
         }
         finally{
-            streetAddress.current.resetState;
-            city.current.resetState;
-            postCode.current.resetState;
-            country.current.resetState;
-            clientName.current.resetState;
-            clientEmail.current.resetState;
-            clientStreetAddress.current.resetState;
-            clientCity.current.resetState;
-            clientPostCode.current.resetState;
-            clientCountry.current.resetState;
-            projectDesc.current.resetState;
-            items.current.resetState;
-            dispatch({type: 'open create invoice', open: false});
+            resetAllInputs();
         }
+    }
+
+    const updateDatabase = async (e) => {
+        e.preventDefault();
+        emptyMessage.current.style.display = ''; 
+
+        const newInvoice = {
+            billFrom: {
+                streetAddress: streetAddress.current.state,
+                city: city.current.state,
+                postCode: postCode.current.state,
+                country: country.current.state
+            },
+            billTo: {
+                clientName: clientName.current.state,
+                clientEmail: clientEmail.current.state,
+                clientStreetAddress: clientStreetAddress.current.state,
+                clientCity: clientCity.current.state,
+                clientPostCode: clientPostCode.current.state,
+                clientCountry: clientCountry.current.state,
+            },
+            invoiceDetails: {
+                invoiceDate: invoiceDate.current.state,
+                paymentTerms: paymentTerms.current.state,
+                projectDesc: projectDesc.current.state
+            },
+            items: items.current.state
+        }
+        try{
+            const userCollectionRef = collection(db, `${auth.currentUser.uid}`)
+            const docRef = doc(userCollectionRef, invoice.invoiceID);
+            await updateDoc(docRef, newInvoice);
+            alert('Invoice has been updated!');
+            dispatch({type: 'open invoice', open: false, invoice: null});
+        }
+        catch(error){
+            console.log(error)
+        }
+        finally{
+            resetAllInputs();
+        }
+
+    }
+
+    const handleClose = (e) => {
+        resetAllInputs();
+        const dialog = document.querySelector('.' + styles.newInvoice);
+        dialog.scrollTo(0, 0)
+        dispatch({type: 'open invoice', open: false, invoice: false});
     }
 
     const handleInvalid = () => {
@@ -128,7 +179,19 @@ function InvoiceDialog() {
     useEffect(() => {
         const handleClick = (e) => {
             if(e.target.matches('.' + styles.overlay)){
-                dispatch({type: 'open invoice', open: false});                
+                streetAddress.current.resetState;
+                city.current.resetState;
+                postCode.current.resetState;
+                country.current.resetState;
+                clientName.current.resetState;
+                clientEmail.current.resetState;
+                clientStreetAddress.current.resetState;
+                clientCity.current.resetState;
+                clientPostCode.current.resetState;
+                clientCountry.current.resetState;
+                projectDesc.current.resetState;
+                items.current.resetState;
+                dispatch({type: 'open invoice', open: false, invoice : null});                
             }
         }
         if(open)
@@ -158,7 +221,7 @@ function InvoiceDialog() {
 
 
     return(
-        <form className={styles.overlay} onInvalid={handleInvalid} onSubmit={updateDatabase}>
+        <form className={styles.overlay} onInvalid={handleInvalid} onSubmit={invoice ? updateDatabase : addToDatabase}>
             <section className={styles.newInvoice}>
                 <h1 className={styles.newInvoice_title}>
                     {invoice ? <>
@@ -196,7 +259,7 @@ function InvoiceDialog() {
                     <h2 className={styles.itemList_title}>
                         Item List
                     </h2>
-                    {open ? <AddItems handleScroll={handleScroll} prevItems={invoice ? invoice.items : []} ref={items}/> : <></>}
+                    <AddItems handleScroll={handleScroll} prevItems={invoice ? invoice.items : []} ref={items} />
                 </fieldset>
                 <div className={styles.errorMessage}>
                     <p className={styles.emptyMessage} ref={emptyMessage}>
@@ -208,19 +271,29 @@ function InvoiceDialog() {
                 </div>  
             </section>    
             <div className={styles.whiteBox}>
-                <div className={styles.buttons}>
-                    <button className={styles.discardButton}>
+                {invoice ? 
+                    <div className={styles.otherButtons}>
+                        <button type='button' className={styles.cancelButton} onClick={handleClose}>
+                            Cancel
+                        </button>
+                        <button className={styles.saveChangesButton}>
+                            Save Changes
+                        </button>
+                    </div> 
+                    :
+                    <div className={styles.buttons}>
+                    <button type='button' className={styles.discardButton} onClick={handleClose}>
                         Discard
                     </button>
                     <div className={styles.buttonContainer}>
-                        <button type='button' className={styles.draftButton} onClick={updateDatabase} data-button={true}>
+                        <button type='button' className={styles.draftButton} onClick={addToDatabase} data-button={true}>
                             Save as Draft
                         </button>
                         <button className={styles.saveButton}> 
                             Save & Send
                         </button>                        
                     </div>
-                </div>                      
+                </div>  }                    
             </div>
         </form>
     )

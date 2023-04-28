@@ -107,13 +107,25 @@
     justify-content: space-between;
 }
 
+.otherButtons{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 56px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
 .buttonContainer{
     width: 269px;
     display: flex;
     justify-content: space-between;
 }
 
-.discardButton, .draftButton, .saveButton{
+
+.discardButton, .draftButton, .saveButton, .cancelButton, .saveChangesButton{
     height: 48px;
     border-radius: 24px;    
     font-family: var(--font);
@@ -124,14 +136,27 @@
     cursor: pointer; 
 }
 
+.saveChangesButton{
+    cursor: pointer;
+    background-color: #7C5DFA;
+    color: white;
+    width: 138px;
+}
+
+.cancelButton{
+    width: 96px;
+    background-color: var(--dialog-button-cancel-button-bg); 
+    color: var(--dialog-button-cancel-button-text);
+}
+
 .discardButton{
     width: 96px;
     background-color: #F9FAFE;
     color: #7E88C3;
 }
 
-.discardButton:hover{
-    background-color: rgb(211, 211, 211);
+.discardButton:hover, .cancelButton:hover{
+    background-color: rgb(246, 246, 246);
 }
 
 .draftButton{
@@ -150,7 +175,7 @@
     color: white;
 }
 
-.saveButton:hover{
+.saveButton:hover, .saveChangesButton:hover{
     background-color: #9277FF;
 }
 
@@ -298,8 +323,17 @@
 
 
 @media(max-width: 650px){
+    .newInvoice{
+        border-radius: 0px;
+    }
+
     .whiteBox{
         width: 100%;
+        border-radius: 0px;
+    }
+
+    .otherButtons{
+        right: 24px;
     }
 
     .itemList_title{

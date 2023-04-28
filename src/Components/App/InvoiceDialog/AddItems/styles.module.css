@@ -6,7 +6,7 @@
     margin-bottom: 149px;
 }
 
-.allItems{
+.allItems, .prevItems{
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -146,6 +146,10 @@ input[type=number]::-webkit-outer-spin-button {
 @media(max-width: 750px){
     .allItems{
         margin-bottom: 48px;
+        gap: 49px;
+    }
+
+    .prevItems{
         gap: 49px;
     }
 
