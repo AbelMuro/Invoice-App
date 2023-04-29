@@ -144,7 +144,7 @@ function InvoiceDialog() {
 
     }
 
-    const handleClose = (e) => {
+    const handleClose = () => {
         resetAllInputs();
         const dialog = document.querySelector('.' + styles.newInvoice);
         dialog.scrollTo(0, 0)
@@ -223,9 +223,9 @@ function InvoiceDialog() {
                     </a> : <></>}
                 <h1 className={styles.newInvoice_title}>
                     {invoice ? <>
-                        Edit 
-                        <span>#</span> 
-                        {invoice.invoiceNumber}
+                        Edit&nbsp;
+                        <span>#</span>
+                        <span>{invoice.invoiceNumber}</span>
                     </> : 'New Invoice'}
                 </h1>
                 <fieldset className={styles.billFrom}>

@@ -123,14 +123,14 @@ function ViewInvoice() {
                                     <span>#</span>{invoice.invoiceNumber}
                                 </span>
                                 <span className={styles.invoice_desc}>
-                                    {invoice.invoiceDetails.projectDesc}
+                                    {invoice.invoiceDetails.projectDesc ? invoice.invoiceDetails.projectDesc : 'No Description'}
                                 </span>
                             </h3>
                             <p className={styles.invoice_address}>
-                                {invoice.billFrom.streetAddress}<br/>
-                                {invoice.billFrom.city}<br/>
-                                {invoice.billFrom.postCode}<br/>
-                                {invoice.billFrom.country}<br/>
+                                {invoice.billFrom.streetAddress ? invoice.billFrom.streetAddress : 'No Street Address'}<br/>
+                                {invoice.billFrom.city ? invoice.billFrom.city : 'No City'}<br/>
+                                {invoice.billFrom.postCode ? invoice.billFrom.postCode : 'No Post Code'}<br/>
+                                {invoice.billFrom.country ? invoice.billFrom.country : 'No Country'}<br/>
                             </p>
                         </div>
                         <div className={styles.invoice_billTo}>
@@ -153,18 +153,18 @@ function ViewInvoice() {
                                     Bill To
                                 </h3>
                                 <p className={styles.invoice_clientName}>
-                                    {invoice.billTo.clientName}
+                                    {invoice.billTo.clientName ? invoice.billTo.clientName : 'No Name'}
                                 </p>
-                                {invoice.billTo.clientStreetAddress}<br/>
-                                {invoice.billTo.clientCity}<br/>
-                                {invoice.billTo.clientPostCode}<br/>
-                                {invoice.billTo.clientCountry}<br/>
+                                {invoice.billTo.clientStreetAddress ? invoice.billTo.clientStreetAddress : 'No Street Address'}<br/>
+                                {invoice.billTo.clientCity ? invoice.billTo.clientCity : 'No City'}<br/>
+                                {invoice.billTo.clientPostCode ? invoice.billTo.clientPostCode : 'No Post Code'}<br/>
+                                {invoice.billTo.clientCountry ? invoice.billTo.clientCountry : 'No Country'}<br/>
                             </div>
                             <div className={styles.invoice_clientEmail}>
                                 <h3 className={styles.invoice_sendTo}>
                                     Send to
                                 </h3>
-                               {invoice.billTo.clientEmail}
+                               {invoice.billTo.clientEmail ? invoice.billTo.clientEmail : 'No Email'}
                             </div>
                         </div>
                         <div className={styles.invoice_items}>

@@ -3,16 +3,22 @@ import styles from './styles.module.css';
 import icons from './icons'
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {db} from '../../Firebase';
-import {collection} from 'firebase/firestore';
+import {collection, where, query} from 'firebase/firestore';
 import {v4 as uuid} from 'uuid';
 import useMediaQuery from '../../useMediaQuery';
 import {useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 
 function DisplayInvoices({userID}) {
+    const filter = useSelector(state => state.filter);    
     const [mobile] = useMediaQuery('(max-width: 790px)');
-    const userCollectionRef = collection(db, `${userID}`)
-    const [invoices, loading, error] = useCollectionData(userCollectionRef);
+    const userCollectionRef = collection(db, `${userID}`);
+    const [invoices, loading, error] = useCollectionData(
+            filter.length ? 
+                query(userCollectionRef, where('status', 'in', filter)) :
+                userCollectionRef
+            );
     const navigate = useNavigate();
 
     const handleClick = (e) => {
@@ -56,7 +62,8 @@ function DisplayInvoices({userID}) {
                                         <div className={styles.displayInvoices_invoice} onClick={handleClick} data-invoice={invoice.invoiceNumber} data-id={invoice.invoiceID}>
                                             <div className={styles.displayInvoices_title_dueDate_name}>
                                                 <h3 className={styles.displayInvoices_title}>
-                                                    <span>#</span>{invoice.invoiceNumber}
+                                                    <span>#</span>
+                                                    {invoice.invoiceNumber}
                                                 </h3>
                                                 <p className={styles.displayInvoices_dueDate}>
                                                     <span>Due</span> {invoice.invoiceDetails.invoiceDate}
@@ -67,9 +74,9 @@ function DisplayInvoices({userID}) {
                                             </div>
                                             <div className={styles.displayInvoices_priceAndStatus}>
                                                 <p className={styles.displayInvoices_price}>
-                                                    $ {invoice.items.reduce((accumulate, currentItem) => {
+                                                    ${invoice.items.reduce((accumulate, currentItem) => {
                                                             return accumulate + Number(currentItem.itemTotal);
-                                                    }, 0).toFixed(2)}
+                                                    }, 0).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                                                 </p>
                                                 <div className={styles.displayInvoices_status} ref={changeStatusColor} data-status={invoice.status}>
                                                     <div className={styles.dot}></div>

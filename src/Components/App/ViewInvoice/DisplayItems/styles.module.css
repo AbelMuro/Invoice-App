@@ -102,3 +102,11 @@
     flex-direction: column;
     gap: 8px;
 }
+
+.noItemsMessage{
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    color: var(--view-invoice-container-item-name);
+}

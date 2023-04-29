@@ -43,13 +43,13 @@
     line-height: 15px;
     letter-spacing: -0.25px;
     pointer-events: none;
+    text-transform: uppercase;
 }
 
 .displayInvoices_title span{
     color: #7E88C3;
     pointer-events: none;
 }
-
 
 .displayInvoices_dueDate{
     font-family: var(--font);

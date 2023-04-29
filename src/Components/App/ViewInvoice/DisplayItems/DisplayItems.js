@@ -27,7 +27,7 @@ function DisplayItems({invoice}) {
                         </h3>                            
                     </div>
                 </div>}
-            {invoice.items.map((item) => {
+            {invoice.items.length ? invoice.items.map((item) => {
                 netTotal.current += Number(item.itemTotal.replace('$', ''));
                 return(
                     mobile ? 
@@ -37,11 +37,11 @@ function DisplayItems({invoice}) {
                                     {item.itemName}
                                 </h3>
                                 <p className={styles.invoice_QtyPriceMobile}>
-                                    {item.itemQty + ' x ' + '$' + item.itemPrice}
+                                    {item.itemQty + ' x ' + '$' + Number(item.itemPrice).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                                 </p>
                             </div>
                             <div className={styles.invoice_totalMobile}>
-                                ${item.itemTotal}
+                                ${Number(item.itemTotal).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                             </div>
                         </div> : 
                         <div className={styles.invoice_item} key={uuid()}>
@@ -53,23 +53,25 @@ function DisplayItems({invoice}) {
                                     <span>{item.itemQty}</span>
                                 </p>
                                 <p className={styles.invoice_price}>
-                                    <span>${Number(item.itemPrice).toFixed(2)}</span>
+                                    <span>${Number(item.itemPrice).toLocaleString(undefined, { maximumFractionDigits: 2 ,minimumFractionDigits: 2 })}</span>
                                 </p>
                                 <p className={styles.invoice_total}>
-                                    <span>${item.itemTotal}</span>
+                                    <span>${Number(item.itemTotal).toLocaleString(undefined, { maximumFractionDigits: 2,  minimumFractionDigits: 2 })}</span>
                                 </p>
                             </div>
                         </div>
                     )                                    
-                })}
+                }) : <div className={styles.noItemsMessage}>
+                        No Items Available
+                    </div>} 
                 <div className={styles.invoice_amountDue}>
                     <h3 className={styles.invoice_amountDueTitle}>
                         Amount Due
                     </h3>
-                    {'$' + netTotal.current.toFixed(2)}
+                    {'$' + netTotal.current.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </div>
             </>    
-            )            
+            )           
 
 }
 

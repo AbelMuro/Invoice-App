@@ -280,9 +280,12 @@
     }
     .invoice_billTo{
         display: grid;
-        grid-template-columns: 84px 92px;
+        grid-template-columns: 84px 140px;
         column-gap: 61px;
         row-gap: 35px;
+    }
+    .invoice_clientAddress{
+        width: 100%;
     }
     .invoice_header{
         flex-direction: column;  
