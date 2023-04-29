@@ -32,7 +32,7 @@
 .displayInvoices_title_dueDate_name{
     display: flex;
     justify-content: space-between;
-    width: 308px;
+    gap: 45px;
     pointer-events: none;
 }
 
@@ -44,6 +44,10 @@
     letter-spacing: -0.25px;
     pointer-events: none;
     text-transform: uppercase;
+}
+
+.displayInvoices_title:not(.displayInvoices_title span){
+    color: var(--invoice-container-title);
 }
 
 .displayInvoices_title span{
@@ -119,6 +123,7 @@
     border-radius: 100%;
     background-color: #33D69F;
     pointer-events: none;
+
 }
 
 .arrow{
@@ -129,7 +134,7 @@
 
 @media(max-width: 790px){
     .displayInvoices_title_dueDate_name{
-        width: 250px;
+        gap: 28px;
     }
 
     .displayInvoices_priceAndStatus{

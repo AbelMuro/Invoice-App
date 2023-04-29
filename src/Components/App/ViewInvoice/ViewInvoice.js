@@ -70,9 +70,9 @@ function ViewInvoice() {
         if(!ref || !invoice) return;
         
         if(invoice.status === 'Draft'){
-            ref.style.backgroundColor = 'rgba(55, 59, 83, 0.06)';
-            ref.childNodes[0].style.backgroundColor = '#373B53';
-            ref.style.color = '#373B53';
+            ref.style.backgroundColor = 'var(--invoice-draft-bg)';
+            ref.childNodes[0].style.backgroundColor = 'var(--invoice-draft-text)';
+            ref.style.color = 'var(--invoice-draft-text)';
         }
         else if(invoice.status === 'Pending'){
             ref.style.backgroundColor = 'rgba(255, 143, 0, 0.06)';

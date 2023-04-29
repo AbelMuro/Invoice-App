@@ -15,12 +15,17 @@ import './styles.css';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userID, setUserID] = useState('')
 
     onAuthStateChanged(auth, (currentUser) => {
-        if(currentUser)
+        if(currentUser){
             setIsLoggedIn(true);
-        else
+            setUserID(currentUser.uid)
+        }
+        else{
             setIsLoggedIn(false); 
+            setUserID('');
+        } 
     })
 
     return(
@@ -32,7 +37,7 @@ function App() {
                 <InvoiceDialog/>
                 <DeleteDialog isLoggedIn={isLoggedIn}/>
                 <Routes>
-                    <Route path='/' element={<Invoices isLoggedIn={isLoggedIn}/>}/>
+                    <Route path='/' element={<Invoices isLoggedIn={isLoggedIn} userID={userID}/>}/>
                     <Route path='/:invoice' element={<ViewInvoice/>}/>
                 </Routes>
             </Provider>        

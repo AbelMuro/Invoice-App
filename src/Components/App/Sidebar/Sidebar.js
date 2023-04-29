@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
-import LightOrDarkTheme from '../LightOrDarkTheme';
 import {useDispatch} from 'react-redux';
+import SwitchTheme from './SwitchTheme';
 import styles from './styles.module.css';
 import icons from './icons';
 import images from './images';
@@ -21,7 +21,7 @@ function Sidebar() {
                     <div className={styles.sidebar_whiteBox}></div>
                 </div>
                 <div className={styles.sidebar_themeAndImage}>
-                    <LightOrDarkTheme/>
+                    <SwitchTheme/>
                     <div className={styles.sidebar_horizontalLine}></div>
                     <img src={images['avatar']} className={styles.sidebar_avatar} onClick={auth.currentUser ? () => {} : handleClick}/>
                 </div>

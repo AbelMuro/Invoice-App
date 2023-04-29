@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import styles from './styles.module.css';
 import icons from './icons';
 import images from './images';
-import LightOrDarkTheme from '../LightOrDarkTheme';
+import SwitchTheme from './SwitchTheme';
 import {useDispatch} from 'react-redux';
 import {auth} from '../Firebase';
 
@@ -20,7 +20,7 @@ function MobileHeaderbar() {
                 <div className={styles.header_whiteBox}></div>
             </div>
             <div className={styles.header_themeAndImage}>
-                <LightOrDarkTheme/>
+                <SwitchTheme/>
                 <div className={styles.header_verticalLine}></div>
                 <img src={images['avatar']} className={styles.header_avatar} onClick={auth.currentUser ? () => {} : handleClick}/>
             </div>

@@ -205,69 +205,70 @@ const AddItems = forwardRef(({handleScroll, prevItems}, ref) => {
                 </p>
             </div>  
             <div className={styles.allItems} ref={allItems}>
-                <div className={styles.prevItems}>
-                    {allPrevItems.map((item, index) => {
-                        return(
-                            <div className={styles.item} key={uuid()} data-index={index}>
-                                <div className={styles.inputContainer}>
-                                    <label className={styles.input_label}>
-                                        Item Name
-                                    </label>
-                                    <input 
-                                        type='text' 
-                                        defaultValue={item.itemName}
-                                        className={styles.input} 
-                                        onClick={handleClick}
-                                        onBlur={handleBlur}
-                                        onInvalid={handleInvalid}
-                                        required/>
-                                </div>
-                                <div className={styles.inputContainer}>
-                                    <label className={styles.input_label}>
-                                        Qty.
-                                    </label>
-                                    <input
-                                        type='number'
-                                        defaultValue={item.itemQty}
-                                        className={styles.input}
-                                        placeholder='1'
-                                        onClick={handleClick}
-                                        onBlur={handleBlur}
-                                        onInvalid={handleInvalid}
-                                        onChange={handleQty}
-                                        required
-                                        />
-                                </div>
-                                <div className={styles.inputContainer}>
-                                    <label className={styles.input_label}>
-                                        Price
-                                    </label>
-                                    <input
-                                        type='number'
-                                        defaultValue={item.itemPrice}
-                                        className={styles.input}
-                                        placeholder='156.00'
-                                        step={0.01}
-                                        onClick={handleClick}
-                                        onBlur={handleBlur}
-                                        onInvalid={handleInvalid}
-                                        onChange={handlePrice}
-                                        required
-                                        />
-                                </div>
-                                <div className={styles.inputContainer}>
-                                    <label className={styles.input_label}>
-                                        Total
-                                    </label>
-                                    <div className={styles.item_total}>
-                                        {item.itemTotal}
+                {allPrevItems.length ? 
+                    <div className={styles.prevItems}>
+                        {allPrevItems.map((item, index) => {
+                            return(
+                                <div className={styles.item} key={uuid()} data-index={index}>
+                                    <div className={styles.inputContainer}>
+                                        <label className={styles.input_label}>
+                                            Item Name
+                                        </label>
+                                        <input 
+                                            type='text' 
+                                            defaultValue={item.itemName}
+                                            className={styles.input} 
+                                            onClick={handleClick}
+                                            onBlur={handleBlur}
+                                            onInvalid={handleInvalid}
+                                            required/>
                                     </div>
+                                    <div className={styles.inputContainer}>
+                                        <label className={styles.input_label}>
+                                            Qty.
+                                        </label>
+                                        <input
+                                            type='number'
+                                            defaultValue={item.itemQty}
+                                            className={styles.input}
+                                            placeholder='1'
+                                            onClick={handleClick}
+                                            onBlur={handleBlur}
+                                            onInvalid={handleInvalid}
+                                            onChange={handleQty}
+                                            required
+                                            />
+                                    </div>
+                                    <div className={styles.inputContainer}>
+                                        <label className={styles.input_label}>
+                                            Price
+                                        </label>
+                                        <input
+                                            type='number'
+                                            defaultValue={item.itemPrice}
+                                            className={styles.input}
+                                            placeholder='156.00'
+                                            step={0.01}
+                                            onClick={handleClick}
+                                            onBlur={handleBlur}
+                                            onInvalid={handleInvalid}
+                                            onChange={handlePrice}
+                                            required
+                                            />
+                                    </div>
+                                    <div className={styles.inputContainer}>
+                                        <label className={styles.input_label}>
+                                            Total
+                                        </label>
+                                        <div className={styles.item_total}>
+                                            {item.itemTotal}
+                                        </div>
+                                    </div>
+                                    <div className={styles.trashIcon} onClick={handlePrevItemsDelete}></div>
                                 </div>
-                                <div className={styles.trashIcon} onClick={handlePrevItemsDelete}></div>
-                            </div>
-                        )
-                    })}                    
-                </div>
+                            )
+                        })}                    
+                    </div> : <></>}
             </div>
             <button type='button' className={styles.addItemButton} onClick={handleAddItem}>
                 + Add New Item

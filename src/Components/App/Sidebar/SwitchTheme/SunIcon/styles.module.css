@@ -1,0 +1,12 @@
+.sun{
+    cursor: pointer;
+}
+
+.sun path{
+    fill: #858BB2;
+    width: 20px;
+    height: 20px;
+}
+.sun:hover path{
+    fill: #DFE3FA;
+}

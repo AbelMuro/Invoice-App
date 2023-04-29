@@ -1,20 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MoonIcon from './MoonIcon';
 import SunIcon from './SunIcon';
+import {useSelector} from 'react-redux';
 
+//this is where i left off!
 function LightOrDarkTheme() {
-    const [theme, setTheme] = useState(false)
+    const theme = useSelector(state => state.theme);
 
-    const handleTheme = () => {
-        setTheme(!theme);
-    }
+   
 
-    return(
-        <div onClick={handleTheme}>
-            {theme ? <MoonIcon/> : <SunIcon/>}
-        </div>
-        
-    )
 }
 
 export default LightOrDarkTheme;

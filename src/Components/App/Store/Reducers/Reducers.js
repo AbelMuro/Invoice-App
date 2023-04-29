@@ -23,6 +23,17 @@ export function FilterReducer(state = [], action){
     }
 }
 
+let isLightTheme = window.matchMedia('(prefers-color-scheme: light)').matches;
+let theme = isLightTheme ? 'light' : 'dark';
+export function ThemeSwitchReducer(state = theme, action) {
+    switch(action.type){
+        case 'switch theme':
+            return action.theme;
+        default:
+            return state;
+    }
+}
+
 export function OpenLogInReducer(state = false, action){
     switch(action.type){
         case 'open log in':

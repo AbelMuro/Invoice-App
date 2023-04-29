@@ -76,7 +76,8 @@
 }
 
 .addItemButton:hover{
-    background-color: #DFE3FA;
+    background-color: var(--dialog-add-new-item-hover-bg);
+    color: var(--dialog-add-new-item-text-hover);
 }
 
 .inputContainer{
@@ -103,6 +104,10 @@
 
 input[type=number]{
     padding-right: 5px;
+}
+
+.input::placeholder{
+    color: var(--dialog-input-placeholder-text);
 }
 
 .input:hover{

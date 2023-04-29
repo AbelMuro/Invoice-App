@@ -45,9 +45,9 @@ function DisplayInvoices({userID}) {
             statusDot.style.backgroundColor = '#FF8F00';
         }
         else{
-            statusBox.style.backgroundColor = 'rgba(55, 59, 83, 0.06)';
-            statusBox.style.color = '#373B53';
-            statusDot.style.backgroundColor = '#373B53';
+            statusBox.style.backgroundColor = 'var(--invoice-draft-bg)';
+            statusBox.style.color = 'var(--invoice-draft-text)';
+            statusDot.style.backgroundColor = 'var(--invoice-draft-text)';
         }
             
     }, [])

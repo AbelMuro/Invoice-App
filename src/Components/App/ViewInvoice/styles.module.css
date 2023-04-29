@@ -112,6 +112,7 @@
 
 .invoice_editButton:hover{
     background-color: var(--view-invoice-container-edit-button-hover);
+    color: #7E88C3;
 }
 
 .invoice_deleteButton{
@@ -252,7 +253,7 @@
 }
 
 .invoice_items{
-    background-color: #F9FAFE;
+    background-color: var(--view-invoice-container-item-bg);
     min-height: 215px;
     border-radius: 8px;
     padding: 33px 32px 119px 32px;

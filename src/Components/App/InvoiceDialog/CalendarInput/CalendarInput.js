@@ -80,7 +80,7 @@ const CalendarInput = forwardRef(({prevState}, ref) => {
         let prevDate = prevState;
         let year = '';
         for(let i = prevDate.length - 1; i >= 0; i--){
-            if(Number(prevDate[i]) || Number(prevDate[i] === 0))
+            if(Number(prevDate[i]) || Number(prevDate[i]) === 0)
                 year += prevDate[i];
             else
                 break;

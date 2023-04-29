@@ -27,15 +27,6 @@
     color: var(--invoice-main-title);
 }
 
-.invoices_total{
-    font-family: var(--font);
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 15px;
-    letter-spacing: -0.1px;
-    color: var(--invoice-total-title);
-}
-
 .invoice_buttons{
     display: flex;
     align-items: center;

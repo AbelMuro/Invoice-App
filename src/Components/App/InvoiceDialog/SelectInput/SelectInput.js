@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import icons from './icons';
 
 const SelectInput = forwardRef(({prevState}, ref) => {
-    const [option, setOption] = useState('1');
+    const [option, setOption] = useState('');
     const [popup, setPopup] = useState(false);
 
     const handlePopup = () => {
@@ -66,7 +66,7 @@ const SelectInput = forwardRef(({prevState}, ref) => {
             </h1>        
             <div className={styles.selectBox} onClick={handlePopup}> 
                 <div className={styles.selectBox_choosen}>
-                    {option}
+                    {'Net ' + option + ` Day${Number(option) > 1 ? 's' : ''}`}
                 </div>
                 <img src={icons['arrow']} className={styles.arrow}/>
                 <div className={styles.selectBox_popup}>

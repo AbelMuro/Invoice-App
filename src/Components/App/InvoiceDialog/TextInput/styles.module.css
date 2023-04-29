@@ -29,7 +29,7 @@
 }
 
 .inputContainer_input::placeholder{
-    color: rgba(12, 14, 22, 0.4);
+    color: var(--dialog-input-placeholder-text);
 }
 
 .inputContainer_input:hover{

@@ -4,9 +4,10 @@ import styles from './styles.module.css';
 import useMediaQuery from '../useMediaQuery';
 import {useDispatch} from 'react-redux';
 import DisplayInvoices from './DisplayInvoices';
+import TotalInvoices from './TotalInvoices';
 import {auth} from '../Firebase';
 
-function Invoices ({isLoggedIn}) {
+function Invoices ({isLoggedIn, userID}) {
     const [mobile] = useMediaQuery('(max-width: 790px)');
     const dispatch = useDispatch();
 
@@ -26,9 +27,7 @@ function Invoices ({isLoggedIn}) {
                     <h1 className={styles.invoices_title}>
                         Invoices
                     </h1>
-                    <p className={styles.invoices_total}>
-                        {mobile ? '7 invoices' : 'There are 7 total invoices'}
-                    </p>
+                    {isLoggedIn ? <TotalInvoices mobile={mobile} userID={userID}/> : <></>}
                 </section>
                 <div className={styles.invoice_buttons}>
                     <FilterBox mobile={mobile}/>

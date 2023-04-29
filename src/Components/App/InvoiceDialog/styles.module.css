@@ -55,7 +55,20 @@
     z-index: var(--even-closer);
     overflow-y: scroll;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
+
+.newInvoice::-webkit-scrollbar{
+    background-color: var(--dialog-scrollbar-bg);
+    width: 8px;
+}
+
+
+.newInvoice::-webkit-scrollbar-thumb{
+    background-color: var(--dialog-scrollbar-thumb);
+    border-radius: 14px;
+}
+
 
 .newInvoice_title span:not(span:nth-of-type(2)){
     color: #888EB0;
@@ -199,10 +212,14 @@
     background-color: rgb(246, 246, 246);
 }
 
+.cancelButton:hover{
+    color: #7E88C3;
+}
+
 .draftButton{
     width: 133px;
     background-color: #373B53;
-    color: #888Eb0;
+    color: var(--dialog-button-draft-text);
 }
 
 .draftButton:hover{
@@ -237,6 +254,12 @@
     font-weight: 600;
     letter-spacing: -0.21px;
     color: #EC5757;
+}
+
+.itemList{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 @media(max-width: 940px){
@@ -374,6 +397,10 @@
 
     .otherButtons{
         right: 24px;
+    }
+
+    .itemList{
+        gap: 22px;
     }
 
     .itemList_title{
