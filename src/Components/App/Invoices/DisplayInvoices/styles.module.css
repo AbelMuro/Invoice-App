@@ -1,3 +1,21 @@
+.noInvoices{
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    letter-spacing: var(--h3-variant-letter-spacing);
+    color: var(--invoice-main-title);
+    display: flex;
+    justify-content: center;
+}
+
+.loadingContainer{
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .allInvoices{
     display: flex;
     flex-direction: column;

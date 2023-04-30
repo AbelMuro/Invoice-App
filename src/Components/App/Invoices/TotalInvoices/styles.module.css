@@ -6,3 +6,8 @@
     letter-spacing: -0.1px;
     color: var(--invoice-total-title);
 }
+
+.loadingContainer{
+    display: flex;
+    justify-content: center;
+}

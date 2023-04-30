@@ -27,7 +27,9 @@ function DeleteDialog() {
             console.log(error)
         }
         finally{
-            alert('Invoice has been deleted');
+            setTimeout(() => {
+                alert('Invoice has been deleted');
+            }, 500)
         }
     }
 
@@ -87,7 +89,7 @@ function DeleteDialog() {
 
     return (
             <div className={styles.overlay}>
-                <dialog className={styles.deleteDialog}>
+                <dialog className={styles.deleteDialog} open={open}>
                     <h3 className={styles.deleteDialog_title}>
                         Confirm Deletion
                     </h3>

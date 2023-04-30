@@ -7,6 +7,7 @@ import {useDispatch} from 'react-redux';
 import {db} from '../Firebase';
 import {collection, doc, updateDoc} from 'firebase/firestore';
 import {useDocumentData} from 'react-firebase-hooks/firestore';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function ViewInvoice() {
     const dispatch = useDispatch();
@@ -30,6 +31,11 @@ function ViewInvoice() {
     }
 
     const handleStatus = async () => {
+        if(invoice.status == 'Draft'){
+            alert("You can't mark Draft invoices as paid");
+            return;
+        }
+
         try{
             await updateDoc(docRef, {status: 'Paid'});
         }
@@ -89,7 +95,9 @@ function ViewInvoice() {
 
     return(
           loading ? 
-                <>loading</> 
+                <div className={styles.loadingContainer}>
+                    <CircularProgress/>
+                </div> 
                 :
                 <section className={styles.invoice}>
                     <a className={styles.goBackLink} onClick={handleGoBack}>

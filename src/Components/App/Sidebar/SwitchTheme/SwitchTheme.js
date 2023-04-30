@@ -8,10 +8,16 @@ function SwitchTheme() {
     const dispatch = useDispatch();
 
     const handleTheme = () => {
-        if(theme == 'light')
+        if(theme == 'light'){
+            localStorage.setItem('selected theme', 'dark');
             dispatch({type: 'switch theme', theme: 'dark'});
-        else
+        }
+            
+        else{
+            localStorage.setItem('selected theme', 'light');
             dispatch({type: 'switch theme', theme: 'light'})
+        }
+            
     }
 
     return(        

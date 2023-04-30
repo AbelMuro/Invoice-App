@@ -1,0 +1,88 @@
+.overlay{
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: var(--even-more-closer);
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7)
+}
+
+.logoutDialog{
+    padding: 36px;
+    background-color: var(--dialog-bg);
+    width: 450px;
+    border-radius: 8px;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logoutDialog_title{
+    font-family: var(--font);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+    color: var(--dialog-main-title);
+    margin-bottom: 20px;
+}
+
+.logoutDialog_desc{
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: -0.1px;
+    color: var(--dialog-delete-message-text);
+    margin-bottom: 20px;
+}
+
+.logoutDialog_buttons{
+    display: flex;
+    gap: 8px;
+    height: 48px;
+}
+
+.cancelButton{
+    border: none;
+    width: 91px;
+    background-color: var(--dialog-button-cancel-button-bg);
+    color: var(--dialog-button-cancel-button-text);
+    border-radius: 24px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    letter-spacing: var(--h3-variant-letter-spacing);
+}
+
+.cancelButton:hover{
+    background-color:rgb(239, 239, 239);
+    color: #7E88C3;
+}
+
+
+.logOutButton{
+    width: 89px;
+    background-color: #EC5757;
+    border: none;
+    color: white;
+    border-radius: 24px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: var(--h3-variant-font-size);
+    font-weight: var(--h3-variant-font-weight);
+    line-height: var(--h3-variant-line-height);
+    letter-spacing: var(--h3-variant-letter-spacing);
+}
+
+.logOutButton:hover{
+    background-color: #FF9797;
+}

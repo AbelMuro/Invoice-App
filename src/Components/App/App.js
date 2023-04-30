@@ -4,8 +4,10 @@ import MobileHeaderbar from './MobileSidebar';
 import Invoices from './Invoices';
 import InvoiceDialog from './InvoiceDialog';
 import LogInDialog from './LogInDialog';
+import LogOutDialog from './LogOutDialog';
 import ViewInvoice from './ViewInvoice';
 import DeleteDialog from './DeleteDialog';
+import LightOrDarkTheme from './LightOrDarkTheme';
 import {Provider} from 'react-redux';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Store from './Store'
@@ -31,10 +33,12 @@ function App() {
     return(
         <BrowserRouter>
             <Provider store={Store}>
-                <LogInDialog/>                
-                <Sidebar/>           
-                <MobileHeaderbar/>
+                <LogInDialog/>   
+                <LogOutDialog/>             
+                <Sidebar isLoggedIn={isLoggedIn}/>           
+                <MobileHeaderbar isLoggedIn={isLoggedIn}/>
                 <InvoiceDialog/>
+                <LightOrDarkTheme/>
                 <DeleteDialog isLoggedIn={isLoggedIn}/>
                 <Routes>
                     <Route path='/' element={<Invoices isLoggedIn={isLoggedIn} userID={userID}/>}/>

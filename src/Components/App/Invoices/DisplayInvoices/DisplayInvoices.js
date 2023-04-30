@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, memo} from 'react';
 import styles from './styles.module.css';
 import icons from './icons'
 import {useCollectionData} from 'react-firebase-hooks/firestore';
@@ -8,6 +8,8 @@ import {v4 as uuid} from 'uuid';
 import useMediaQuery from '../../useMediaQuery';
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
+import NoInvoices from './NoInvoices';
 
 
 function DisplayInvoices({userID}) {
@@ -52,9 +54,11 @@ function DisplayInvoices({userID}) {
             
     }, [])
 
-    return loading ? (<>loading</>) : 
-                (
-                    invoices.length ? 
+    return loading ? (<div className={styles.loadingContainer}>
+                        <CircularProgress/>
+                    </div>) 
+                    : 
+                    (invoices.length ? 
                         <div className={styles.allInvoices}>
                             {invoices.map((invoice) => {
                                 return(
@@ -88,8 +92,8 @@ function DisplayInvoices({userID}) {
                                     </section> 
                                     )
                             })}
-                    </div> : <>no invoices available</>
-    ) 
+                    </div> : <NoInvoices mobile={mobile}/>
+                    ) 
 }
 
-export default DisplayInvoices;
+export default memo(DisplayInvoices);

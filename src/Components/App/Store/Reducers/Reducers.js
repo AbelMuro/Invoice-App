@@ -25,7 +25,8 @@ export function FilterReducer(state = [], action){
 
 let isLightTheme = window.matchMedia('(prefers-color-scheme: light)').matches;
 let theme = isLightTheme ? 'light' : 'dark';
-export function ThemeSwitchReducer(state = theme, action) {
+let themeFromStorage = localStorage.getItem('selected theme');
+export function ThemeSwitchReducer(state = themeFromStorage ? themeFromStorage : theme, action) {
     switch(action.type){
         case 'switch theme':
             return action.theme;
@@ -39,6 +40,15 @@ export function OpenLogInReducer(state = false, action){
         case 'open log in':
             return action.open;
         default: 
+            return state;
+    }
+}
+
+export function OpenLogOutReducer(state = false, action){
+    switch(action.type){
+        case 'open log out':
+            return action.open;
+        default:
             return state;
     }
 }

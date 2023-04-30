@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, memo} from 'react';
+import React, {useEffect, useRef, memo, useState} from 'react';
 import styles from './styles.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 import TextInput from './TextInput';
@@ -8,9 +8,12 @@ import AddItems from './AddItems';
 import {db, auth} from '../Firebase';
 import {collection, addDoc, updateDoc, doc} from 'firebase/firestore';
 import useMediaQuery from '../useMediaQuery';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function InvoiceDialog() {
     const {open, invoice} = useSelector(state => state.invoiceDialog);
+    const [loadingSave, setLoadingSave] = useState(false);
+    const [loadingDraft, setLoadingDraft] = useState(false)
     const [mobile] = useMediaQuery('(max-width: 650px)');
     const streetAddress = useRef();
     const city = useRef();
@@ -47,6 +50,8 @@ function InvoiceDialog() {
 
     const addToDatabase = async (e) => {
         e.preventDefault();   
+        setLoadingDraft(true);
+
         emptyMessage.current.style.display = '';             
         const isDraftButton = e.target.getAttribute('data-button');
         if(!items.current.state.length && !isDraftButton) {
@@ -91,7 +96,7 @@ function InvoiceDialog() {
         try{
             const newDocRef = await addDoc(userCollectionRef, newInvoice);
             await updateDoc(newDocRef, {invoiceID: newDocRef.id})
-            alert('Invoice has been added to the firestore');
+            setLoadingDraft(false);
             dispatch({type: 'open invoice', open: false, invoice: null});
         }
         catch(error){
@@ -104,6 +109,7 @@ function InvoiceDialog() {
 
     const updateDatabase = async (e) => {
         e.preventDefault();
+        setLoadingSave(true);
         emptyMessage.current.style.display = ''; 
 
         const newInvoice = {
@@ -126,13 +132,14 @@ function InvoiceDialog() {
                 paymentTerms: paymentTerms.current.state,
                 projectDesc: projectDesc.current.state
             },
-            items: items.current.state
+            items: items.current.state,
+            status: 'Pending',
         }
         try{
             const userCollectionRef = collection(db, `${auth.currentUser.uid}`)
             const docRef = doc(userCollectionRef, invoice.invoiceID);
             await updateDoc(docRef, newInvoice);
-            alert('Invoice has been updated!');
+            setLoadingSave(false);
             dispatch({type: 'open invoice', open: false, invoice: null});
         }
         catch(error){
@@ -275,7 +282,7 @@ function InvoiceDialog() {
                             Cancel
                         </button>
                         <button className={styles.saveChangesButton}>
-                            Save Changes
+                            {loadingSave ? <CircularProgress size={'1.4rem'}/> : 'Save Changes'}
                         </button>
                     </div> 
                     :
@@ -285,10 +292,10 @@ function InvoiceDialog() {
                     </button>
                     <div className={styles.buttonContainer}>
                         <button type='button' className={styles.draftButton} onClick={addToDatabase} data-button={true}>
-                            Save as Draft
+                            {loadingDraft ? <CircularProgress size={'1.4rem'}/> : 'Save as Draft' }
                         </button>
                         <button className={styles.saveButton}> 
-                            Save & Send
+                            {loadingSave ? <CircularProgress size={'1.4rem'}/> : 'Save & Send' }
                         </button>                        
                     </div>
                 </div>  }                    
