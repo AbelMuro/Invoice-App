@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import DisplayItems from './DisplayItems';
 import styles from './styles.module.css';
 import icons from './icons';
@@ -9,7 +9,7 @@ import {collection, doc, updateDoc} from 'firebase/firestore';
 import {useDocumentData} from 'react-firebase-hooks/firestore';
 import CircularProgress from '@mui/material/CircularProgress';
 
-function ViewInvoice() {
+function ViewInvoice({isLoggedIn}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {state} = useLocation();
@@ -92,6 +92,11 @@ function ViewInvoice() {
         }
             
     },[invoice])
+
+    useEffect(() => {
+        if(!isLoggedIn)
+            navigate('/');
+    }, [isLoggedIn])
 
     return(
           loading ? 

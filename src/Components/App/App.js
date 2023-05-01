@@ -42,7 +42,7 @@ function App() {
                 <DeleteDialog isLoggedIn={isLoggedIn}/>
                 <Routes>
                     <Route path='/' element={<Invoices isLoggedIn={isLoggedIn} userID={userID}/>}/>
-                    <Route path='/:invoice' element={<ViewInvoice/>}/>
+                    <Route path='/:invoice' element={<ViewInvoice isLoggedIn={isLoggedIn}/>}/>
                 </Routes>
             </Provider>        
         </BrowserRouter>

@@ -17,7 +17,6 @@ function Invoices ({isLoggedIn, userID}) {
     }
 
     const handleLogIn = () => {
-        alert('You must be logged in to post an invoice');
         dispatch({type: 'open log in', open: true});
     }
 

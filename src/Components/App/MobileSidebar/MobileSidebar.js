@@ -9,9 +9,13 @@ import {auth} from '../Firebase';
 function MobileHeaderbar() {
     const dispatch = useDispatch();
 
-    const handleClick = () => {
+    const handleLogIn = () => {
         dispatch({type: 'open log in', open: true});
     }      
+
+    const handleLogOut = () => {
+        dispatch({type: 'open log out', open: true});
+    }
 
     return(
         <header className={styles.header}>
@@ -22,7 +26,7 @@ function MobileHeaderbar() {
             <div className={styles.header_themeAndImage}>
                 <SwitchTheme/>
                 <div className={styles.header_verticalLine}></div>
-                <img src={images['avatar']} className={styles.header_avatar} onClick={auth.currentUser ? () => {} : handleClick}/>
+                <img src={images['avatar']} className={styles.header_avatar} onClick={auth.currentUser ? handleLogOut : handleLogIn}/>
             </div>
         </header>
     )
