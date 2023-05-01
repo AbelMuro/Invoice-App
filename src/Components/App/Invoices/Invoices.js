@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import DisplayInvoices from './DisplayInvoices';
 import TotalInvoices from './TotalInvoices';
 import {auth} from '../Firebase';
+import images from './images'
 
 function Invoices ({isLoggedIn, userID}) {
     const [mobile] = useMediaQuery('(max-width: 790px)');
@@ -38,8 +39,11 @@ function Invoices ({isLoggedIn, userID}) {
                 </div>
             </header>
             {isLoggedIn ? <DisplayInvoices userID={auth.currentUser.uid}/> : 
-                <div className={styles.notLoggedInMessage}>
-                    Please log in to view your invoices
+                <div className={styles.emptyIllustration}>
+                    <img src={images['emptyIllustration']} className={styles.emptyIllustration_image}/>
+                    <p className={styles.emptyIllustration_title}>
+                        Please log in to view your invoices
+                    </p>
                 </div>
                 }
         </main>
