@@ -55,8 +55,8 @@
 }
 
 .cancelButton{
-    background-color: #F9FAFE;
-    color: #7E88C3;
+    background-color: var(--dialog-button-cancel-button-bg);
+    color: var(--dialog-button-cancel-button-text);
 }
 
 .submitButton:hover{
