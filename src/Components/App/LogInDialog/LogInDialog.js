@@ -55,12 +55,12 @@ function LogInDialog() {
         try{
             await createUserWithEmailAndPassword(auth, Email, Password);      
             alert('You have created your account with firebase and you are already logged in!');
+            dispatch({type: 'open log in', open : false})
 
         }
         catch(error){
             console.log(error)
         }
-
     }
 
     useEffect(() => {
@@ -113,7 +113,7 @@ function LogInDialog() {
                                 <button type='button' className={styles.cancelButton} onClick={handleClick}>
                                     Cancel
                                 </button>
-                                <input type='submit' className={styles.submitButton} value='Create Account'/>            
+                                <input type='submit' className={styles.submitButton} value='Create Account' />            
                             </div> 
                             
                         </div>

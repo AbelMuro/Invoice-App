@@ -9,7 +9,7 @@ import {auth} from '../Firebase';
 function MobileHeaderbar() {
     const dispatch = useDispatch();
 
-    const handleClick = (e) => {
+    const handleClick = () => {
         dispatch({type: 'open log in', open: true});
     }      
 

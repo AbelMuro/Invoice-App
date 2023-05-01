@@ -1,12 +1,22 @@
 import React, {useEffect} from 'react';
 import styles from './styles.module.css';
 import {useSelector, useDispatch} from 'react-redux';
+import {auth} from '../Firebase';
+import {signOut} from 'firebase/auth';
 
-//this is where i left off, now i need to implement the event handlers for each of the buttons
 
 function LogOutDialog() {
     const open = useSelector(state => state.logoutDialog);
     const dispatch = useDispatch();
+
+    const handleCancel = () => {
+        dispatch({type: 'open log out', open: false});
+    }
+
+    const handleLogOut = async () => {
+        await signOut(auth);
+        dispatch({type: 'open log out', open: false});
+    }
 
     useEffect(() => {
         const closeDialog = (e) => {
@@ -24,11 +34,22 @@ function LogOutDialog() {
 
     useEffect(() => {
         const overlay = document.querySelector('.' + styles.overlay);
+        const dialog = document.querySelector('.' + styles.logoutDialog);
 
-        if(open)
+        if(open){
             overlay.style.display = 'block';
-        else
-            overlay.style.display = '';
+            setTimeout(() => {
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                dialog.style.backgroundColor = 'var(--dialog-bg)';
+            }, 10)            
+        }
+        else{
+            dialog.style.backgroundColor = '';
+            overlay.style.backgroundColor = '';
+            setTimeout(() => {
+                overlay.style.display = '';
+            }, 200)
+        }
     }, [open])
 
     return(
@@ -41,10 +62,10 @@ function LogOutDialog() {
                     Are you sure you want to log out?
                 </p>
                 <div className={styles.logoutDialog_buttons}>
-                    <button className={styles.cancelButton}>
+                    <button className={styles.cancelButton} onClick={handleCancel}>
                         Cancel
                     </button>
-                    <button className={styles.logOutButton}>
+                    <button className={styles.logOutButton} onClick={handleLogOut}>
                         Log Out
                     </button>
                 </div>

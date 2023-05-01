@@ -88,7 +88,8 @@ function InvoiceDialog() {
                 paymentTerms: paymentTerms.current.state,
                 projectDesc: projectDesc.current.state
             },
-            items: items.current.state
+            items: items.current.state,
+            createdAt: Date.now()
         }
 
         const userCollectionRef = collection(db, `${auth.currentUser.uid}`)
@@ -171,14 +172,18 @@ function InvoiceDialog() {
 
     useEffect(() => {
         const overlay = document.querySelector('.' + styles.overlay);
+        const dialog = document.querySelector('.' + styles.newInvoice);
+
         if(open){
             overlay.style.left = '0%';
+            dialog.scrollTo(0, 0);
             setTimeout(() => {
                 overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
             }, 400)
         }
         else{
             overlay.style.backgroundColor = ''; 
+            dialog.scrollTo(0, 0);
             setTimeout(() => {
                 overlay.style.left = ''; 
             }, 400)      

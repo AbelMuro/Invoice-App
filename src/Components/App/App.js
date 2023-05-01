@@ -34,7 +34,7 @@ function App() {
         <BrowserRouter>
             <Provider store={Store}>
                 <LogInDialog/>   
-                <LogOutDialog/>             
+                <LogOutDialog />             
                 <Sidebar isLoggedIn={isLoggedIn}/>           
                 <MobileHeaderbar isLoggedIn={isLoggedIn}/>
                 <InvoiceDialog/>

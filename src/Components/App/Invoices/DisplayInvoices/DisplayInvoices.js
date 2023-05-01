@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import icons from './icons'
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {db} from '../../Firebase';
-import {collection, where, query} from 'firebase/firestore';
+import {collection, where, query, orderBy} from 'firebase/firestore';
 import {v4 as uuid} from 'uuid';
 import useMediaQuery from '../../useMediaQuery';
 import {useNavigate} from 'react-router-dom';
@@ -19,7 +19,7 @@ function DisplayInvoices({userID}) {
     const [invoices, loading, error] = useCollectionData(
             filter.length ? 
                 query(userCollectionRef, where('status', 'in', filter)) :
-                userCollectionRef
+                query(userCollectionRef, orderBy('createdAt', 'desc'))
             );
     const navigate = useNavigate();
 

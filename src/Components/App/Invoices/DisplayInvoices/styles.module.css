@@ -55,6 +55,7 @@
 }
 
 .displayInvoices_title{
+    width: 80px;
     font-family: var(--font);
     font-size: 15px;
     font-weight: 700;
@@ -62,6 +63,7 @@
     letter-spacing: -0.25px;
     pointer-events: none;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .displayInvoices_title:not(.displayInvoices_title span){
