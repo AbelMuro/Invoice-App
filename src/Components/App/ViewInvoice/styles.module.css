@@ -96,6 +96,7 @@
 .invoice_buttons{
     display: flex;
     gap: 8px;
+    background-color: var(--view-invoice-container-bg);
 }
 
 
@@ -314,7 +315,6 @@
 
     .invoice_buttons{
         height: 91px;
-        background-color: white;
         position: absolute;
         bottom: 0px;
         left: 0px;

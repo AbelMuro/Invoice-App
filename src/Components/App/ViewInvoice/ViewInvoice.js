@@ -35,7 +35,6 @@ function ViewInvoice({isLoggedIn}) {
             alert("You can't mark Draft invoices as paid");
             return;
         }
-
         try{
             await updateDoc(docRef, {status: 'Paid'});
         }

@@ -50,7 +50,6 @@ function InvoiceDialog() {
 
     const addToDatabase = async (e) => {
         e.preventDefault();   
-        setLoadingDraft(true);
 
         emptyMessage.current.style.display = '';             
         const isDraftButton = e.target.getAttribute('data-button');
@@ -58,6 +57,12 @@ function InvoiceDialog() {
             noItemMessage.current.style.display = 'block';
             return;
         }
+        else
+            noItemMessage.current.style.display = '';
+        if(isDraftButton)
+            setLoadingDraft(true);
+        else
+            setLoadingSave(true);       
         const alphabet = 'abcdefghiklmnopqrstuvwxyz';
         const firstLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
         const secondLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -97,7 +102,10 @@ function InvoiceDialog() {
         try{
             const newDocRef = await addDoc(userCollectionRef, newInvoice);
             await updateDoc(newDocRef, {invoiceID: newDocRef.id})
-            setLoadingDraft(false);
+            if(isDraftButton)
+                setLoadingDraft(false);
+            else
+                setLoadingSave(false);
             dispatch({type: 'open invoice', open: false, invoice: null});
         }
         catch(error){
