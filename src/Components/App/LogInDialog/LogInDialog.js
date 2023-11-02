@@ -59,7 +59,7 @@ function LogInDialog() {
 
         }
         catch(error){
-            console.log(error)
+            alert('Email is already registered');
         }
     }
 
